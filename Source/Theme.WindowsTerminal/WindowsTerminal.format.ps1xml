@@ -1,0 +1,138 @@
+<Configuration>
+    <ViewDefinitions>
+        <View>
+            <Name>WindowsTerminal-Preview</Name>
+            <ViewSelectedBy>
+                <TypeName>WindowsTerminal.ColorScheme</TypeName>
+            </ViewSelectedBy>
+            <CustomControl>
+                <CustomEntries>
+                    <CustomEntry>
+                        <CustomItem>
+                            <ExpressionBinding>
+                                <ScriptBlock>
+                                    $ansi = 30
+                                    $bold = $false
+                                    $this = $_
+                                    Write-Host $($this.background.ToVtEscapeSequence($true) + $this.foreground.ToVtEscapeSequence())
+                                    Write-Host $this.Name
+                                    Write-Host -NoNewLine "         m     40m     41m     42m     43m     44m     45m     46m     47m     100m    107m      `n"
+                                    Write-Host -NoNewLine "    m"
+
+                                    $TerminalColors = $null, "black", "brightBlack", "red", "brightRed", "green", "brightGreen", "yellow", "brightYellow", "blue", "brightBlue", "purple", "brightPurple", "cyan", "brightCyan", "white", "brightWhite"
+                                    $DarkColors = $null, "Black", "Red", "Green", "Yellow", "Blue", "Purple", "Cyan", "White", "brightBlack", "brightWhite"
+
+                                    foreach($fg in $TerminalColors) {
+                                        Write-Host -NoNewLine $($this.background.ToVtEscapeSequence($true) + $this.foreground.ToVtEscapeSequence())
+                                        if ($fg) {
+                                            Write-Host -NoNewLine "$(if($bold){"1;"}else{"  "})$($ansi)m"
+                                            $ansi += $bold
+                                            $bold = !$bold
+                                        }
+                                        Write-Host -NoNewLine $(if($null -ne $fg) { $this.$fg.ToVtEscapeSequence() })
+                                        foreach($bg in $DarkColors) {
+                                            Write-Host -NoNewLine $(if($null -ne $bg) { $this.$bg.ToVtEscapeSequence($true) })
+                                            Write-Host -NoNewLine $("  gYw  " + $this.background.ToVtEscapeSequence($true) + " ")
+                                        }
+                                        Write-Host "  "
+                                    }
+                                    Write-Host "`n$([char]27)[0m"
+                                </ScriptBlock>
+                            </ExpressionBinding>
+                        </CustomItem>
+                    </CustomEntry>
+                </CustomEntries>
+            </CustomControl>
+        </View>
+        <View>
+            <Name>WindowsTerminal-Theme</Name>
+            <ViewSelectedBy>
+                <TypeName>WindowsTerminal.ColorScheme</TypeName>
+            </ViewSelectedBy>
+            <ListControl>
+                <ListEntries>
+                    <ListEntry>
+                        <ListItems>
+                            <ListItem>
+                                <Label>Name</Label>
+                                <ScriptBlock>$_.Name</ScriptBlock>
+                            </ListItem>
+                            <ListItem>
+                                <Label>background</Label>
+                                <ScriptBlock>$_.background.ToVtEscapeSequence() + $_.background.ToString() + "$([char]27)[49;39m"</ScriptBlock>
+                            </ListItem>
+                            <ListItem>
+                                <Label>foreground</Label>
+                                <ScriptBlock>$_.foreground.ToVtEscapeSequence() + $_.foreground.ToString() + "$([char]27)[49;39m"</ScriptBlock>
+                            </ListItem>
+                            <ListItem>
+                                <Label>black</Label>
+                                <ScriptBlock>$_.black.ToVtEscapeSequence() + $_.black.ToString() + "$([char]27)[49;39m"</ScriptBlock>
+                            </ListItem>
+                            <ListItem>
+                                <Label>red</Label>
+                                <ScriptBlock>$_.red.ToVtEscapeSequence() + $_.red.ToString() + "$([char]27)[49;39m"</ScriptBlock>
+                            </ListItem>
+                            <ListItem>
+                                <Label>green</Label>
+                                <ScriptBlock>$_.green.ToVtEscapeSequence() + $_.green.ToString() + "$([char]27)[49;39m"</ScriptBlock>
+                            </ListItem>
+                            <ListItem>
+                                <Label>yellow</Label>
+                                <ScriptBlock>$_.yellow.ToVtEscapeSequence() + $_.yellow.ToString() + "$([char]27)[49;39m"</ScriptBlock>
+                            </ListItem>
+                            <ListItem>
+                                <Label>blue</Label>
+                                <ScriptBlock>$_.blue.ToVtEscapeSequence() + $_.blue.ToString() + "$([char]27)[49;39m"</ScriptBlock>
+                            </ListItem>
+                            <ListItem>
+                                <Label>purple</Label>
+                                <ScriptBlock>$_.purple.ToVtEscapeSequence() + $_.purple.ToString() + "$([char]27)[49;39m"</ScriptBlock>
+                            </ListItem>
+                            <ListItem>
+                                <Label>cyan</Label>
+                                <ScriptBlock>$_.cyan.ToVtEscapeSequence() + $_.cyan.ToString() + "$([char]27)[49;39m"</ScriptBlock>
+                            </ListItem>
+                            <ListItem>
+                                <Label>white</Label>
+                                <ScriptBlock>$_.white.ToVtEscapeSequence() + $_.white.ToString() + "$([char]27)[49;39m"</ScriptBlock>
+                            </ListItem>
+                            <ListItem>
+                                <Label>brightBlack</Label>
+                                <ScriptBlock>$_.brightBlack.ToVtEscapeSequence() + $_.brightBlack.ToString() + "$([char]27)[49;39m"</ScriptBlock>
+                            </ListItem>
+                            <ListItem>
+                                <Label>brightRed</Label>
+                                <ScriptBlock>$_.brightRed.ToVtEscapeSequence() + $_.brightRed.ToString() + "$([char]27)[49;39m"</ScriptBlock>
+                            </ListItem>
+                            <ListItem>
+                                <Label>brightGreen</Label>
+                                <ScriptBlock>$_.brightGreen.ToVtEscapeSequence() + $_.brightGreen.ToString() + "$([char]27)[49;39m"</ScriptBlock>
+                            </ListItem>
+                            <ListItem>
+                                <Label>brightYellow</Label>
+                                <ScriptBlock>$_.brightYellow.ToVtEscapeSequence() + $_.brightYellow.ToString() + "$([char]27)[49;39m"</ScriptBlock>
+                            </ListItem>
+                            <ListItem>
+                                <Label>brightBlue</Label>
+                                <ScriptBlock>$_.brightBlue.ToVtEscapeSequence() + $_.brightBlue.ToString() + "$([char]27)[49;39m"</ScriptBlock>
+                            </ListItem>
+                            <ListItem>
+                                <Label>brightPurple</Label>
+                                <ScriptBlock>$_.brightPurple.ToVtEscapeSequence() + $_.brightPurple.ToString() + "$([char]27)[49;39m"</ScriptBlock>
+                            </ListItem>
+                            <ListItem>
+                                <Label>brightCyan</Label>
+                                <ScriptBlock>$_.brightCyan.ToVtEscapeSequence() + $_.brightCyan.ToString() + "$([char]27)[49;39m"</ScriptBlock>
+                            </ListItem>
+                            <ListItem>
+                                <Label>brightWhite</Label>
+                                <ScriptBlock>$_.brightWhite.ToVtEscapeSequence() + $_.brightWhite.ToString() + "$([char]27)[49;39m"</ScriptBlock>
+                            </ListItem>
+                        </ListItems>
+                    </ListEntry>
+                </ListEntries>
+            </ListControl>
+        </View>
+    </ViewDefinitions>
+</Configuration>

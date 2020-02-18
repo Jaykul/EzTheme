@@ -1,0 +1,6 @@
+function GetSimpleConfig {
+    [CmdletBinding()]
+    param()
+
+
+}

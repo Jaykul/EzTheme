@@ -1,13 +1,13 @@
 @{
     # Version number of this module.
-    ModuleVersion = '0.0.1'
-    PrivateData      = @{
+    ModuleVersion        = '0.0.1'
+    PrivateData          = @{
         PSData = @{
             # The prerelease portion of a semantic version. Blank for releases
             Prerelease   = ''
             ReleaseNotes = ''
 
-            Tags         = @('Theme', 'Scheme', 'Colors')
+            Tags         = @('Theme', 'Scheme', 'Colors', 'Theme.Everything')
 
             # LicenseUri = ''
             # ProjectUri = ''
@@ -18,15 +18,16 @@
         } # End of PSData hashtable
     } # End of PrivateData hashtable
 
-    Description = 'Wrappers for PowerShell themes'
+    Description          = 'Theme wrapper for PSReadline'
     FunctionsToExport    = @()
     CmdletsToExport      = @()
     VariablesToExport    = @()
     AliasesToExport      = @()
+    FormatsToProcess     = @('PSReadLine.format.ps1xml')
 
     # Script module or binary module file associated with this manifest.
-    RootModule           = 'ThemeThemAll.psm1'
-    GUID                 = 'e1561aca-d9fe-4282-9f97-ba7899c8dfc1'
+    RootModule           = 'Theme.PSReadline.psm1'
+    GUID                 = 'cfb819a6-eaf6-49e3-98e3-10d6244634cf'
     Author               = "Joel 'Jaykul' Bennett"
     CompanyName          = 'PoshCode.org'
     Copyright            = '(c) Joel Bennett 2020. All rights reserved.'
