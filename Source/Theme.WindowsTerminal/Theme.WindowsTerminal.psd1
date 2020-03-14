@@ -16,6 +16,10 @@
             # Modules that aren't in the same PowerShellGallery
             # ExternalModuleDependencies = @()
         } # End of PSData hashtable
+        'Theme.Everything' = @{
+            Get = 'Get-WindowsTerminalTheme'
+            Set = 'Set-WindowsTerminalTheme'
+        }
     } # End of PrivateData hashtable
 
     Description          = 'Theme module for Windows Terminal'

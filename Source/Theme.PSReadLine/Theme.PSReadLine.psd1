@@ -16,6 +16,10 @@
             # Modules that aren't in the same PowerShellGallery
             # ExternalModuleDependencies = @()
         } # End of PSData hashtable
+        'Theme.Everything' = @{
+            Get = 'Get-PSReadLineTheme'
+            Set = 'Set-PSReadLineTheme'
+        }
     } # End of PrivateData hashtable
 
     Description          = 'Theme wrapper for PSReadline'
