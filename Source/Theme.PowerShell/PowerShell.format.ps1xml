@@ -1,0 +1,39 @@
+<Configuration>
+    <ViewDefinitions>
+        <View>
+            <Name>PowerShell-Preview</Name>
+            <ViewSelectedBy>
+                <TypeName>Microsoft.PowerShell.ConsoleHost+ConsoleColorProxy</TypeName>
+            </ViewSelectedBy>
+            <CustomControl>
+                <CustomEntries>
+                    <CustomEntry>
+                        <CustomItem>
+                            <ExpressionBinding>
+                                <ScriptBlock>
+                                    Write-Host "$(' ' * $Host.UI.RawUI.BufferSize.Width)`n$(
+                                            " PROGRESS: ForegroundColor: $($_.ProgressForegroundColor), BackgroundColor: $($_.ProgressBackgroundColor)".PadRight($Host.UI.RawUI.BufferSize.Width, " ")
+                                        )`n$(
+                                            ' '.PadRight($Host.UI.RawUI.BufferSize.Width, "`u{A0}")
+                                        )" -ForegroundColor $_.ProgressForegroundColor -BackgroundColor $_.ProgressBackgroundColor
+
+                                    Write-Host "WARNING: ForegroundColor: $($_.WarningForegroundColor), BackgroundColor: $($_.WarningBackgroundColor)" -ForegroundColor $_.WarningForegroundColor -BackgroundColor $_.WarningBackgroundColor
+
+                                    Write-Host "VERBOSE: ForegroundColor: $($_.VerboseForegroundColor), BackgroundColor: $($_.VerboseBackgroundColor)" -ForegroundColor $_.VerboseForegroundColor -BackgroundColor $_.VerboseBackgroundColor
+
+                                    Write-Host "DEBUG: ForegroundColor: $($_.DebugForegroundColor), BackgroundColor: $($_.DebugBackgroundColor)" -ForegroundColor $_.DebugForegroundColor -BackgroundColor $_.DebugBackgroundColor
+
+                                    Write-Host "ERROR: ForegroundColor: $($_.ErrorForegroundColor), BackgroundColor: $($_.ErrorBackgroundColor)" -ForegroundColor $_.ErrorForegroundColor -BackgroundColor $_.ErrorBackgroundColor
+
+                                    Write-Host "${bg:Clear}ACCENT: $(
+                                        (gi fg:$($_.FormatAccentColor)).ToVtEscapeSequence())FormatAccentColor: $($_.FormatAccentColor), $(
+                                        (gi fg:$($_.ErrorAccentColor)).ToVtEscapeSequence())ErrorAccentColor: $($_.ErrorAccentColor)"
+                                </ScriptBlock>
+                            </ExpressionBinding>
+                        </CustomItem>
+                    </CustomEntry>
+                </CustomEntries>
+            </CustomControl>
+        </View>
+    </ViewDefinitions>
+</Configuration>
