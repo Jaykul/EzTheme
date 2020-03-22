@@ -35,5 +35,9 @@ function ExportTheme {
             $InputObject | Add-Member NoteProperty Name $Name -Passthru |
                            Add-Member NoteProperty PSPath $NativeThemePath -Passthru
         }
+
+        $Configuration = Import-Configuration
+        $Configuration.Theme = $Name
+        $Configuration | Export-Configuration
     }
 }

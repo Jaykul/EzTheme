@@ -40,5 +40,7 @@ function Export-Theme {
         }
 
         $Theme | ExportTheme -Name $Name -Passthru:$Passthru -Force:($Force -or $Update)
+        $MyInvocation.MyCommand.Module.PrivateData["Theme"] = $Theme
+
     }
 }

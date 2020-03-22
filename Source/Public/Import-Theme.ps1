@@ -34,6 +34,16 @@ function Import-Theme {
 
     process {
         $Theme = ImportTheme $Name
+        $Theme.PSTypeNames.Insert(0, "Theme.Everything.Theme")
+        # Store the current theme in our private data
+        $MyInvocation.MyCommand.Module.PrivateData["Theme"] = $Theme
+        # Also store the current theme on the Host.PrivateData if we can
+        if ($Host.PrivateData.Theme -and $Host.PrivateData.Theme.PSTypeNames[0] -eq "Theme.Everything.Theme") {
+            $Host.PrivateData.Theme = $Theme
+        } else {
+            $Host.PrivateData | Add-Member -NotePropertyName Theme -NotePropertyValue $Theme -ErrorAction SilentlyContinue
+        }
+
         foreach ($module in $Theme.Keys) {
             if ($IncludeModule -and $module -notin $IncludeModule) {
                 continue

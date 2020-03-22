@@ -3,4 +3,5 @@
         "Theme.PSReadLine"
         "Theme.WindowsTerminal"
     )
+    Theme = ''
 }

@@ -33,7 +33,7 @@ function FindProfile {
         return
     }
 
-    if ($ColorSchemeReadOnly -and ($Profiles.colorScheme | Sort -Unique).Count -eq 1) {
+    if ($ColorSchemeReadOnly -and ($Profiles.colorScheme | Sort-Object -Unique).Count -eq 1) {
         Write-Debug "All $($Profiles.Count) profiles share the color scheme: $colorScheme, returning the first one: $($Profiles[0].name)"
         $Env:WT_Profile = $Profiles[0].guid
         $Profiles[0]
@@ -68,7 +68,7 @@ function FindProfile {
 
         # Or the only profile without a match to a different version (currently, pwsh 7 will match this way)
         $MatchingProfile = $Profiles.Where({
-            ($_.name -notmatch ($PSVersionTable.PSVersion.Major - 1)) -and ($_.name -notmatch ($PSVersionTable.PSVersion.Major + 1))
+            -not $_.hidden -and ($_.name -notmatch ($PSVersionTable.PSVersion.Major - 1)) -and ($_.name -notmatch ($PSVersionTable.PSVersion.Major + 1))
         })
         if ($MatchingProfile.Count -eq 1) {
             Write-Debug "Found PowerShell profile not matching $($PSVersionTable.PSVersion.Major - 1) or $($PSVersionTable.PSVersion.Major + 1)"

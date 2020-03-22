@@ -5,4 +5,5 @@
     # Subsequent relative paths are to the ModuleManifest
     VersionedOutputDirectory = $false
     CopyDirectories          = @('PSReadLine.format.ps1xml')
+    Postfix                  = "postfix.ps1"
 }

@@ -17,6 +17,15 @@ function Get-PowerShellTheme {
             $Exception = [PSInvalidOperationException]::new($ErrorMessage)
             $PSCmdlet.ThrowTerminatingError([ErrorRecord]::new($Exception, "Unsupported Host PrivateData", "InvalidData", $Host.PrivateData))
         }
-        $Host.PrivateData
+        if ($RawUI = $Host.UI.RawUI) {
+            $Host.PrivateData |
+                Select-Object *AccentColor, *BackgroundColor, *ForegroundColor |
+                Add-Member -NotePropertyName Foreground -NotePropertyValue $RawUI.ForegroundColor -PassThru |
+                Add-Member -NotePropertyName Background -NotePropertyValue $RawUI.BackgroundColor -PassThru
+        } else {
+            $Host.PrivateData
+        }
+
     }
 }
+

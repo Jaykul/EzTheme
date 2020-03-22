@@ -9,53 +9,53 @@ function Set-PowerShellTheme {
     [CmdletBinding()]
     param(
         [Parameter(ValueFromPipelineByPropertyName)]
-        [ConsoleColor]$ForegroundColor,
+        [ConsoleColor]$ForegroundColor = "White",
 
         [Parameter(ValueFromPipelineByPropertyName)]
-        [ConsoleColor]$BackgroundColor,
+        [ConsoleColor]$BackgroundColor = "Black",
 
         [Parameter(ValueFromPipelineByPropertyName)]
-        [ConsoleColor]$FormatAccentColor,
+        [ConsoleColor]$FormatAccentColor = "Green",
 
         [Parameter(ValueFromPipelineByPropertyName)]
-        [ConsoleColor]$ErrorAccentColor,
+        [ConsoleColor]$ErrorAccentColor = "Yellow",
 
         [Parameter(ValueFromPipelineByPropertyName)]
-        [ConsoleColor]$ErrorForegroundColor,
+        [ConsoleColor]$ErrorForegroundColor = "Red",
 
         [Parameter(ValueFromPipelineByPropertyName)]
-        [ConsoleColor]$ErrorBackgroundColor,
+        [ConsoleColor]$ErrorBackgroundColor = "Black",
 
         [Parameter(ValueFromPipelineByPropertyName)]
-        [ConsoleColor]$WarningForegroundColor,
+        [ConsoleColor]$WarningForegroundColor = "Yellow",
 
         [Parameter(ValueFromPipelineByPropertyName)]
-        [ConsoleColor]$WarningBackgroundColor,
+        [ConsoleColor]$WarningBackgroundColor = "Black",
 
         [Parameter(ValueFromPipelineByPropertyName)]
-        [ConsoleColor]$DebugForegroundColor,
+        [ConsoleColor]$DebugForegroundColor = "Cyan",
 
         [Parameter(ValueFromPipelineByPropertyName)]
-        [ConsoleColor]$DebugBackgroundColor,
+        [ConsoleColor]$DebugBackgroundColor = "Black",
 
         [Parameter(ValueFromPipelineByPropertyName)]
-        [ConsoleColor]$VerboseForegroundColor,
+        [ConsoleColor]$VerboseForegroundColor = "Green",
 
         [Parameter(ValueFromPipelineByPropertyName)]
-        [ConsoleColor]$VerboseBackgroundColor,
+        [ConsoleColor]$VerboseBackgroundColor = "Black",
 
         [Parameter(ValueFromPipelineByPropertyName)]
-        [ConsoleColor]$ProgressForegroundColor,
+        [ConsoleColor]$ProgressForegroundColor = "Yellow",
 
         [Parameter(ValueFromPipelineByPropertyName)]
-        [ConsoleColor]$ProgressBackgroundColor
+        [ConsoleColor]$ProgressBackgroundColor = "DarkMagenta"
     )
     process {
         switch ($PSBoundParameters.Keys) {
-            "ForegroundColor" {
+            "Foreground" {
                 $Host.UI.RawUI.ForegroundColor = $PSBoundParameters[$_]
             }
-            "BackgroundColor" {
+            "Background" {
                 $Host.UI.RawUI.ForegroundColor = $PSBoundParameters[$_]
             }
             default {

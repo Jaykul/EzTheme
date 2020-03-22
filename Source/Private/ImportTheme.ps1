@@ -43,4 +43,8 @@ function ImportTheme {
 
     Write-Verbose "Importing $Name theme from $Path"
     Import-Metadata $Path -ErrorAction Stop
+
+    $Configuration = Import-Configuration
+    $Configuration.Theme = $Name
+    $Configuration | Export-Configuration
 }

@@ -7,35 +7,35 @@ function Set-PSReadLineTheme {
     [CmdletBinding()]
     param(
         [Parameter(ValueFromPipelineByPropertyName)]
-        $CommandColor            = "`e[93m",
+        $CommandColor            = "$([char]27)[93m",
         [Parameter(ValueFromPipelineByPropertyName)]
-        $CommentColor            = "`e[32m",
+        $CommentColor            = "$([char]27)[32m",
         [Parameter(ValueFromPipelineByPropertyName)]
-        $ContinuationPromptColor = "`e[97m",
+        $ContinuationPromptColor = "$([char]27)[97m",
         [Parameter(ValueFromPipelineByPropertyName)]
-        $DefaultTokenColor       = "`e[97m",
+        $DefaultTokenColor       = "$([char]27)[97m",
         [Parameter(ValueFromPipelineByPropertyName)]
-        $EmphasisColor           = "`e[96m",
+        $EmphasisColor           = "$([char]27)[96m",
         [Parameter(ValueFromPipelineByPropertyName)]
-        $ErrorColor              = "`e[91m",
+        $ErrorColor              = "$([char]27)[91m",
         [Parameter(ValueFromPipelineByPropertyName)]
-        $KeywordColor            = "`e[92m",
+        $KeywordColor            = "$([char]27)[92m",
         [Parameter(ValueFromPipelineByPropertyName)]
-        $MemberColor             = "`e[97m",
+        $MemberColor             = "$([char]27)[97m",
         [Parameter(ValueFromPipelineByPropertyName)]
-        $NumberColor             = "`e[97m",
+        $NumberColor             = "$([char]27)[97m",
         [Parameter(ValueFromPipelineByPropertyName)]
-        $OperatorColor           = "`e[90m",
+        $OperatorColor           = "$([char]27)[90m",
         [Parameter(ValueFromPipelineByPropertyName)]
-        $ParameterColor          = "`e[90m",
+        $ParameterColor          = "$([char]27)[90m",
         [Parameter(ValueFromPipelineByPropertyName)]
-        $SelectionColor          = "`e[30;107m",
+        $SelectionColor          = "$([char]27)[30;107m",
         [Parameter(ValueFromPipelineByPropertyName)]
-        $StringColor             = "`e[36m",
+        $StringColor             = "$([char]27)[36m",
         [Parameter(ValueFromPipelineByPropertyName)]
-        $TypeColor               = "`e[37m",
+        $TypeColor               = "$([char]27)[37m",
         [Parameter(ValueFromPipelineByPropertyName)]
-        $VariableColor           = "`e[92m"
+        $VariableColor           = "$([char]27)[92m"
     )
     process {
         $ParameterNames = $MyInvocation.MyCommand.Parameters.Keys.Where{
@@ -45,10 +45,12 @@ function Set-PSReadLineTheme {
         $Colors = @{}
         foreach ($ParameterName in $ParameterNames) {
             if (($Value = Get-Variable -Scope Local -Name $ParameterName -ValueOnly)) {
-                $Colors[($ParameterName -replace "(token)?color")] = $Value
+                $ColorName = $ParameterName -replace "(token)?color"
+                # This is only working when I use the AsEscapeSequence, but the input values are already escape sequences!
+                $Colors[$ColorName] = [Microsoft.PowerShell.VTColorUtils]::AsEscapeSequence( $Value )
             }
         }
-
+        #$global:PsReadlineColors = $Colors
         Set-PSReadLineOption -Colors $Colors
     }
 }
