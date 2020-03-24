@@ -9,11 +9,13 @@ function Set-WindowsTerminalTheme {
     [CmdletBinding()]
     param(
         [Parameter(ValueFromPipelineByPropertyName)]
-        [string]$Name           = "Theme.Everything",
+        [string]$Name           = "EzTheme",
+
         [Parameter(ValueFromPipelineByPropertyName)]
         [RgbColor]$background   = "#0C0C0C",
         [Parameter(ValueFromPipelineByPropertyName)]
         [RgbColor]$foreground   = "#CCCCCC",
+
         [Parameter(ValueFromPipelineByPropertyName)]
         [RgbColor]$black        = "#0C0C0C",
         [Parameter(ValueFromPipelineByPropertyName)]

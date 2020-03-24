@@ -7,7 +7,7 @@
             Prerelease   = ''
             ReleaseNotes = ''
 
-            Tags         = @('Theme', 'Scheme', 'Colors', 'Theme.Everything')
+            Tags         = @('Theme', 'Scheme', 'Colors', 'EzTheme')
 
             # LicenseUri = ''
             # ProjectUri = ''
@@ -28,7 +28,7 @@
         @{ModuleName = "Configuration"; ModuleVersion = "1.4.0"}, "PANSIES")
 
     # Script module or binary module file associated with this manifest.
-    RootModule           = 'Theme.Everything.psm1'
+    RootModule           = 'EzTheme.psm1'
     GUID                 = 'e1561aca-d9fe-4282-9f97-ba7899c8dfc1'
     Author               = "Joel 'Jaykul' Bennett"
     CompanyName          = 'PoshCode.org'

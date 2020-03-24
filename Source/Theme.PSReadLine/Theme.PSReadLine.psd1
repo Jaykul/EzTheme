@@ -7,7 +7,7 @@
             Prerelease   = ''
             ReleaseNotes = ''
 
-            Tags         = @('Theme', 'Scheme', 'Colors', 'Theme.Everything')
+            Tags         = @('Theme', 'Scheme', 'Colors', 'EzTheme')
 
             # LicenseUri = ''
             # ProjectUri = ''
@@ -16,7 +16,7 @@
             # Modules that aren't in the same PowerShellGallery
             # ExternalModuleDependencies = @()
         } # End of PSData hashtable
-        'Theme.Everything' = @{
+        'EzTheme' = @{
             Get = 'Get-PSReadLineTheme'
             Set = 'Set-PSReadLineTheme'
         }

@@ -4,7 +4,7 @@ param(
     [switch]$SkipCodeCoverage,
     [switch]$HideSuccess,
     [switch]$IncludeVSCodeMarker,
-    $ModuleName = "Theme.Everything"
+    $ModuleName = "EzTheme"
 )
 Push-Location $PSScriptRoot
 

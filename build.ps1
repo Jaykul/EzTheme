@@ -32,8 +32,9 @@ try {
         Build-Module ".\Source\$($SubModule.Name)\build.psd1" @PSBoundParameters -Target CleanBuild -OutputDirectory $ThemeOutput
         $SubModule.Name
     }
+    <#
     Update-Metadata -Path $BuildOutput.Path -PropertyName NestedModules -Value $SubModules
-
+    #>
 } finally {
     Pop-Location -StackName BuildModuleScript
 }

@@ -1,7 +1,3 @@
 @{
-    Modules = @(
-        "Theme.PSReadLine"
-        "Theme.WindowsTerminal"
-    )
-    Theme = ''
+    Theme = 'Darkly'
 }

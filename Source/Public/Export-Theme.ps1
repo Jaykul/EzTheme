@@ -6,7 +6,7 @@ function Export-Theme {
         [ValidateNotNullOrEmpty()]
         [string]$Name,
 
-        # One or more modules to export the theme from (ignores registered modules)
+        # One or more modules to export the theme from (ignores other modules)
         [Parameter()]
         [Alias("Module")]
         [string[]]$IncludeModule,
@@ -23,24 +23,26 @@ function Export-Theme {
         [switch]$Passthru
     )
     end {
-        if (!$IncludeModule) {
-            $IncludeModule = (Import-Configuration).Modules
-        }
-
         $Theme = if ($Update) {
             ImportTheme $Name
         } else {
             @{}
         }
 
+        if (!$IncludeModule) {
+            $IncludeModule = @(Get-Module).Where{ $_.PrivateData -and $_.PrivateData.ContainsKey("EzTheme") }
+        }
+
         foreach ($module in $IncludeModule) {
-            $Noun = ($module -replace "^Theme\.?|\.?Theme$") + "Theme"
-            Write-Verbose "Get theme from $module"
-            $Theme[$Module] = & "$module\Get-$Noun"
+            Write-Verbose "Get theme from $($module.Name)"
+            try {
+                $Theme[$module.Name] = & "$($Module.Name)\$($Module.PrivateData["EzTheme"]["Set"])"
+            } catch {
+                Write-Warning "Unable to get theme from $($module.Name)\$($module.PrivateData["EzTheme"]["Get"])"
+            }
         }
 
         $Theme | ExportTheme -Name $Name -Passthru:$Passthru -Force:($Force -or $Update)
         $MyInvocation.MyCommand.Module.PrivateData["Theme"] = $Theme
-
     }
 }
