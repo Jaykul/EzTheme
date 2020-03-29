@@ -8,8 +8,9 @@ function Show-Theme {
     param(
         # The name of the theme to export the current settings
         [Alias("Theme","PSPath")]
-        [Parameter(ValueFromPipelineByPropertyName, Position = 0, Mandatory)]
+        [Parameter(ValueFromPipelineByPropertyName, Position = 0)]
         [ValidateNotNullOrEmpty()]
+        [ArgumentCompleter({Get-Theme})]
         [string]$Name,
 
         # One or more modules to export the theme from (ignores registered modules)

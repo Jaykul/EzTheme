@@ -12,7 +12,7 @@ function Write-TextOnImage {
     [CmdletBinding()]
     param(
         [Parameter(ParameterSetName = "OnExistingImageFile", Mandatory, ValueFromPipelineByPropertyName)]
-        [ValidateScript( {
+        [ValidateScript({
                 if (!(Test-Path "$_")) {
                     throw "The path must point to an existing image. Can't find '$_'"
                 }

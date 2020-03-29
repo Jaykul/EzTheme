@@ -18,12 +18,15 @@ function Get-PowerShellTheme {
             $PSCmdlet.ThrowTerminatingError([ErrorRecord]::new($Exception, "Unsupported Host PrivateData", "InvalidData", $Host.PrivateData))
         }
         if ($RawUI = $Host.UI.RawUI) {
-            $Host.PrivateData |
+            $Result = $Host.PrivateData |
                 Select-Object *AccentColor, *BackgroundColor, *ForegroundColor |
                 Add-Member -NotePropertyName Foreground -NotePropertyValue $RawUI.ForegroundColor -PassThru |
                 Add-Member -NotePropertyName Background -NotePropertyValue $RawUI.BackgroundColor -PassThru
+
+            $Result.PSTypeNames.Insert(0, "WindowsTerminal.ColorScheme")
+            $Result
         } else {
-            $Host.PrivateData
+            $Result = $Host.PrivateData |
         }
 
     }

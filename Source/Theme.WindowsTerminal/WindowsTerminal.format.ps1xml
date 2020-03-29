@@ -16,7 +16,7 @@
                                     $this = $_
                                     Write-Host $($this.background.ToVtEscapeSequence($true) + $this.foreground.ToVtEscapeSequence())
                                     Write-Host $this.Name
-                                    Write-Host -NoNewLine "         m     40m     41m     42m     43m     44m     45m     46m     47m     100m    107m      `n"
+                                    Write-Host "         m     40m     41m     42m     43m     44m     45m     46m     47m     100m    107m      "
                                     Write-Host -NoNewLine "    m"
 
                                     $TerminalColors = $null, "black", "brightBlack", "red", "brightRed", "green", "brightGreen", "yellow", "brightYellow", "blue", "brightBlue", "purple", "brightPurple", "cyan", "brightCyan", "white", "brightWhite"
@@ -36,7 +36,7 @@
                                         }
                                         Write-Host "  "
                                     }
-                                    Write-Host "`n$([char]27)[0m"
+                                    Write-Host "$([char]27)[0m"
                                 </ScriptBlock>
                             </ExpressionBinding>
                         </CustomItem>

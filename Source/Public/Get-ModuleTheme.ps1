@@ -9,14 +9,17 @@ function Get-ModuleTheme {
 
             This is how you should call it from the bottom of your MyModule module
         .Example
-            Get-ModuleTheme MyModule | Set-MyModuleTheme
+            Get-Module MyModule | Get-ModuleTheme
 
-            You can set the theme
+            You can see the current theme configuration for a particular module
     #>
     [CmdletBinding(DefaultParameterSetName = '__CallStack')]
     param(
+        [Parameter(Position = 0)]
+        [string]$Name,
+
         # The Module you want to fetch theme data for
-        [Parameter(ParameterSetName = "__ModuleInfo", ValueFromPipeline = $true, ValueFromPipelineByPropertyName = $true)]
+        [Parameter(ParameterSetName = "__ModuleInfo", Mandatory, ValueFromPipeline = $true, ValueFromPipelineByPropertyName = $true)]
         [System.Management.Automation.PSModuleInfo]$Module,
 
         # The callstack. You should not ever pass this.
@@ -43,6 +46,12 @@ function Get-ModuleTheme {
     }
 
     if ($Module.Name) {
-        $MyInvocation.MyCommand.Module.PrivateData["Theme"][$Module.Name]
+        $Theme = if ($Name) {
+            ImportTheme $Name
+        } else {
+            $MyInvocation.MyCommand.Module.PrivateData["Theme"]
+        }
+
+        $Theme[$Module.Name]
     }
 }
