@@ -19,24 +19,30 @@ function Show-Theme {
         [string[]]$IncludeModule
     )
     process {
-        if(!$Name) {
-            if (!$IncludeModule) {
-                $IncludeModule = (Import-Configuration).Modules
-            }
-
-            foreach ($module in $IncludeModule) {
-                $Noun = ($module -replace "^Theme\.?|\.?Theme$") + "Theme"
-                Write-Host "`n$module theme:`n"
-                & "$module\Get-$Noun"
-            }
-
+        # Without a theme name, show the current configuration
+        $Themes = if (!$Name) {
+            @($MyInvocation.MyCommand.Module.PrivateData.Theme)
         } else {
-            foreach($Theme in Get-Theme $Name) {
-                $Theme = ImportTheme $Theme.PSPath | Add-Member -Type NoteProperty -Name Name -Value $Theme.Name -Passthru -Force
-                foreach ($module in $Theme.Keys.Where({Get-Module $_})) {
-                    Write-Host "`n$module theme:`n`n"
-                    $Theme[$module] | Out-Default
+            Get-Theme $Name -Module $IncludeModule | ImportTheme
+        }
+
+        foreach ($Theme in $Themes) {
+            if ($IncludeModule) {
+                foreach ($themedModule in @($Theme.Keys)) {
+                    if ($IncludeModule.ForEach({
+                            $_ -eq $ThemedModule -or
+                            $_ -like $ThemedModule -or
+                            "Theme.$_" -eq $ThemedModule -or
+                            "$_.Theme" -eq "$ThemedModule"
+                        }) -notcontains $true) {
+                        Write-Verbose "Not showing $ThemedModule theme "
+                        $Theme.Remove($themedModule)
+                    }
                 }
+            }
+            foreach ($module in $Theme.Keys) {
+                Write-Host "$module $($Theme.Name) theme:"
+                $Theme[$module] | Out-Default
             }
         }
     }

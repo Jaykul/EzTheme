@@ -102,4 +102,8 @@ if (Get-Module EzTheme -ErrorAction SilentlyContinue) {
 }
 ```
 
+## Custom Views for Themes
+
+The recommended way to implement your `Get-Theme` output is to either create a strongly-typed theme class, or a PSCustomObject with a custom PSTypeName. Then you can implement a custom view for the type in a format file.
+
 See [Theme.PSReadlineTheme](./Source/Theme.PSReadline) and [Theme.WindowsTerminal](./Source/Theme.WindowsTerminal) for examples.
