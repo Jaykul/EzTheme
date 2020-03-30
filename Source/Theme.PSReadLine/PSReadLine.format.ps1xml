@@ -1,6 +1,33 @@
 <Configuration>
     <ViewDefinitions>
         <View>
+            <Name>PSReadline-Preview</Name>
+            <ViewSelectedBy>
+                <TypeName>Selected.Microsoft.PowerShell.PSConsoleReadLineOptions</TypeName>
+            </ViewSelectedBy>
+            <CustomControl>
+                <CustomEntries>
+                    <CustomEntry>
+                        <CustomItem>
+                            <ExpressionBinding>
+                                <ScriptBlock>
+"$($_.BackgroundColor)$($_.KeywordColor)function $($_.DefaultTokenColor)Test-Syntax $($_.DefaultTokenColor){                                                          " + "`n" +
+"    $($_.CommentColor)# Demo Syntax Highlighting                                                  " + "`n" +
+"    $($_.DefaultTokenColor)[$($_.TypeColor)CmdletBinding$($_.DefaultTokenColor)()]                                                           " + "`n" +
+"    $($_.KeywordColor)param$($_.DefaultTokenColor)([$($_.TypeColor)IO.FileInfo$($_.DefaultTokenColor)]$($_.VariableColor)`$Path$($_.DefaultTokenColor))                                                   " + "`n" +
+"    $($_.KeywordColor)end $($_.DefaultTokenColor){                                                                       " + "`n" +
+"        $($_.CommandColor)Write-Verbose $($_.StringColor)`"Testing in $($_.VariableColor)`$($($_.CommandColor)Split-Path $($_.VariableColor)`$PSScriptRoot $($_.ParameterColor)-Leaf$($_.VariableColor))$($_.StringColor)`" $($_.ParameterColor)-Verbose   " + "`n" +
+"        $($_.VariableColor)`$Env:PSModulePath $($_.OperatorColor)-split $($_.StringColor)';' $($_.OperatorColor)-notcontains $($_.VariableColor)`$Path$($_.DefaultTokenColor).$($_.MemberColor)FullName                " + "`n" +
+"    $($_.DefaultTokenColor)}                                                                           " + "`n" +
+"$($_.DefaultTokenColor)}$([char]27)[39m                                                                               " + "$([char]27)[0m`n"
+                                </ScriptBlock>
+                            </ExpressionBinding>
+                        </CustomItem>
+                    </CustomEntry>
+                </CustomEntries>
+            </CustomControl>
+        </View>
+        <View>
             <Name>PSReadLine-Theme</Name>
             <ViewSelectedBy>
                 <TypeName>Selected.Microsoft.PowerShell.PSConsoleReadLineOptions</TypeName>
