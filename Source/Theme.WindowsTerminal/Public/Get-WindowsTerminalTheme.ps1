@@ -19,7 +19,7 @@ function Get-WindowsTerminalTheme {
 
         if ($ColorScheme) {
             $Result = $Config.schemes.Where({ $_.name -eq $colorScheme })[0]
-            $Result.PSTypeNames.Insert(0, "WindowsTerminal.ColorScheme")
+            $Result.PSTypeNames.Insert(0, "Terminal.ColorScheme")
 
             foreach ($property in (Get-Member -Input $Result -Type Properties).Where({$_.Name -ne "name"}).name) {
                 $Result.$property = [RgbColor]$Result.$property

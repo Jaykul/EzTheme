@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <RootNamespace>PoshCode.WindowsConsole</RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Win32.Registry" Version="4.5.0" />
+    <PackageReference Include="PowerShellStandard.Library" Version="5.1.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="ColorMine">
+      <HintPath>lib\ColorMine.dll</HintPath>
+    </Reference>
+    <Reference Include="Pansies">
+      <HintPath>lib\Pansies.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <!-- <ItemGroup>
+    <ProjectReference Include="lib\Pansies\ColorMine\ColorMine.csproj" />
+  </ItemGroup> -->
+</Project>

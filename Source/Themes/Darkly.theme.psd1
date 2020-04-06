@@ -17,21 +17,21 @@
     } -TypeName 'Selected.Microsoft.PowerShell.ConsoleHost+ConsoleColorProxy', 'System.Management.Automation.PSCustomObject', 'System.Object'
 
     'Theme.PSReadLine' = PSObject @{
-        CommandColor            = "$([char]27)[36m"
-        CommentColor            = "$([char]27)[37m"
-        ContinuationPromptColor = "$([char]27)[93m"
-        DefaultTokenColor       = "$([char]27)[97m"
-        EmphasisColor           = "$([char]27)[38;2;199;21;133m"
-        ErrorColor              = "$([char]27)[91m"
-        KeywordColor            = "$([char]27)[93m"
-        MemberColor             = "$([char]27)[95m"
-        NumberColor             = "$([char]27)[31m"
-        OperatorColor           = "$([char]27)[91m"
-        ParameterColor          = "$([char]27)[96m"
-        SelectionColor          = "$([char]27)[100;96m"
-        StringColor             = "$([char]27)[92m"
-        TypeColor               = "$([char]27)[34m"
-        VariableColor           = "$([char]27)[35m"
+        CommandColor            = "$([char]27)[38;2;255;230;109m"
+        CommentColor            = "$([char]27)[38;2;95;97;103m"
+        ContinuationPromptColor = "$([char]27)[38;2;0;232;198m"
+        DefaultTokenColor       = "$([char]27)[38;2;213;206;217m"
+        EmphasisColor           = "$([char]27)[38;2;243;156;18m"
+        ErrorColor              = "$([char]27)[4;38;2;255;93;97m"
+        KeywordColor            = "$([char]27)[38;2;199;77;147m"
+        MemberColor             = "$([char]27)[38;2;43;168;256m"
+        NumberColor             = "$([char]27)[38;2;243;43;23m"
+        OperatorColor           = "$([char]27)[38;2;238;93;67m"
+        ParameterColor          = "$([char]27)[38;2;143;228;256m"
+        SelectionColor          = "$([char]27)[100;38;2;190;190;190m"
+        StringColor             = "$([char]27)[38;2;150;224;114m"
+        TypeColor               = "$([char]27)[38;2;238;93;67m"
+        VariableColor           = "$([char]27)[38;2;0;242;178m"
     } -TypeName 'Selected.Microsoft.PowerShell.PSConsoleReadLineOptions', 'System.Management.Automation.PSCustomObject', 'System.Object'
 
     'Theme.WindowsTerminal' = PSObject @{
@@ -55,7 +55,7 @@
         red          = RgbColor '#D92D20'
         white        = RgbColor '#A5A2A2'
         yellow       = RgbColor '#FBED02'
-    } -TypeName 'WindowsTerminal.ColorScheme', 'System.Management.Automation.PSCustomObject', 'System.Object'
+    } -TypeName 'Terminal.ColorScheme', 'System.Management.Automation.PSCustomObject', 'System.Object'
 
     PowerLine = PSObject @{
         FullColor           = $True

@@ -55,7 +55,7 @@
         red          = RgbColor '#BE0000'
         white        = RgbColor '#848388'
         yellow       = RgbColor '#BB6200'
-    } -TypeName 'WindowsTerminal.ColorScheme', 'System.Management.Automation.PSCustomObject', 'System.Object'
+    } -TypeName 'Terminal.ColorScheme', 'System.Management.Automation.PSCustomObject', 'System.Object'
 
     PowerLine = PSObject @{
         FullColor           = $True

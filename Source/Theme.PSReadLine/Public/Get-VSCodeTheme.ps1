@@ -1,7 +1,26 @@
 ﻿function Get-VSCodeTheme {
     <#
         .SYNOPSIS
-            Get a PSReadline theme from a VSCode Theme
+            Get a PSReadline theme from a VS Code Theme that you have installed locally.
+        .DESCRIPTION
+            Gets PSReadline colors from a Visual Studio Code Theme. Only works with locally installed Themes, but includes tab-completion for theme names so you can Ctrl+Space to list the ones you have available.
+
+            The default output will show a little preview of what PSReadline will look like. Note that the PSReadline theme will _not_ set the background color.
+
+            You can pipe the output to Set-PSReadlineTheme to import the theme for the PSReadline module.
+
+            Note that you may want to use -Verbose to see details of the import. In some cases, Get-VSCodeTheme will not be able to determine values for all PSReadline colors, and there is a verbose output showing the colors that get the default value.
+        .Example
+            Get-VSCodeTheme 'Light+ (default light)'
+
+            Gets the default "Dark+" theme from Code and shows you a preview. Note that to use this theme effectively, you need to have your terminal background color set to a light color like the white in the preview.
+        .Example
+            Get-VSCodeTheme 'Dark+ (default dark)' | Set-PSReadLineTheme
+
+            Imports the "Dark+" theme from Code and sets it as your PSReadLine color theme.
+        .Link
+            Set-PSReadlineTheme
+            Get-PSReadlineTheme
     #>
     [CmdletBinding(SupportsShouldProcess, DefaultParameterSetName = "ByName")]
     param(
@@ -32,8 +51,7 @@
             $VsCodeTheme = FindVsCodeTheme $Theme -ErrorAction Stop
         }
 
-        Write-Verbose "Importing $($VsCodeTheme.Path)"
-        if ($PSCmdlet.ShouldProcess($VsCodeTheme.Path, "Convert to $($VsCodeTheme.Name).theme.psd1")) {
+        if ($PSCmdlet.ShouldProcess($VsCodeTheme.Path, "Import PSReadline colors from theme")) {
             # Load the theme file and split the output into colors and tokencolors
             if ($VsCodeTheme.Path.endswith(".json")) {
                 $colors, $tokens = (ImportJsonIncludeLast $VsCodeTheme.Path).Where({!$_.scope}, 'Split', 2)
@@ -122,7 +140,7 @@
                         $ThemeOutput[$kv.Key] = $ThemeOutput["DefaultToken"]
                     }
                 }
-                Write-Warning "Some PSReadLine color values not set in '$($VsCodeTheme.Path)'. Used DefaultToken for $($missing -join ', ')"
+                Write-Verbose "Used DefaultTokenColor for some colors: $($missing -join ', ')"
             }
 
             [PSCustomObject]$ThemeOutput

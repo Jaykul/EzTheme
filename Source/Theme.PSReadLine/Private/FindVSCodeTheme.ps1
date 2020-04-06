@@ -51,7 +51,7 @@ function FindVsCodeTheme {
         } else {
             $VSCodeExtensions  = $VSCodeExtensions | Join-Path -ChildPath "\*\package.json" -Resolve
             foreach ($File in $VSCodeExtensions) {
-                Write-Verbose "Considering VSCode Extention $([IO.Path]::GetFileName([IO.Path]::GetDirectoryName($File)))"
+                Write-Debug "Considering VSCode Extention $([IO.Path]::GetFileName([IO.Path]::GetDirectoryName($File)))"
                 $JSON = Get-Content -Path $File -Raw -Encoding utf8
                 try {
                     $Extension = ConvertFrom-Json $JSON -ErrorAction Stop
@@ -87,7 +87,7 @@ function FindVsCodeTheme {
 
     # Make sure we're comparing the name to a name
     $Name = [IO.Path]::GetFileName(($Name -replace "\.json$|\.tmtheme$"))
-    Write-Verbose "Testing theme names for '$Name'"
+    Write-Debug "Testing theme names for '$Name'"
 
     # increasingly fuzzy search: (eq -> like -> match)
     if (!($Theme = $Themes.Where{$_.name -eq $Name})) {

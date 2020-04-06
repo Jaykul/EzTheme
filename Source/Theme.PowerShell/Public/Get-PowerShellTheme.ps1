@@ -23,7 +23,7 @@ function Get-PowerShellTheme {
                 Add-Member -NotePropertyName Foreground -NotePropertyValue $RawUI.ForegroundColor -PassThru |
                 Add-Member -NotePropertyName Background -NotePropertyValue $RawUI.BackgroundColor -PassThru
 
-            $Result.PSTypeNames.Insert(0, "WindowsTerminal.ColorScheme")
+            $Result.PSTypeNames.Insert(0, "Terminal.ColorScheme")
             $Result
         } else {
             $Result = $Host.PrivateData |
