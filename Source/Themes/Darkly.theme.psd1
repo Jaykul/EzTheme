@@ -1,4 +1,74 @@
-@{
+@{  # There are three copies here of the Terminal.ColorScheme, one for each terminal-theming module
+    'Theme.Terminal' = PSObject @{
+        name         = 'Darkly'
+        foreground   = RgbColor '#FFFCFF'
+        background   = RgbColor '#212021'
+
+        black        = RgbColor '#212021'
+        blue         = RgbColor '#01A0E4'
+        brightBlack  = RgbColor '#493F3F'
+        brightBlue   = RgbColor '#6ECEFF'
+        brightCyan   = RgbColor '#95F2FF'
+        brightGreen  = RgbColor '#6CD18E'
+        brightPurple = RgbColor '#D29BC6'
+        brightRed    = RgbColor '#FF6E6D'
+        brightWhite  = RgbColor '#FFFCFF'
+        brightYellow = RgbColor '#FFFF85'
+        cyan         = RgbColor '#55C4CF'
+        green        = RgbColor '#01A252'
+        purple       = RgbColor '#A16A94'
+        red          = RgbColor '#D92D20'
+        white        = RgbColor '#A5A2A2'
+        yellow       = RgbColor '#FBED02'
+    } -TypeName 'Terminal.ColorScheme', 'System.Management.Automation.PSCustomObject', 'System.Object'
+
+
+    'Theme.WindowsTerminal' = PSObject @{
+        name         = 'Darkly'
+        foreground   = RgbColor '#FFFCFF'
+        background   = RgbColor '#212021'
+
+        black        = RgbColor '#212021'
+        blue         = RgbColor '#01A0E4'
+        brightBlack  = RgbColor '#493F3F'
+        brightBlue   = RgbColor '#6ECEFF'
+        brightCyan   = RgbColor '#95F2FF'
+        brightGreen  = RgbColor '#6CD18E'
+        brightPurple = RgbColor '#D29BC6'
+        brightRed    = RgbColor '#FF6E6D'
+        brightWhite  = RgbColor '#FFFCFF'
+        brightYellow = RgbColor '#FFFF85'
+        cyan         = RgbColor '#55C4CF'
+        green        = RgbColor '#01A252'
+        purple       = RgbColor '#A16A94'
+        red          = RgbColor '#D92D20'
+        white        = RgbColor '#A5A2A2'
+        yellow       = RgbColor '#FBED02'
+    } -TypeName 'Terminal.ColorScheme', 'System.Management.Automation.PSCustomObject', 'System.Object'
+
+    'Theme.WindowsConsole'        = PSObject @{
+        name         = 'Darkly'
+        foreground   = RgbColor '#FFFCFF'
+        background   = RgbColor '#212021'
+
+        black        = RgbColor '#212021'
+        blue         = RgbColor '#01A0E4'
+        brightBlack  = RgbColor '#493F3F'
+        brightBlue   = RgbColor '#6ECEFF'
+        brightCyan   = RgbColor '#95F2FF'
+        brightGreen  = RgbColor '#6CD18E'
+        brightPurple = RgbColor '#D29BC6'
+        brightRed    = RgbColor '#FF6E6D'
+        brightWhite  = RgbColor '#FFFCFF'
+        brightYellow = RgbColor '#FFFF85'
+        cyan         = RgbColor '#55C4CF'
+        green        = RgbColor '#01A252'
+        purple       = RgbColor '#A16A94'
+        red          = RgbColor '#D92D20'
+        white        = RgbColor '#A5A2A2'
+        yellow       = RgbColor '#FBED02'
+    } -TypeName 'Terminal.ColorScheme', 'System.Management.Automation.PSCustomObject', 'System.Object'
+
     'Theme.PowerShell' = PSObject @{
         Background              = ConsoleColor Black
         DebugBackgroundColor    = ConsoleColor Black
@@ -33,29 +103,6 @@
         TypeColor               = "$([char]27)[38;2;238;93;67m"
         VariableColor           = "$([char]27)[38;2;0;242;178m"
     } -TypeName 'Selected.Microsoft.PowerShell.PSConsoleReadLineOptions', 'System.Management.Automation.PSCustomObject', 'System.Object'
-
-    'Theme.WindowsTerminal' = PSObject @{
-        name         = 'Darkly'
-        foreground   = RgbColor '#FFFCFF'
-        background   = RgbColor '#212021'
-
-        black        = RgbColor '#212021'
-        blue         = RgbColor '#01A0E4'
-        brightBlack  = RgbColor '#493F3F'
-        brightBlue   = RgbColor '#6ECEFF'
-        brightCyan   = RgbColor '#95F2FF'
-        brightGreen  = RgbColor '#6CD18E'
-        brightPurple = RgbColor '#D29BC6'
-        brightRed    = RgbColor '#FF6E6D'
-        brightWhite  = RgbColor '#FFFCFF'
-        brightYellow = RgbColor '#FFFF85'
-        cyan         = RgbColor '#55C4CF'
-        green        = RgbColor '#01A252'
-        purple       = RgbColor '#A16A94'
-        red          = RgbColor '#D92D20'
-        white        = RgbColor '#A5A2A2'
-        yellow       = RgbColor '#FBED02'
-    } -TypeName 'Terminal.ColorScheme', 'System.Management.Automation.PSCustomObject', 'System.Object'
 
     PowerLine = PSObject @{
         FullColor           = $True
