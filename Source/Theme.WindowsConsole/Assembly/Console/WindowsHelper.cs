@@ -2,21 +2,21 @@
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 
-namespace PoshCode.Pansies.Console
+namespace PoshCode.Pansies
 {
     using ColorMine.Palettes;
     using Microsoft.Win32;
     using PoshCode.Pansies.Palettes;
     using System.Linq;
     using static NativeMethods;
-    public static class WindowsHelper
+    public static class WindowsConsoleHelper
     {
         private static readonly IntPtr ConsoleOutputHandle;
 
         /// <summary>
         /// Initializes new instance of ConsoleColorsHelper class
         /// </summary>
-        static WindowsHelper()
+        static WindowsConsoleHelper()
         {
             // TODO: second instance created is crashing. Find out why and how to fix it / prevent. In the worst case - hidden control instance singleton
             // Not very important, can wait

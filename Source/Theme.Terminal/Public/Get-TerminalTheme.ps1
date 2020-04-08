@@ -17,9 +17,9 @@ function Get-TerminalTheme {
         # if ($IsWindows) {
         #     Write-Warning "On Windows, reading the current colors is not supported. Please use Theme.WindowsTerminal or Theme.WindowsConsole. See Get-Help et-TerminalTheme"
         # } else {
-            Write-Warning "Reading the current colors is not supported. Instead we're returning the values from $ColorScheme on iTerm2ColorSchemes"
+            Write-Warning "Reading the current colors from terminals is not supported yet. Returning the theme from `$Host.PrivateData.Theme['Theme.Terminal']"
         # }
 
-        Get-iTerm2ColorScheme $ColorScheme
+        Get-ModuleTheme
     }
 }

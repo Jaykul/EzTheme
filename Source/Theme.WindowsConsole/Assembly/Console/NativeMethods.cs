@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Runtime.InteropServices;
 
-namespace PoshCode.Pansies.Console
+namespace PoshCode.Pansies
 {
     public class NativeMethods
     {

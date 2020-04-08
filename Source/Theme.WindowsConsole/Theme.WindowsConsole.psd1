@@ -29,7 +29,7 @@
     AliasesToExport      = @()
     FormatsToProcess     = @('WindowsConsole.format.ps1xml')
     RequiredModules      = @("Pansies")
-    NestedModules        = @("Theme.WindowsConsole.dll")
+    NestedModules        = @("lib/Theme.WindowsConsole.dll")
 
     # Script module or binary module file associated with this manifest.
     RootModule           = 'Theme.WindowsConsole.psm1'

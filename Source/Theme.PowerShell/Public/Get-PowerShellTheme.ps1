@@ -23,12 +23,12 @@ function Get-PowerShellTheme {
                 Add-Member -NotePropertyName Foreground -NotePropertyValue $RawUI.ForegroundColor -PassThru |
                 Add-Member -NotePropertyName Background -NotePropertyValue $RawUI.BackgroundColor -PassThru
 
-            $Result.PSTypeNames.Insert(0, "Terminal.ColorScheme")
-            $Result
         } else {
             $Result = $Host.PrivateData |
+                Select-Object *AccentColor, *BackgroundColor, *ForegroundColor
         }
-
+        $Result.PSTypeNames.Insert(0, "Terminal.ColorScheme")
+        $Result
     }
 }
 

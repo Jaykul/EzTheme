@@ -19,6 +19,12 @@ if (-not $Semver -and (Get-Command gitversion)) {
 }
 
 try {
+    # Call any nested build.ps1 scripts (I have one binary module in here)
+    foreach ($SubModule in Get-ChildItem Source -Recurse -File -Filter build.ps1) {
+        Write-Host $SubModule -ForegroundColor Yellow
+        & $SubModule
+    }
+
     # Build new output
     $ParameterString = $PSBoundParameters.GetEnumerator().ForEach{ '-' + $_.Key + " '" + $_.Value + "'" } -join " "
     Write-Host "Build-Module Source\build.psd1 $($ParameterString) -Target CleanBuild" -ForegroundColor Cyan
@@ -26,7 +32,7 @@ try {
     Write-Verbose "Module build output in $(Split-Path $BuildOutput.Path)"
 
     # We have a bunch of submodules:
-    $SubModules = foreach ($SubModule in Get-ChildItem Source -Directory | Where-Object Name -Match "Theme\.") {
+    $SubModules = foreach ($SubModule in Get-ChildItem Source -Directory -Filter "Theme.*") {
         $ThemeOutput = Join-Path (Split-Path $BuildOutput.Path) $SubModule.Name
         Write-Host " - Build $($SubModule.Name)" -ForegroundColor Cyan
         Build-Module ".\Source\$($SubModule.Name)\build.psd1" @PSBoundParameters -Target CleanBuild -OutputDirectory $ThemeOutput
