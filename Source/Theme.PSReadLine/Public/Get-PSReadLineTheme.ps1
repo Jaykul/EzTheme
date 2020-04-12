@@ -5,6 +5,5 @@ function Get-PSReadLineTheme {
     #>
     [CmdletBinding()]
     param()
-    Get-PSReadLineOption |
-        Select-Object ContinuationPromptColor, ParameterColor, MemberColor, CommandColor, OperatorColor, EmphasisColor, SelectionColor, VariableColor, TypeColor, KeywordColor, StringColor, ErrorColor, NumberColor, DefaultTokenColor, CommentColor
+    Get-PSReadLineOption | Select-Object *Color
 }

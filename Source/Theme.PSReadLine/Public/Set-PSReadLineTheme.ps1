@@ -29,6 +29,8 @@ function Set-PSReadLineTheme {
         [Parameter(ValueFromPipelineByPropertyName)]
         $ParameterColor          = "$([char]27)[90m",
         [Parameter(ValueFromPipelineByPropertyName)]
+        $PredictionColor         = "$([char]27)[90m",
+        [Parameter(ValueFromPipelineByPropertyName)]
         $SelectionColor          = "$([char]27)[30;107m",
         [Parameter(ValueFromPipelineByPropertyName)]
         $StringColor             = "$([char]27)[36m",

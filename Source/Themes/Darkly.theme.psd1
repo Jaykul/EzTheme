@@ -98,6 +98,7 @@
         NumberColor             = "$([char]27)[38;2;243;43;23m"
         OperatorColor           = "$([char]27)[38;2;238;93;67m"
         ParameterColor          = "$([char]27)[38;2;143;228;256m"
+        PredictionColor         = "$([char]27)[38;2;95;97;103m"
         SelectionColor          = "$([char]27)[100;38;2;190;190;190m"
         StringColor             = "$([char]27)[38;2;150;224;114m"
         TypeColor               = "$([char]27)[38;2;238;93;67m"
