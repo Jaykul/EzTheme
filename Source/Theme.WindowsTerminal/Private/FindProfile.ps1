@@ -7,19 +7,19 @@ function FindProfile {
         # If the only thing we care about is the color scheme, we can take shortcuts
         [Switch]$ColorSchemeReadOnly,
 
-        # The profile guid. Should be read from Env:WT_Profile if that's set
-        $ProfileId = $Env:WT_Profile
+        # The profile guid. Should be read from Env:WT_PROFILE_ID if that's set
+        $ProfileId = $Env:WT_PROFILE_ID
     )
 
-    # If Env:WT_Profile is not set, we have no way to determine which profile is "this" one in Windows Terminal, so we guess:
+    # If Env:WT_PROFILE_ID is not set, we have no way to determine which profile is "this" one in Windows Terminal, so we guess:
     if ($ProfileId) {
         $P = $Profiles.Where({ $_.guid -eq $ProfileId})
         if ($P.Count -eq 1) {
             $P
             return
         } else {
-            Write-Warning "'$ProfileId' matches $($P.Count) profiles. Set Env:WT_Profile to the guid of the active profile"
-            Remove-Item Env:WT_Profile
+            Write-Warning "'$ProfileId' matches $($P.Count) profiles. Set Env:WT_PROFILE_ID to the guid of the active profile"
+            Remove-Item Env:WT_PROFILE_ID
         }
     }
 
@@ -29,13 +29,13 @@ function FindProfile {
 
     if ($Profiles.Count -eq 0) {
         $Profiles
-        $Env:WT_Profile = $Profiles.guid
+        $Env:WT_PROFILE_ID = $Profiles.guid
         return
     }
 
     if ($ColorSchemeReadOnly -and ($Profiles.colorScheme | Sort-Object -Unique).Count -eq 1) {
         Write-Debug "All $($Profiles.Count) profiles share the color scheme: $colorScheme, returning the first one: $($Profiles[0].name)"
-        $Env:WT_Profile = $Profiles[0].guid
+        $Env:WT_PROFILE_ID = $Profiles[0].guid
         $Profiles[0]
         return
 
@@ -49,7 +49,7 @@ function FindProfile {
         }
 
         if ($Profiles.Count -eq 0) {
-            $Env:WT_Profile = $Profiles[0].guid
+            $Env:WT_PROFILE_ID = $Profiles[0].guid
             $Profiles
             return
         }
@@ -59,7 +59,7 @@ function FindProfile {
         $MatchingProfile = $Profiles.Where({ $_.name -match $PSVersionTable.PSVersion.Major })
         if ($MatchingProfile.Count -eq 1) {
             Write-Debug "Found PowerShell profile matching $($PSVersionTable.PSVersion.Major)"
-            $Env:WT_Profile = $MatchingProfile.guid
+            $Env:WT_PROFILE_ID = $MatchingProfile.guid
             $MatchingProfile
             return
         } else {
@@ -72,12 +72,12 @@ function FindProfile {
         })
         if ($MatchingProfile.Count -eq 1) {
             Write-Debug "Found PowerShell profile not matching $($PSVersionTable.PSVersion.Major - 1) or $($PSVersionTable.PSVersion.Major + 1)"
-            $Env:WT_Profile = $MatchingProfile.guid
+            $Env:WT_PROFILE_ID = $MatchingProfile.guid
             $MatchingProfile
             return
         } else {
             Write-Debug "$($MatchingProfile.Count) profiles not matching version $($PSVersionTable.PSVersion.Major - 1) or $($PSVersionTable.PSVersion.Major + 1)"
         }
-        Write-Warning "Unable to determine profile. $($Profiles.Count) profiles matched: '$($Profiles.name -join "', '")'.`nTo resolve, set `$Env:WT_Profile to the guid of the active profile."
+        Write-Warning "Unable to determine profile. $($Profiles.Count) profiles matched: '$($Profiles.name -join "', '")'.`nTo resolve, set `$Env:WT_PROFILE_ID to the guid of the active profile."
    }
 }
