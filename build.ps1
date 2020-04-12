@@ -12,7 +12,7 @@ param(
 $ErrorActionPreference = "Stop"
 Push-Location $PSScriptRoot -StackName BuildModuleScript
 
-if (-not $Semver -and (Get-Command gitversion)) {
+if (-not $Semver -and (Get-Command gitversion -ErrorAction Ignore)) {
     if ($semver = gitversion -showvariable SemVer) {
         $null = $PSBoundParameters.Add("SemVer", $SemVer)
     }

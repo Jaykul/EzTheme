@@ -53,16 +53,13 @@ function Set-TerminalTheme {
         $e = [char]27
         $b = [char]7
 
-        # PowerShell is really dumb, so we need to help it out:
-
+        # PowerShell is really dumb, and has this setting that ignores the terminal. We need to help it out:
         $Host.UI.RawUI.ForegroundColor = $foreground.ConsoleColor
         $Host.UI.RawUI.BackgroundColor =
             $Host.PrivateData.DebugBackgroundColor =
             $Host.PrivateData.VerboseBackgroundColor =
             $Host.PrivateData.WarningBackgroundColor =
             $Host.PrivateData.ErrorBackgroundColor = $background.ConsoleColor
-
-        $Host.UI.RawUI | Out-String | Out-Host
 
         @(
             "$e]10;rgb:{0:x}/{1:x}/{2:x}$b" -f [int]$foreground.R, [int]$foreground.G, [int]$foreground.B
