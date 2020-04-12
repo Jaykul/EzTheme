@@ -33,12 +33,11 @@ function Import-Theme {
         [switch]$Force
     )
     begin {
-        $SupportedModules = @(Get-Module).Where{ $_.PrivateData -and $_.PrivateData.ContainsKey("EzTheme") }
+        $SupportedModules = @(Get-Module).Where{ $_.PrivateData -is [Collections.IDictionary] -and $_.PrivateData.ContainsKey("EzTheme") }
         if (!$IncludeModule) {
             $IncludeModule = $SupportedModules.Name
         }
     }
-
     process {
         $Theme = ImportTheme $Name
         $Theme.PSTypeNames.Insert(0, "EzTheme.Theme")

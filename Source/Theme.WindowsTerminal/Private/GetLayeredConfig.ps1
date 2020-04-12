@@ -22,7 +22,7 @@ function GetLayeredConfig {
 
     if (!$script:DefaultConfig) {
         if (($wtExecutable = (Get-Process WindowsTerminal -ErrorAction Ignore).Path)) {
-            $DefaultConfigFile = Get-ChildItem ($wtExecutable | Split-Path) -Filter defaults.json
+            $DefaultConfigFile = Get-ChildItem ($wtExecutable | Split-Path) -Filter defaults.json | Convert-Path
         }
 
         if (!$DefaultConfigFile) {
