@@ -1,4 +1,11 @@
 function Export-Theme {
+    <#
+        .SYNOPSIS
+            Exports the current settings as a theme.
+        .DESCRIPTION
+            Exports the current theme settings from all currently loaded modules (or from a specified list of modules)
+    #>
+    [Alias("epth")]
     [CmdletBinding(DefaultParameterSetName = "Default")]
     param(
         # The name of the theme to export the current settings

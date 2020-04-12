@@ -5,6 +5,7 @@ function Get-Theme {
         .DESCRIPTION
             List available themes, optionally filtering by partial name or functionality.
     #>
+    [Alias("gth")]
     [CmdletBinding()]
     param(
         # The name of the theme(s) to show. Supports wildcards, and defaults to * everything.

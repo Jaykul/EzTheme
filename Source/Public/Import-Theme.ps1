@@ -11,6 +11,7 @@ function Import-Theme {
 
             Imports the built-in Light theme, but only applies the theme to Theme.ConsoleColors
     #>
+    [Alias("ipth")]
     [CmdletBinding(DefaultParameterSetName = "Whitelist")]
     param(
         # A theme to import (can be the name of an installed theme, or the full path to a psd1 file)

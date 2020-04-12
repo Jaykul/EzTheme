@@ -13,6 +13,7 @@ function Get-ModuleTheme {
 
             You can see the current theme configuration for a particular module
     #>
+    [Alias("gmth")]
     [CmdletBinding(DefaultParameterSetName = '__CallStack')]
     param(
         [Parameter(Position = 0)]

@@ -3,6 +3,7 @@ function Show-Theme {
         .SYNOPSIS
             Import a theme and output the custom PSObjects
     #>
+    [Alias("shth")]
     [OutputType([string])]
     [CmdletBinding(DefaultParameterSetName="CurrentTheme")]
     param(
