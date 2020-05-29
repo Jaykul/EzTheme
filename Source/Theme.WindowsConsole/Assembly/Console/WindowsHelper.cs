@@ -4,7 +4,7 @@ using System.Runtime.InteropServices;
 
 namespace PoshCode.Pansies
 {
-    using ColorMine.Palettes;
+    using PoshCode.Pansies.Palettes;
     using Microsoft.Win32;
     using PoshCode.Pansies.Palettes;
     using System.Linq;
