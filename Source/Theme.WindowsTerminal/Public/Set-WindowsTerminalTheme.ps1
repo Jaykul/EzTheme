@@ -4,7 +4,12 @@ function Set-WindowsTerminalTheme {
     <#
         .SYNOPSIS
             Set the theme for Windows Terminal
-            Has parameters for each color, including foreground and background
+            Has parameters for each color, including foreground, background, and cursorColor
+        .DESCRIPTION
+            The expectation is that you call Get-WindowsTerminalTheme and modify the result,
+            then pipe the modified value into Set-WindowsTerminalTheme
+        .LINK
+            Get-WindowsTerminalTheme
     #>
     [CmdletBinding()]
     param(
@@ -15,6 +20,8 @@ function Set-WindowsTerminalTheme {
         [RgbColor]$background   = "#0C0C0C",
         [Parameter(ValueFromPipelineByPropertyName)]
         [RgbColor]$foreground   = "#CCCCCC",
+        [Parameter(ValueFromPipelineByPropertyName)]
+        [RgbColor]$cursorColor  = "#FFFFFF",
 
         [Parameter(ValueFromPipelineByPropertyName)]
         [RgbColor]$black        = "#0C0C0C",

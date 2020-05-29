@@ -8,14 +8,17 @@ function GetLayeredConfig {
     # Hypothetically the file is in the first location, but if you're using a dev copy instead, it might be elsewhere:
     if (!$script:UserConfigFile) {
         $script:UserConfigFile = Get-ChildItem @(
-            "$Env:LocalAppData/packages/Microsoft.WindowsTerminal_8wekyb3d8bbwe/LocalState/profiles.json"
-            "$Env:LocalAppData/packages/WindowsTerminalDev_8wekyb3d8bbwe/LocalState/profiles.json"
-            "$Env:AppData/Microsoft/Windows Terminal/profiles.json"
+            "$Env:LocalAppData/packages/Microsoft.WindowsTerminal_8wekyb3d8bbwe/LocalState/settings.json"
+            "$Env:LocalAppData/packages/WindowsTerminalDev_8wekyb3d8bbwe/LocalState/settings.json"
+            "$Env:AppData/Microsoft/Windows Terminal/settings.json"
+            "$Env:LocalAppData/packages/Microsoft.WindowsTerminal_8wekyb3d8bbwe/LocalState/profile.json"
+            "$Env:LocalAppData/packages/WindowsTerminalDev_8wekyb3d8bbwe/LocalState/profile.json"
+            "$Env:AppData/Microsoft/Windows Terminal/profile.json"
             ) -ErrorAction Ignore | Select-Object -First 1
     }
 
     if (!$UserConfigFile) {
-        Write-Warning "Unable to locate Windows Terminal's profiles.json"
+        Write-Warning "Unable to locate Windows Terminal's settings.json"
     } else {
         $UserConfig = ConvertFrom-Json (Get-Content $UserConfigFile -Raw)
     }
@@ -36,14 +39,14 @@ function GetLayeredConfig {
     # The only way to normalize it is to add the `default`:
     if (!(Get-Member Defaults -Input $UserConfig.Profiles)) {
         $UserConfig.profiles = [PSCustomObject]@{
-            default = [PSCustomObject]@{}
-            list    = $UserConfig.profiles
+            defaults = [PSCustomObject]@{ }
+            list     = $UserConfig.profiles
         }
     }
     if (!(Get-Member Defaults -input $DefaultConfig.Profiles)) {
         $DefaultConfig.profiles = [PSCustomObject]@{
-            default = [PSCustomObject]@{}
-            list    = $DefaultConfig.profiles
+            defaults = [PSCustomObject]@{ }
+            list     = $DefaultConfig.profiles
         }
     }
 

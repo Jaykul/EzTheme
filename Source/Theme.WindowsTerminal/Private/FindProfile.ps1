@@ -1,83 +1,23 @@
 function FindProfile {
     [CmdletBinding()]
     param(
-        # A copllection of profiles to search
+        # A collection of profiles to search by GUID
         $Profiles = $((GetLayeredConfig -FlattenDefaultProfile).profiles.list),
 
         # If the only thing we care about is the color scheme, we can take shortcuts
         [Switch]$ColorSchemeReadOnly,
 
-        # The profile guid. Should be read from Env:WT_PROFILE_ID if that's set
+        # The profile guid. Default value from Env:WT_PROFILE_ID
         $ProfileId = $Env:WT_PROFILE_ID
     )
 
-    # If Env:WT_PROFILE_ID is not set, we have no way to determine which profile is "this" one in Windows Terminal, so we guess:
-    if ($ProfileId) {
-        $P = $Profiles.Where({ $_.guid -eq $ProfileId})
-        if ($P.Count -eq 1) {
-            $P
-            return
-        } else {
-            Write-Warning "'$ProfileId' matches $($P.Count) profiles. Set Env:WT_PROFILE_ID to the guid of the active profile"
-            Remove-Item Env:WT_PROFILE_ID
-        }
-    }
-
-    # This must be a PowerShell profile ...
-    $Profiles = $Profiles.Where({ $_.commandline -match "pwsh|powershell" -or $_.source -match "PowerShell" })
-    Write-Debug "$($Profiles.Count) powershell profiles of $($Profiles.Count)"
-
-    if ($Profiles.Count -eq 0) {
-        $Profiles
-        $Env:WT_PROFILE_ID = $Profiles.guid
-        return
-    }
-
-    if ($ColorSchemeReadOnly -and ($Profiles.colorScheme | Sort-Object -Unique).Count -eq 1) {
-        Write-Debug "All $($Profiles.Count) profiles share the color scheme: $colorScheme, returning the first one: $($Profiles[0].name)"
-        $Env:WT_PROFILE_ID = $Profiles[0].guid
-        $Profiles[0]
-        return
-
+    if (!$ProfileId) {
+        Write-Warning "ENV:WT_PROFILE_ID should always be set when you're in Windows Terminal. Without that, we cannot identify the current profile. Please ensure you're running Windows Terminal 0.11 or higher."
     } else {
-        if ($PSVersionTable.PSVersion -lt "6.0") {
-            $Profiles = $Profiles.Where({ $_.commandline -match "powershell" })
-            Write-Debug "$($Profiles.Count) Windows PowerShell profiles of $($Profiles.Count)"
+        if (($P = $Profiles.Where({ $_.guid -eq $ProfileId }))) {
+            $P
         } else {
-            $Profiles = $Profiles.Where({ $_.commandline -match "pwsh" -or $_.source -match "PowerShell" })
-            Write-Debug "$($Profiles.Count) pwsh profiles of $($Profiles.Count)"
+            Write-Error "The ProfileId should be a guid set in ENV:WT_PROFILE_ID"
         }
-
-        if ($Profiles.Count -eq 0) {
-            $Env:WT_PROFILE_ID = $Profiles[0].guid
-            $Profiles
-            return
-        }
-
-        # Try narrowing down PowerShell Core profiles by major version number:
-        # We'll take either an exact match (currently, pwsh 6 will match this way)
-        $MatchingProfile = $Profiles.Where({ $_.name -match $PSVersionTable.PSVersion.Major })
-        if ($MatchingProfile.Count -eq 1) {
-            Write-Debug "Found PowerShell profile matching $($PSVersionTable.PSVersion.Major)"
-            $Env:WT_PROFILE_ID = $MatchingProfile.guid
-            $MatchingProfile
-            return
-        } else {
-            Write-Debug "$($MatchingProfile.Count) profiles matching version $($PSVersionTable.PSVersion.Major)"
-        }
-
-        # Or the only profile without a match to a different version (currently, pwsh 7 will match this way)
-        $MatchingProfile = $Profiles.Where({
-            -not $_.hidden -and ($_.name -notmatch ($PSVersionTable.PSVersion.Major - 1)) -and ($_.name -notmatch ($PSVersionTable.PSVersion.Major + 1))
-        })
-        if ($MatchingProfile.Count -eq 1) {
-            Write-Debug "Found PowerShell profile not matching $($PSVersionTable.PSVersion.Major - 1) or $($PSVersionTable.PSVersion.Major + 1)"
-            $Env:WT_PROFILE_ID = $MatchingProfile.guid
-            $MatchingProfile
-            return
-        } else {
-            Write-Debug "$($MatchingProfile.Count) profiles not matching version $($PSVersionTable.PSVersion.Major - 1) or $($PSVersionTable.PSVersion.Major + 1)"
-        }
-        Write-Warning "Unable to determine profile. $($Profiles.Count) profiles matched: '$($Profiles.name -join "', '")'.`nTo resolve, set `$Env:WT_PROFILE_ID to the guid of the active profile."
-   }
+    }
 }

@@ -66,6 +66,10 @@
                                 <ScriptBlock>([PoshCode.Pansies.RgbColor]$_.foreground).ToVtEscapeSequence() + ([PoshCode.Pansies.RgbColor]$_.foreground).ToString() + "$([char]27)[49;39m"</ScriptBlock>
                             </ListItem>
                             <ListItem>
+                                <Label>cursorColor</Label>
+                                <ScriptBlock>([PoshCode.Pansies.RgbColor]$_.cursorColor).ToVtEscapeSequence() + ([PoshCode.Pansies.RgbColor]$_.cursorColor).ToString() + "$([char]27)[49;39m"</ScriptBlock>
+                            </ListItem>
+                            <ListItem>
                                 <Label>black</Label>
                                 <ScriptBlock>([PoshCode.Pansies.RgbColor]$_.black).ToVtEscapeSequence() + ([PoshCode.Pansies.RgbColor]$_.black).ToString() + "$([char]27)[49;39m"</ScriptBlock>
                             </ListItem>
