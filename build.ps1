@@ -1,8 +1,8 @@
 #requires -Module ModuleBuilder
-[CmdletBinding()]
+[CmdletBinding(SupportsShouldProcess)]
 param(
     # A specific folder to build into
-    $OutputDirectory,
+    $OutputDirectory = "Output",
 
     # The version of the output module
     [Alias("ModuleVersion")]
@@ -11,6 +11,7 @@ param(
 # Sanitize parameters to pass to Build-Module
 $ErrorActionPreference = "Stop"
 Push-Location $PSScriptRoot -StackName BuildModuleScript
+$OutputDirectory = Join-Path $Pwd $OutputDirectory
 
 if (-not $Semver -and (Get-Command gitversion -ErrorAction Ignore)) {
     if ($semver = gitversion -showvariable SemVer) {
@@ -20,27 +21,26 @@ if (-not $Semver -and (Get-Command gitversion -ErrorAction Ignore)) {
 
 try {
     # Call any nested build.ps1 scripts (I have one binary module in here)
-    foreach ($SubModule in Get-ChildItem Source -Recurse -File -Filter build.ps1) {
-        Write-Host $SubModule -ForegroundColor Yellow
-        & $SubModule
+    foreach ($BuildScript in Get-ChildItem Source -Recurse -File -Filter build.ps1) {
+        Write-Host $BuildScript -ForegroundColor Yellow
+        & $BuildScript
     }
 
-    # Build new output
-    $ParameterString = $PSBoundParameters.GetEnumerator().ForEach{ '-' + $_.Key + " '" + $_.Value + "'" } -join " "
-    Write-Host "Build-Module Source\build.psd1 $($ParameterString) -Target CleanBuild" -ForegroundColor Cyan
-    Build-Module .\Source\build.psd1 @PSBoundParameters -Target CleanBuild -Passthru -OutVariable BuildOutput | Split-Path
-    Write-Verbose "Module build output in $(Split-Path $BuildOutput.Path)"
+    if (Test-Path $OutputDirectory) {
+        if ($PSCmdlet.ShouldContinue("Replace existing build?", "'$(Resolve-Path $OutputDirectory)' exists")) {
+            Remove-Item $OutputDirectory -Recurse
+        } else {
+            Write-Error "Can't build $SemVer -- pass a newer -SemVer"
+            return
+        }
+    }
 
     # We have a bunch of submodules:
-    $SubModules = foreach ($SubModule in Get-ChildItem Source -Directory -Filter "Theme.*") {
-        $ThemeOutput = Join-Path (Split-Path $BuildOutput.Path) $SubModule.Name
-        Write-Host " - Build $($SubModule.Name)" -ForegroundColor Cyan
-        Build-Module ".\Source\$($SubModule.Name)\build.psd1" @PSBoundParameters -Target CleanBuild -OutputDirectory $ThemeOutput
-        $SubModule.Name
+    foreach ($Module in Get-ChildItem Source -Directory) {
+        $ThemeOutput = Join-Path $OutputDirectory $Module.Name
+        Write-Host " - Build $($Module.Name)" -ForegroundColor Cyan
+        Build-Module ".\Source\$($Module.Name)\build.psd1" @PSBoundParameters -Target CleanBuild -OutputDirectory $ThemeOutput
     }
-    <#
-    Update-Metadata -Path $BuildOutput.Path -PropertyName NestedModules -Value $SubModules
-    #>
 } finally {
     Pop-Location -StackName BuildModuleScript
 }

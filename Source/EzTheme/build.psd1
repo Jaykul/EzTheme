@@ -2,9 +2,7 @@
 # command when building the module (see `Get-Help Build-Module -Full` for details).
 @{
     ModuleManifest           = "EzTheme.psd1"
-    # Subsequent relative paths are to the ModuleManifest
-    OutputDirectory          = "../"
-    VersionedOutputDirectory = $true
+    VersionedOutputDirectory = $false
     CopyDirectories          = @('Themes')
     Postfix                  = "postfix.ps1"
 }
