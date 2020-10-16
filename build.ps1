@@ -26,15 +26,6 @@ try {
         & $BuildScript
     }
 
-    if (Test-Path $OutputDirectory) {
-        if ($PSCmdlet.ShouldContinue("Replace existing build?", "'$(Resolve-Path $OutputDirectory)' exists")) {
-            Remove-Item $OutputDirectory -Recurse
-        } else {
-            Write-Error "Can't build $SemVer -- pass a newer -SemVer"
-            return
-        }
-    }
-
     # We have a bunch of submodules:
     foreach ($Module in Get-ChildItem Source -Directory) {
         $ThemeOutput = Join-Path $OutputDirectory $Module.Name

@@ -16,8 +16,7 @@ function Export-Theme {
 
         # One or more modules to export the theme from (ignores other modules)
         [Parameter()]
-        [Alias("Module")]
-        [string[]]$IncludeModule,
+        [string[]]$Module,
 
         # If set, leave any additional modules in the theme
         [Parameter(ParameterSetName = "Default")]
@@ -37,18 +36,18 @@ function Export-Theme {
             @{}
         }
 
-        $ModuleInfo = if (!$IncludeModule) {
+        $ModuleInfo = if (!$Module) {
             @(Get-Module).Where{ $_.PrivateData -and $_.PrivateData.ContainsKey("EzTheme") }
         } else {
-            Get-Module $IncludeModule
+            Get-Module $Module
         }
 
-        foreach ($module in $ModuleInfo) {
-            Write-Verbose "Get theme from $($module.Name)"
+        foreach ($mi in $ModuleInfo) {
+            Write-Verbose "Get theme from $($mi.Name)"
             try {
-                $Theme[$module.Name] = & "$($Module.Name)\$($Module.PrivateData["EzTheme"]["Get"])"
+                $Theme[$mi.Name] = & "$($mi.Name)\$($mi.PrivateData["EzTheme"]["Get"])"
             } catch {
-                Write-Warning "Unable to get theme from $($module.Name)\$($module.PrivateData["EzTheme"]["Get"])"
+                Write-Warning "Unable to get theme from $($mi.Name)\$($mi.PrivateData["EzTheme"]["Get"])"
             }
         }
 

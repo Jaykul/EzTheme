@@ -33,7 +33,7 @@ function ExportTheme {
 
         if($PassThru) {
             $InputObject | Add-Member NoteProperty Name $Name -Passthru |
-                           Add-Member NoteProperty PSPath $NativeThemePath -Passthru
+                           Add-Member NoteProperty Path $NativeThemePath -Passthru
         }
 
         $Configuration = Import-Configuration

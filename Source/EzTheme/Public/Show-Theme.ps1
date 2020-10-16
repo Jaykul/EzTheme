@@ -16,34 +16,26 @@ function Show-Theme {
 
         # One or more modules to export the theme from (ignores registered modules)
         [Parameter()]
+        [AllowEmptyCollection()]
         [Alias("Module")]
-        [string[]]$IncludeModule
+        [string[]]$IncludeModule = "*"
     )
     process {
         # Without a theme name, show the current configuration
         $Themes = if (!$Name) {
             @($MyInvocation.MyCommand.Module.PrivateData.Theme)
         } else {
-            Get-Theme $Name -Module $IncludeModule | ImportTheme
+            Get-Theme $Name -Module $IncludeModule
         }
 
         foreach ($Theme in $Themes) {
-            if ($IncludeModule) {
-                foreach ($themedModule in @($Theme.Keys)) {
-                    if ($IncludeModule.ForEach({
-                            $_ -eq $ThemedModule -or
-                            $_ -like $ThemedModule -or
-                            "Theme.$_" -eq $ThemedModule -or
-                            "$_.Theme" -eq "$ThemedModule"
-                        }) -notcontains $true) {
-                        Write-Verbose "Not showing $ThemedModule theme "
-                        $Theme.Remove($themedModule)
+            foreach ($module in $IncludeModule) {
+                foreach ($ModuleTheme in $Theme.Modules.Where({ ($_ -like $Module) -or $_ -eq "Theme.$Module" -or $_ -eq "$Module.Theme" })) {
+                    Write-Host "$([char]27)[0m$ModuleTheme $($Theme.Name) theme:"
+                    foreach ($ThemeObject in $Theme[$ModuleTheme]) {
+                        $ThemeObject | Out-Default
                     }
                 }
-            }
-            foreach ($module in $Theme.Keys) {
-                Write-Host "$module $($Theme.Name) theme:"
-                $Theme[$module] | Out-Default
             }
         }
     }

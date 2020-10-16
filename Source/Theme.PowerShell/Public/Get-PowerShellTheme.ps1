@@ -27,7 +27,7 @@ function Get-PowerShellTheme {
             $Result = $Host.PrivateData |
                 Select-Object *AccentColor, *BackgroundColor, *ForegroundColor
         }
-        $Result.PSTypeNames.Insert(0, "Terminal.ColorScheme")
+        $Result.PSTypeNames.Insert(0, "Microsoft.PowerShell.ConsoleHost+ConsoleColorProxy")
         $Result
     }
 }

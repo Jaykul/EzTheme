@@ -29,42 +29,43 @@ function Import-Theme {
         [string[]]$ExcludeModule,
 
         # Normally, only modules that are currently imported are themed.
-        # If you set this, any supported module that's installed will be imported and themed
+        # If you set this, any module in the theme that's installed will be imported and themed
         [switch]$Force
     )
     begin {
         $SupportedModules = @(Get-Module).Where{ $_.PrivateData -is [Collections.IDictionary] -and $_.PrivateData.ContainsKey("EzTheme") }
         if (!$IncludeModule) {
-            $IncludeModule = $SupportedModules.Name
+            $IncludeModule = $SupportedModules
         }
     }
     process {
-        $Theme = ImportTheme $Name
-        $Theme.PSTypeNames.Insert(0, "EzTheme.Theme")
+        $null = $PSBoundParameters.Remove("Force")
+        $Theme = ImportTheme @PSBoundParameters
         # Store the current theme in our private data
         $MyInvocation.MyCommand.Module.PrivateData["Theme"] = $Theme
-        # Also store the current theme on the Host.PrivateData if we can
-        if ($Host.PrivateData.Theme -and $Host.PrivateData.Theme.PSTypeNames[0] -eq "EzTheme.Theme") {
+        # Also store the current theme on the Host.PrivateData which survives module reload
+        if ($Host.PrivateData.Theme -and $Host.PrivateData.Theme -is [Theme]) {
+            # Instead of overwriting the theme, just update the modules we're importing:
             $Host.PrivateData.Theme = $Theme
         } else {
-            $Host.PrivateData | Add-Member -NotePropertyName Theme -NotePropertyValue $Theme -ErrorAction SilentlyContinue
+            $Host.PrivateData | Add-Member -NotePropertyName Theme -NotePropertyValue $Theme -Force -ErrorAction SilentlyContinue
         }
+        # Also export it to the configuration which survives PowerShell sessions (and affects new sessions)
+        $Configuration = Import-Configuration
+        $Configuration.Theme = $Theme.Name
+        $Configuration | Export-Configuration
 
         if ($Force) {
-            foreach ($module in $Theme.Keys) {
+            foreach ($module in $Theme.Modules) {
                 Write-Verbose "Importing $module because of -Force"
                 Import-Module $module -ErrorAction SilentlyContinue -Scope Global
             }
-            $SupportedModules = @(Get-Module).Where{ $_.PrivateData -and $_.PrivateData.ContainsKey("EzTheme") }
-            $IncludeModule = $SupportedModules.Name
+            $SupportedModules = @(Get-Module).Where{ $_.PrivateData -is [Collections.IDictionary] -and $_.PrivateData.ContainsKey("EzTheme") }
         }
 
-        foreach ($module in $Theme.Keys) {
+        foreach ($module in $Theme.Modules) {
             # No point themeing modules that aren't imported?
             if ($module -notin @($SupportedModules.Name)) {
-                continue
-            }
-            if ($module -in @($ExcludeModule)) {
                 continue
             }
 

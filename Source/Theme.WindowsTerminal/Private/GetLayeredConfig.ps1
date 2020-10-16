@@ -24,7 +24,20 @@ function GetLayeredConfig {
     }
 
     if (!$script:DefaultConfig) {
-        if (($wtExecutable = (Get-Process WindowsTerminal -ErrorAction Ignore).Path)) {
+        $wt = @(Get-Process WindowsTerminal -ErrorAction Ignore)
+        if ($wt.count -eq 1) {
+            $wtExecutable = $wt.Path
+        } else {
+            $ps = Get-Process -Id $Pid
+            while ($ps.ProcessName -ne "WindowsTerminal" -and $ps.Parent) {
+                $ps = $ps.Parent
+            }
+            if ($ps.ProcessName -eq "WindowsTerminal") {
+                $wtExecutable = $ps.Path
+            }
+        }
+
+        if ($wtExecutable) {
             $DefaultConfigFile = Get-ChildItem ($wtExecutable | Split-Path) -Filter defaults.json | Convert-Path
         }
 

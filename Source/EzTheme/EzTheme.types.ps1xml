@@ -1,0 +1,11 @@
+<Types>
+  <Type>
+    <Name>Theme</Name>
+    <Members>
+      <AliasProperty>
+        <Name>SupportedModules</Name>
+        <ReferencedMemberName>Modules</ReferencedMemberName>
+      </AliasProperty>
+    </Members>
+  </Type>
+</Types>

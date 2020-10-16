@@ -3,6 +3,6 @@
 @{
     ModuleManifest           = "EzTheme.psd1"
     VersionedOutputDirectory = $false
-    CopyDirectories          = @('Themes')
+    CopyDirectories          = @('Themes', "Interfaces.ps1")
     Postfix                  = "postfix.ps1"
 }
