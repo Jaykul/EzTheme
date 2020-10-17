@@ -33,14 +33,14 @@ function Get-Theme {
 
             $SupportedModule.ForEach({
                 $ExpectedModule = $_
-                if (!$ThemeData[$_]) {
+                if (!$ThemeData.Item($_)) {
                     # skip outputting this theme because it doesn't support this module
                     Write-Verbose "The $Name theme doesn't support $ExpectedModule $($ThemeData.Modules -join ', ')"
                     continue # goes to the outer foreach in FindTheme
                 }
             })
             if ($ExpandModule) {
-                $ThemeData[$ExpandModule] | ForEach-Object { $_ } # Enumerate
+                $ThemeData.Item($ExpandModule) | ForEach-Object { $_ } # Enumerate
             } else {
                 $ThemeData
             }

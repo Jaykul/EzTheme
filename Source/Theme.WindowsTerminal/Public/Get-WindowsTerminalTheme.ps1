@@ -28,7 +28,7 @@ function Get-WindowsTerminalTheme {
         }
 
         if ($ColorScheme) {
-            $Result = $Config.schemes.Where({ $_.name -eq $colorScheme })[0]
+            $Result = @($Config.schemes).Where({ $_.name -eq $colorScheme })[0]
             $Result.PSTypeNames.Insert(0, "Terminal.ColorScheme")
             if ($ActiveProfile) {
                 # Update with overrides from the active profile
@@ -47,7 +47,7 @@ function Get-WindowsTerminalTheme {
             }
 
             # Since all the properties are colors, we cast them to RgbColor for display purposes
-            foreach ($property in (Get-Member -Input $Result -Type Properties).Where({$_.Name -ne "name"}).name) {
+            foreach ($property in @(Get-Member -Input $Result -Type Properties).Where({$_.Name -ne "name"}).name) {
                 $Result.$property = [RgbColor]$Result.$property
             }
             $Result

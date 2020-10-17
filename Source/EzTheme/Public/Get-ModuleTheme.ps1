@@ -64,8 +64,9 @@ function Get-ModuleTheme {
             } else {
                 $MyInvocation.MyCommand.Module.PrivateData["Theme"]
             }
-
-            $Theme[$Module]
+            if ($Theme) {
+                $Theme.Item($Module)
+            }
         }
     }
 }

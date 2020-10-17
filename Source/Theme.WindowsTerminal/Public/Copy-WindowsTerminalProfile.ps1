@@ -83,13 +83,13 @@ function Copy-WindowsTerminalProfile {
         $Config = GetSimpleConfig
 
         if ($SourceProfileName) {
-            $SourceProfile = $LayeredConfig.profiles.list.Where({ $_.Name -eq $SourceProfileName }, "First", 1)[0] | Select-Object *
+            $SourceProfile = @($LayeredConfig.profiles.list).Where({ $_.Name -eq $SourceProfileName }, "First", 1)[0] | Select-Object *
         }
         if (!$SourceProfile) {
             $SourceProfile = FindProfile $LayeredConfig.profiles.list
         }
 
-        if (!($ActualProfile = $Config.profiles.list.Where({ $_.Name -eq $SourceProfile.Name }, "First", 1)[0] | Select-Object * -ExcludeProperty "source", "hidden")) {
+        if (!($ActualProfile = @($Config.profiles.list).Where({ $_.Name -eq $SourceProfile.Name }, "First", 1)[0] | Select-Object * -ExcludeProperty "source", "hidden")) {
             $ActualProfile = $SourceProfile | Select-Object * -ExcludeProperty "source", "hidden"
         }
 
@@ -135,7 +135,7 @@ function Copy-WindowsTerminalProfile {
             $Config.defaultProfile = $ActualProfile.guid
 
             # Force the newTab hotkey to something
-            $NewTab = $LayeredConfig.keybindings.where({ $_.command -eq "newTab" }, "First", 1)[0]
+            $NewTab = @($LayeredConfig.keybindings).where({ $_.command -eq "newTab" }, "First", 1)[0]
             $NewTab.keys = @( "ctrl+t" )
             $Config.keybindings = @($NewTab)
             Set-Content $UserConfigFile ($Config | ConvertTo-Json -Depth 10)
@@ -148,7 +148,7 @@ function Copy-WindowsTerminalProfile {
             $Config.defaultProfile = $DefaultProfile
             $Config.keybindings = $DefaultKeyBindings
             if ($AutoDelete) {
-                $Config.profiles.list = $Config.profiles.list.Where{ $_.guid -ne $ActualProfile.guid }
+                $Config.profiles.list = @($Config.profiles.list).Where{ $_.guid -ne $ActualProfile.guid }
             }
             Set-Content $UserConfigFile ($Config | ConvertTo-Json -Depth 10)
         }

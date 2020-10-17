@@ -70,9 +70,9 @@ function Import-Theme {
             }
 
             try {
-                Write-Verbose "Set the $Name theme for $($module)"
                 $TheModule = $SupportedModules.Where({$module -eq $_.Name}, "First", 1)[0]
-                $Theme[$module] | & "$($TheModule.Name)\$($TheModule.PrivateData["EzTheme"]["Set"])"
+                Write-Verbose "Set the $Name theme for $TheModule $($Theme.Item($module) | Out-String)"
+                $Theme.Item($module) | & "$($TheModule.Name)\$($TheModule.PrivateData["EzTheme"]["Set"])"
             } catch {
                 Write-Warning "Unable to set theme for $($module)\$($TheModule.PrivateData["EzTheme"]["Set"])"
             }

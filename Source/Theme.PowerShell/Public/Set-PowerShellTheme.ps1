@@ -59,7 +59,13 @@ function Set-PowerShellTheme {
                 $Host.UI.RawUI.ForegroundColor = $PSBoundParameters[$_]
             }
             default {
-                $Host.PrivateData.$_ = $PSBoundParameters[$_]
+                $Key = $_
+                try {
+                    $Host.PrivateData.$_ = $PSBoundParameters[$_]
+                } catch {
+                    Write-Debug "Adding $Key = '$($PSBoundParameters[$Key])' to Host.PrivateData"
+                    Add-Member -InputObject $Host.PrivateData -NotePropertyName $Key -NotePropertyValue $PSBoundParameters[$Key] -ErrorAction SilentlyContinue
+                }
             }
         }
     }

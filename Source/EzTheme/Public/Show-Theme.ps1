@@ -32,7 +32,7 @@ function Show-Theme {
             foreach ($module in $IncludeModule) {
                 foreach ($ModuleTheme in $Theme.Modules.Where({ ($_ -like $Module) -or $_ -eq "Theme.$Module" -or $_ -eq "$Module.Theme" })) {
                     Write-Host "$([char]27)[0m$ModuleTheme $($Theme.Name) theme:"
-                    foreach ($ThemeObject in $Theme[$ModuleTheme]) {
+                    foreach ($ThemeObject in $Theme.Item($ModuleTheme)) {
                         $ThemeObject | Out-Default
                     }
                 }

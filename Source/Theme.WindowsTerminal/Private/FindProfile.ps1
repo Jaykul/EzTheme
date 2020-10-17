@@ -2,7 +2,7 @@ function FindProfile {
     [CmdletBinding()]
     param(
         # A collection of profiles to search by GUID
-        $Profiles = $((GetLayeredConfig -FlattenDefaultProfile).profiles.list),
+        $Profiles = @((GetLayeredConfig -FlattenDefaultProfile).profiles.list),
 
         # If the only thing we care about is the color scheme, we can take shortcuts
         [Switch]$ColorSchemeReadOnly,

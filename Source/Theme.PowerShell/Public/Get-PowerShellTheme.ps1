@@ -19,13 +19,13 @@ function Get-PowerShellTheme {
         }
         if ($RawUI = $Host.UI.RawUI) {
             $Result = $Host.PrivateData |
-                Select-Object *AccentColor, *BackgroundColor, *ForegroundColor |
+                Select-Object *Color |
                 Add-Member -NotePropertyName Foreground -NotePropertyValue $RawUI.ForegroundColor -PassThru |
                 Add-Member -NotePropertyName Background -NotePropertyValue $RawUI.BackgroundColor -PassThru
 
         } else {
             $Result = $Host.PrivateData |
-                Select-Object *AccentColor, *BackgroundColor, *ForegroundColor
+                Select-Object *Color
         }
         $Result.PSTypeNames.Insert(0, "Microsoft.PowerShell.ConsoleHost+ConsoleColorProxy")
         $Result

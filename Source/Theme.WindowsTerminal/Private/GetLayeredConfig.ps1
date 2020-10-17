@@ -20,7 +20,11 @@ function GetLayeredConfig {
     if (!$UserConfigFile) {
         Write-Warning "Unable to locate Windows Terminal's settings.json"
     } else {
-        $UserConfig = ConvertFrom-Json (Get-Content $UserConfigFile -Raw)
+        $UserConfig = if ($PSVersionTable.PSVersion.Major -gt 5) {
+                ConvertFrom-Json (Get-Content $UserConfigFile -Raw)
+            } else { # WindowsPowerShell's JSON can't handle comments
+                ConvertFrom-Json (((Get-Content $UserConfigFile) -replace "^\s*//.*") -join "`n")
+            }
     }
 
     if (!$script:DefaultConfig) {
@@ -44,7 +48,11 @@ function GetLayeredConfig {
         if (!$DefaultConfigFile) {
             Write-Warning "Unable to locate Windows Terminal's default.json"
         } else {
-            $script:DefaultConfig = ConvertFrom-Json (Get-Content $DefaultConfigFile -Raw)
+            $script:DefaultConfig = if ($PSVersionTable.PSVersion.Major -gt 5) {
+                ConvertFrom-Json (Get-Content $DefaultConfigFile -Raw)
+            } else { # WindowsPowerShell's JSON can't handle comments
+                ConvertFrom-Json (((Get-Content $DefaultConfigFile) -replace "^\s*//.*") -join "`n")
+            }
         }
     }
 
@@ -87,7 +95,7 @@ function GetLayeredConfig {
     }
     # Let's be honest, schemes that are in the default probably aren't in UserConfig, so copy them:
     $existing = $UserConfig.schemes.name
-    $UserConfig.schemes += $DefaultConfig.schemes.where{$_.name -notin $existing}
+    $UserConfig.schemes += @($DefaultConfig.schemes).where{$_.name -notin $existing}
 
     # Finally, copy over everything else
     Update-Object -InputObject ($DefaultConfig | Select-Object *) -UpdateObject $UserConfig

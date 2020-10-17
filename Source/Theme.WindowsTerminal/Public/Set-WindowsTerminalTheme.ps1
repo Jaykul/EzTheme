@@ -94,8 +94,8 @@ function Set-WindowsTerminalTheme {
             $UserConfig.schemes[$SchemeIndex] = $Scheme
         }
 
-        if(!($CurrentUserProfile = $UserConfig.profiles.where({$_.guid -eq $CurrentProfile.guid}))) {
-            $CurrentUserProfile = $UserConfig.profiles.list.where({$_.guid -eq $CurrentProfile.guid})
+        if(!($CurrentUserProfile = @($UserConfig.profiles).where({$_.guid -eq $CurrentProfile.guid}))) {
+            $CurrentUserProfile = @($UserConfig.profiles.list).where({$_.guid -eq $CurrentProfile.guid})
         }
 
         if ($CurrentUserProfile.colorScheme) {
