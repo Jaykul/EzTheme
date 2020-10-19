@@ -1,6 +1,5 @@
 @{  # There are three copies here of the Terminal.ColorScheme, one for each terminal-theming module
     'Theme.Terminal' = PSObject @{
-        name         = 'Darkly'
         foreground   = RgbColor '#FFFCFF'
         background   = RgbColor '#212021'
 
@@ -20,11 +19,10 @@
         red          = RgbColor '#D92D20'
         white        = RgbColor '#A5A2A2'
         yellow       = RgbColor '#FBED02'
-    } -TypeName 'Terminal.ColorScheme', 'System.Management.Automation.PSCustomObject', 'System.Object'
+    } -TypeName 'Terminal.ColorScheme'
 
 
     'Theme.WindowsTerminal' = PSObject @{
-        name         = 'Darkly'
         foreground   = RgbColor '#FFFCFF'
         background   = RgbColor '#212021'
 
@@ -44,10 +42,9 @@
         red          = RgbColor '#D92D20'
         white        = RgbColor '#A5A2A2'
         yellow       = RgbColor '#FBED02'
-    } -TypeName 'Terminal.ColorScheme', 'System.Management.Automation.PSCustomObject', 'System.Object'
+    } -TypeName 'Terminal.ColorScheme'
 
     'Theme.WindowsConsole'        = PSObject @{
-        name         = 'Darkly'
         foreground   = RgbColor '#FFFCFF'
         background   = RgbColor '#212021'
 
@@ -67,7 +64,7 @@
         red          = RgbColor '#D92D20'
         white        = RgbColor '#A5A2A2'
         yellow       = RgbColor '#FBED02'
-    } -TypeName 'Terminal.ColorScheme', 'System.Management.Automation.PSCustomObject', 'System.Object'
+    } -TypeName 'Terminal.ColorScheme'
 
     'Theme.PowerShell' = PSObject @{
         Background              = ConsoleColor Black
@@ -84,7 +81,7 @@
         VerboseForegroundColor  = ConsoleColor Cyan
         WarningBackgroundColor  = ConsoleColor Black
         WarningForegroundColor  = ConsoleColor Yellow
-    } -TypeName 'Selected.Microsoft.PowerShell.ConsoleHost+ConsoleColorProxy', 'System.Management.Automation.PSCustomObject', 'System.Object'
+    } -TypeName 'Selected.Microsoft.PowerShell.ConsoleHost+ConsoleColorProxy'
 
     'Theme.PSReadLine' = PSObject @{
         CommandColor            = "$([char]27)[38;2;255;230;109m"
@@ -103,7 +100,7 @@
         StringColor             = "$([char]27)[38;2;150;224;114m"
         TypeColor               = "$([char]27)[38;2;238;93;67m"
         VariableColor           = "$([char]27)[38;2;0;242;178m"
-    } -TypeName 'Selected.Microsoft.PowerShell.PSConsoleReadLineOptions', 'System.Management.Automation.PSCustomObject', 'System.Object'
+    } -TypeName 'Selected.Microsoft.PowerShell.PSConsoleReadLineOptions'
 
     PowerLine = PSObject @{
         FullColor           = $True
@@ -130,5 +127,5 @@
             ScriptBlock '"`n"'
             ScriptBlock 'New-PromptText "I $(New-PromptText "&hearts;" -Bg Gray40 -EBg Red -EFg Black -Fg Sienna1)$(New-PromptText " PS" -Bg Gray40 -EBg Red -Fg White)" -Bg Gray40 -EBg Red -Fg White'
         )
-    } -TypeName 'PowerLine.Theme', 'System.Management.Automation.PSCustomObject', 'System.Object'
+    } -TypeName 'PowerLine.Theme'
 }
