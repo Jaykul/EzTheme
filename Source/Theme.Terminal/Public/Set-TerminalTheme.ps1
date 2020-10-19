@@ -80,7 +80,7 @@ function Set-TerminalTheme {
             "$e]4;13;rgb:{0:x}/{1:x}/{2:x}$b" -f [int]$brightPurple.R, [int]$brightPurple.G, [int]$brightPurple.B
             "$e]4;14;rgb:{0:x}/{1:x}/{2:x}$b" -f [int]$brightCyan.R, [int]$brightCyan.G, [int]$brightCyan.B
             "$e]4;15;rgb:{0:x}/{1:x}/{2:x}$b" -f [int]$brightWhite.R, [int]$brightWhite.G, [int]$brightWhite.B
-        ) -join ""
+        ) -join "" | Write-Host -NoNewLine
 
         if ($Host.PrivateData.Theme) {
             $Host.PrivateData.Theme["Theme.Terminal"] = [PSCustomObject]@{
