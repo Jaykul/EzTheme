@@ -1,12 +1,19 @@
 function Get-iTerm2ColorScheme {
+    <#
+        .Synopsis
+            Fetch a colorscheme from https://github.com/mbadolato/iTerm2-Color-Schemes
+    #>
     [CmdletBinding()]
     param(
+        # The name of an iTerm2 color scheme
+        # See https://github.com/mbadolato/iTerm2-Color-Schemes#screenshots for visuals
         [Parameter(Mandatory)]
+        [ValidateSet( "3024 Day", "3024 Night", "Adventure", "AdventureTime", "Afterglow", "AlienBlood", "Andromeda", "Argonaut", "Arthur", "AtelierSulphurpool", "Atom", "AtomOneLight", "Banana Blueberry", "Batman", "Belafonte Day", "Belafonte Night", "BirdsOfParadise", "Blazer", "Blue Matrix", "BlueBerryPie", "BlulocoDark", "BlulocoLight", "Borland", "Breeze", "Bright Lights", "Broadcast", "Brogrammer", "Builtin Dark", "Builtin Light", "Builtin Pastel Dark", "Builtin Solarized Dark", "Builtin Solarized Light", "Builtin Tango Dark", "Builtin Tango Light", "C64", "CLRS", "Calamity", "Chalk", "Chalkboard", "ChallengerDeep", "Chester", "Ciapre", "Cobalt Neon", "Cobalt2", "CrayonPonyFish", "Cyberdyne", "Dark Pastel", "Dark+", "Darkside", "Desert", "DimmedMonokai", "Django", "DjangoRebornAgain", "DjangoSmooth", "DoomOne", "DotGov", "Dracula+", "Dracula", "Duotone Dark", "ENCOM", "Earthsong", "Elemental", "Elementary", "Espresso Libre", "Espresso", "Fahrenheit", "Fideloper", "FirefoxDev", "Firewatch", "FishTank", "Flat", "Flatland", "Floraverse", "ForestBlue", "Framer", "FrontEndDelight", "FunForrest", "Galaxy", "Github", "Glacier", "Grape", "Grass", "Gruvbox Dark", "Gruvbox Light", "Hacktober", "Hardcore", "Harper", "Highway", "Hipster Green", "Hivacruz", "Homebrew", "Hopscotch.256", "Hopscotch", "Hurtado", "Hybrid", "IC_Green_PPL", "IC_Orange_PPL", "IR_Black", "Jackie Brown", "Japanesque", "Jellybeans", "JetBrains Darcula", "Kibble", "Kolorit", "Konsolas", "Lab Fox", "Laser", "Later This Evening", "Lavandula", "LiquidCarbon", "LiquidCarbonTransparent", "LiquidCarbonTransparentInverse", "Man Page", "Material", "MaterialDark", "MaterialDarker", "MaterialOcean", "Mathias", "Medallion", "Mirage", "Misterioso", "Molokai", "MonaLisa", "Monokai Remastered", "Monokai Soda", "Monokai Vivid", "N0tch2k", "Neopolitan", "Neutron", "Night Owlish Light", "NightLion v1", "NightLion v2", "Nocturnal Winter", "Novel", "Obsidian", "Ocean", "OceanicMaterial", "Ollie", "OneHalfDark", "OneHalfLight", "Operator Mono Dark", "Overnight Slumber", "Pandora", "Paraiso Dark", "Parasio Dark", "PaulMillr", "PencilDark", "PencilLight", "Piatto Light", "Pnevma", "Popping and Locking", "Pro Light", "Pro", "Purple Rain", "Rapture", "Red Alert", "Red Planet", "Red Sands", "Relaxed", "Rippedcasts", "Rouge 2", "Royal", "Ryuuko", "Sakura", "Scarlet Protocol", "SeaShells", "Seafoam Pastel", "Seti", "Shaman", "Slate", "SleepyHollow", "Smyck", "Snazzy", "SoftServer", "Solarized Darcula", "Solarized Dark - Patched", "Solarized Dark Higher Contrast", "SpaceGray Eighties Dull", "SpaceGray Eighties", "SpaceGray", "Spacedust", "Spiderman", "Spring", "Square", "Subliminal", "Sundried", "Symfonic", "Tango Adapted", "Tango Half Adapted", "Teerb", "Terminal Basic", "Thayer Bright", "The Hulk", "Tinacious Design (Dark)", "Tinacious Design (Light)", "Tomorrow Night Blue", "Tomorrow Night Bright", "Tomorrow Night Burns", "Tomorrow Night Eighties", "Tomorrow Night", "Tomorrow", "ToyChest", "Treehouse", "Twilight", "Ubuntu", "UltraViolent", "UnderTheSea", "Unikitty", "Urple", "Vaughn", "VibrantInk", "Violet Dark", "Violet Light", "WarmNeon", "Wez", "Whimsy", "WildCherry", "Wombat", "Wryan", "Zenburn", "ayu", "ayu_light", "coffee_theme", "cyberpunk", "deep", "idea", "idleToes", "jubi", "lovelace", "midnight-in-mojave", "nord", "primary", "purplepeter", "rebecca", "shades-of-purple", "synthwave-everything", "synthwave" )]
         $Name
     )
     process {
-        $Name = [System.Text.Encodings.Web.UrlEncoder]::Default.Encode($Name) + ".json"
-        $ColorScheme = Invoke-RestMethod https://raw.githubusercontent.com/mbadolato/iTerm2-Color-Schemes/master/windowsterminal/$Name
+        $FileName = [System.Text.Encodings.Web.UrlEncoder]::Default.Encode($Name) + ".json"
+        $ColorScheme = Invoke-RestMethod "https://raw.githubusercontent.com/mbadolato/iTerm2-Color-Schemes/master/windowsterminal/$FileName"
 
         $ColorScheme.PSTypeNames.Insert(0, "Terminal.ColorScheme")
         $ColorScheme

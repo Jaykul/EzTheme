@@ -27,13 +27,14 @@
         # The name of (or full path to) a vscode json theme which you have installed
         # E.g. 'Dark+' or 'Monokai'
         [ArgumentCompleter({
+            param($commandName, $parameterName, $wordToComplete, $commandAst, $fakeBoundParameters)
             Get-VSCodeTheme -List | ForEach-Object {
                 if ($_.Name -match "[\s'`"]") {
                     "'{0}'" -f ($_.Name -replace "'", "''")
                 } else {
                     $_.Name
                 }
-            }
+            } | Where-Object { $_.StartsWith($wordToComplete) }
         })]
         [Alias("PSPath", "Name")]
         [Parameter(ParameterSetName = "ByName", ValueFromPipeline, ValueFromPipelineByPropertyName, Position = 0)]

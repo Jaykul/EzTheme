@@ -12,7 +12,10 @@ function Get-Theme {
         [Alias("Theme", "PSPath")]
         [Parameter(ValueFromPipelineByPropertyName, Position = 0)]
         [ValidateNotNullOrEmpty()]
-        [ArgumentCompleter({ Get-Theme })]
+        [ArgumentCompleter({
+            param($commandName, $parameterName, $wordToComplete, $commandAst, $fakeBoundParameters)
+            Get-Theme $wordToComplete*
+        })]
         [string]$Name = "*",
 
         # If set, only returns themes that support theming all the specified modules. Supports wildcards.

@@ -11,7 +11,10 @@ function Show-Theme {
         [Alias("Theme","PSPath")]
         [Parameter(ValueFromPipelineByPropertyName, Position = 0)]
         [ValidateNotNullOrEmpty()]
-        [ArgumentCompleter({Get-Theme})]
+        [ArgumentCompleter({
+            param($commandName, $parameterName, $wordToComplete, $commandAst, $fakeBoundParameters)
+            Get-Theme $wordToComplete*
+        })]
         [string]$Name,
 
         # One or more modules to export the theme from (ignores registered modules)

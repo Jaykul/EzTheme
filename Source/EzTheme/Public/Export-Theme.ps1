@@ -11,7 +11,10 @@ function Export-Theme {
         # The name of the theme to export the current settings
         [Parameter(Position = 0, Mandatory)]
         [ValidateNotNullOrEmpty()]
-        [ArgumentCompleter({ Get-Theme })]
+        [ArgumentCompleter({
+            param($commandName, $parameterName, $wordToComplete, $commandAst, $fakeBoundParameters)
+            Get-Theme $wordToComplete*
+        })]
         [string]$Name,
 
         # One or more modules to export the theme from (ignores other modules)

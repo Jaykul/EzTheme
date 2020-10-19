@@ -16,7 +16,10 @@ function Import-Theme {
     param(
         # A theme to import (can be the name of an installed theme, or the full path to a psd1 file)
         [Parameter(Mandatory, ValueFromPipeline, ValueFromPipelineByPropertyName, Position = 0)]
-        [ArgumentCompleter({Get-Theme})]
+        [ArgumentCompleter({
+            param($commandName, $parameterName, $wordToComplete, $commandAst, $fakeBoundParameters)
+            Get-Theme $wordToComplete*
+        })]
         [string]$Name,
 
         # One or more modules to export the theme from (ignores all other modules)
@@ -55,10 +58,10 @@ function Import-Theme {
         $Configuration.Theme = $Theme.Name
         $Configuration | Export-Configuration
 
-        if ($Force) {
+        if ($Force -or $PSBoundParameters.ContainsKey("IncludeModule")) {
             foreach ($module in $Theme.Modules) {
-                Write-Verbose "Importing $module because of -Force"
-                Import-Module $module -ErrorAction SilentlyContinue -Scope Global
+                Write-Verbose "Importing $module because it was Included or Forced by hand"
+                Import-Module $module -ErrorAction SilentlyContinue -Scope Global -Verbose:$false
             }
             $SupportedModules = @(Get-Module).Where{ $_.PrivateData -is [Collections.IDictionary] -and $_.PrivateData.ContainsKey("EzTheme") }
         }
