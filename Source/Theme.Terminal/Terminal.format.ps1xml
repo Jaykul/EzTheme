@@ -14,29 +14,33 @@
                                     $ansi = 30
                                     $bold = $false
                                     $this = $_
-                                    Write-Host ($([PoshCode.Pansies.RgbColor]$this.background).ToVtEscapeSequence($true) + $([PoshCode.Pansies.RgbColor]$this.foreground).ToVtEscapeSequence())
-                                    Write-Host $this.Name
-                                    Write-Host "         m     40m     41m     42m     43m     44m     45m     46m     47m     100m    107m      "
-                                    Write-Host -NoNewLine "    m"
-
+                                    $n = "$([char]27)[95@`n"
                                     $TerminalColors = $null, "black", "brightBlack", "red", "brightRed", "green", "brightGreen", "yellow", "brightYellow", "blue", "brightBlue", "purple", "brightPurple", "cyan", "brightCyan", "white", "brightWhite"
                                     $DarkColors = $null, "Black", "Red", "Green", "Yellow", "Blue", "Purple", "Cyan", "White", "brightBlack", "brightWhite"
 
-                                    foreach($fg in $TerminalColors) {
-                                        Write-Host -NoNewLine ($([PoshCode.Pansies.RgbColor]$this.background).ToVtEscapeSequence($true) + $([PoshCode.Pansies.RgbColor]$this.foreground).ToVtEscapeSequence())
-                                        if ($fg) {
-                                            Write-Host -NoNewLine "$(if($bold){"1;"}else{"  "})$($ansi)m"
-                                            $ansi += $bold
-                                            $bold = !$bold
-                                        }
-                                        Write-Host -NoNewLine $(if($null -ne $fg) { $([PoshCode.Pansies.RgbColor]$this.$fg).ToVtEscapeSequence() })
-                                        foreach($bg in $DarkColors) {
-                                            Write-Host -NoNewLine $(if($null -ne $bg) { $([PoshCode.Pansies.RgbColor]$this.$bg).ToVtEscapeSequence($true) })
-                                            Write-Host -NoNewLine $("  gYw  " + $([PoshCode.Pansies.RgbColor]$this.background).ToVtEscapeSequence($true) + " ")
-                                        }
-                                        Write-Host "  "
-                                    }
-                                    Write-Host "$([char]27)[0m"
+                                    $([PoshCode.Pansies.RgbColor]$this.background).ToVtEscapeSequence($true) +
+                                    $([PoshCode.Pansies.RgbColor]$this.foreground).ToVtEscapeSequence() +
+                                    $this.Name.PadRight(95) + "$n" +
+                                    "         m     40m     41m     42m     43m     44m     45m     46m     47m     100m    107m $n" +
+                                    "    m" + $($(
+                                      foreach ($fg in $TerminalColors) {
+                                          ($([PoshCode.Pansies.RgbColor]$this.background).ToVtEscapeSequence($true) + $([PoshCode.Pansies.RgbColor]$this.foreground).ToVtEscapeSequence())
+                                          if ($fg) {
+                                              "$(if($bold){"1;"}else{"  "})$($ansi)m"
+                                              $ansi += $bold
+                                              $bold = !$bold
+                                          }
+                                          $(if($null -ne $fg) { $([PoshCode.Pansies.RgbColor]$this.$fg).ToVtEscapeSequence() })
+                                          foreach($bg in $DarkColors) {
+                                              $(if($null -ne $bg) { $([PoshCode.Pansies.RgbColor]$this.$bg).ToVtEscapeSequence($true) })
+                                              $("  gYw  " + $([PoshCode.Pansies.RgbColor]$this.background).ToVtEscapeSequence($true) + " ")
+                                          }
+                                          "  $n"
+                                      }
+                                    ) -join "") +
+                                    $([PoshCode.Pansies.RgbColor]$this.background).ToVtEscapeSequence($true) +
+                                    $([PoshCode.Pansies.RgbColor]$this.foreground).ToVtEscapeSequence() +
+                                    (" " * 92) + "$n$([char]27)[0m`n"
                                 </ScriptBlock>
                             </ExpressionBinding>
                         </CustomItem>

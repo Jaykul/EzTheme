@@ -4,6 +4,7 @@
             <Name>PowerShell-Preview</Name>
             <ViewSelectedBy>
                 <TypeName>Microsoft.PowerShell.ConsoleHost+ConsoleColorProxy</TypeName>
+                <TypeName>Selected.Microsoft.PowerShell.ConsoleHost+ConsoleColorProxy</TypeName>
             </ViewSelectedBy>
             <CustomControl>
                 <CustomEntries>
@@ -11,23 +12,35 @@
                         <CustomItem>
                             <ExpressionBinding>
                                 <ScriptBlock>
-                                    Write-Host "$(' ' * $Host.UI.RawUI.BufferSize.Width)`n$(
-                                            " PROGRESS: ForegroundColor: $($_.ProgressForegroundColor), BackgroundColor: $($_.ProgressBackgroundColor)".PadRight($Host.UI.RawUI.BufferSize.Width, " ")
-                                        )`n$(
-                                            ' '.PadRight($Host.UI.RawUI.BufferSize.Width, "`u{A0}")
-                                        )" -ForegroundColor $_.ProgressForegroundColor -BackgroundColor $_.ProgressBackgroundColor
+                                  $W = -1 + $Host.UI.RawUI.BufferSize.Width
+                                  if ($W -le 0) {
+                                    $W = 80
+                                  }
+                                  (@(
+                                    New-Text -ForegroundColor $_.ProgressForegroundColor -BackgroundColor $_.ProgressBackgroundColor (@(
+                                      (' ' * $W)
+                                      " PROGRESS: ForegroundColor: $($_.ProgressForegroundColor), BackgroundColor: $($_.ProgressBackgroundColor)".PadRight($W, " ")
+                                      (' ' * $W)
+                                    ) -join "`n")
 
-                                    Write-Host "WARNING: ForegroundColor: $($_.WarningForegroundColor), BackgroundColor: $($_.WarningBackgroundColor)" -ForegroundColor $_.WarningForegroundColor -BackgroundColor $_.WarningBackgroundColor
+                                    New-Text "DEBUG: ForegroundColor: $($_.DebugForegroundColor), BackgroundColor: $($_.DebugBackgroundColor)" -ForegroundColor $_.DebugForegroundColor -BackgroundColor $_.DebugBackgroundColor
+                                    New-Text "VERBOSE: ForegroundColor: $($_.VerboseForegroundColor), BackgroundColor: $($_.VerboseBackgroundColor)" -ForegroundColor $_.VerboseForegroundColor -BackgroundColor $_.VerboseBackgroundColor
+                                    New-Text "WARNING: ForegroundColor: $($_.WarningForegroundColor), BackgroundColor: $($_.WarningBackgroundColor)" -ForegroundColor $_.WarningForegroundColor -BackgroundColor $_.WarningBackgroundColor
+                                    New-Text "ERROR: ForegroundColor: $($_.ErrorForegroundColor), BackgroundColor: $($_.ErrorBackgroundColor)" -ForegroundColor $_.ErrorForegroundColor -BackgroundColor $_.ErrorBackgroundColor
 
-                                    Write-Host "VERBOSE: ForegroundColor: $($_.VerboseForegroundColor), BackgroundColor: $($_.VerboseBackgroundColor)" -ForegroundColor $_.VerboseForegroundColor -BackgroundColor $_.VerboseBackgroundColor
-
-                                    Write-Host "DEBUG: ForegroundColor: $($_.DebugForegroundColor), BackgroundColor: $($_.DebugBackgroundColor)" -ForegroundColor $_.DebugForegroundColor -BackgroundColor $_.DebugBackgroundColor
-
-                                    Write-Host "ERROR: ForegroundColor: $($_.ErrorForegroundColor), BackgroundColor: $($_.ErrorBackgroundColor)" -ForegroundColor $_.ErrorForegroundColor -BackgroundColor $_.ErrorBackgroundColor
-
-                                    Write-Host "${bg:Clear}ACCENT: $(
-                                        (gi fg:$($_.FormatAccentColor)).ToVtEscapeSequence())FormatAccentColor: $($_.FormatAccentColor), $(
-                                        (gi fg:$($_.ErrorAccentColor)).ToVtEscapeSequence())ErrorAccentColor: $($_.ErrorAccentColor)"
+                                    if (($Extras = $_.PSObject.Properties.Where{ $_.Name -NotIn "Theme", "Foreground", "Background",
+                                                                                                "DebugForegroundColor", "DebugBackgroundColor",
+                                                                                                "ProgressForegroundColor", "ProgressBackgroundColor",
+                                                                                                "VerboseForegroundColor", "VerboseBackgroundColor",
+                                                                                                "WarningForegroundColor", "WarningBackgroundColor",
+                                                                                                "ErrorForegroundColor", "ErrorBackgroundColor" })) {
+                                      "${bg:Clear}${fg:Clear}ACCENT: " + (@(
+                                        foreach($Extra in $Extras) {
+                                          $($Extra.Value -as [PoshCode.Pansies.RgbColor] | % ToVtEscapeSequence) + $Extra.Name + ": " + $Extra.Value
+                                        }
+                                      ) -join "${fg:Clear}, ")
+                                    }
+                                  ) -join "`n") + "${bg:Clear}${fg:Clear}"
                                 </ScriptBlock>
                             </ExpressionBinding>
                         </CustomItem>
