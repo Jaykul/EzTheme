@@ -47,12 +47,24 @@ function ImportTheme {
         $Theme = [Theme]$Path
 
         if ($IncludeModule) {
-            foreach ($unwanted in @($Theme.Modules -notin $IncludeModule)) {
+            Write-Debug "IncludeModule: $IncludeModule"
+            $IncludeModule = @(
+                foreach ($module in $IncludeModule) {
+                    $Theme.Modules.Where{ ($_ -like $Module) -or $_ -eq "Theme.$Module" -or $_ -eq "$Module.Theme" }
+                }
+            )
+            Write-Debug "IncludeModule: $IncludeModule"
+            foreach ($unwanted in $Theme.Modules.Where{ $_ -notin $IncludeModule }) {
+                Write-Debug "Removing $Unwanted from imported $Name theme"
                 $null = $Theme.Remove($unwanted)
             }
         } elseif ($ExcludeModule) {
-            foreach ($unwanted in $ExcludeModule) {
-                $null = $Theme.Remove($unwanted)
+            Write-Debug "ExcludeModule: $IncludeModule"
+            foreach ($module in $ExcludeModule) {
+                foreach ($unwanted in @($Theme.Modules.Where{ ($_ -like $Module) -or $_ -eq "Theme.$Module" -or $_ -eq "$Module.Theme" })) {
+                    Write-Debug "Excluding $Unwanted from imported $Name theme"
+                    $null = $Theme.Remove($unwanted)
+                }
             }
         }
 
