@@ -18,7 +18,7 @@
         } # End of PSData hashtable
     } # End of PrivateData hashtable
 
-    Description = 'Wrappers for PowerShell themes'
+    Description          = 'Theme Windows Terminal, PowerShell, PSReadLine, your prompt, and anything you like!'
     ScriptsToProcess     = @("Interfaces.ps1")
     FunctionsToExport    = @()
     CmdletsToExport      = @()
@@ -26,8 +26,10 @@
     AliasesToExport      = @()
     NestedModules        = @()
     RequiredModules      = @(
-        @{ModuleName = "Configuration"; ModuleVersion = "1.4.0"},
-        @{ModuleName = "PANSIES";       ModuleVersion = "2.0.0"}
+        @{ModuleName = "Theme.PowerShell"; ModuleVersion = "0.0.1" }
+        @{ModuleName = "Theme.PSReadLine"; ModuleVersion = "0.0.1" }
+        @{ModuleName = "Configuration";    ModuleVersion = "1.4.0"}
+        @{ModuleName = "PANSIES";          ModuleVersion = "2.1.0"}
     )
     TypesToProcess       = @('EzTheme.types.ps1xml')
     FormatsToProcess     = @('EzTheme.format.ps1xml')
@@ -42,7 +44,5 @@
 
     # Minimum version of the PowerShell engine required by this module
     PowerShellVersion    = '5.1'
-
-    # HelpInfoURI = ''
 }
 

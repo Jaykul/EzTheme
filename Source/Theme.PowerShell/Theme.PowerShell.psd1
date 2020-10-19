@@ -22,7 +22,7 @@
         }
     } # End of PrivateData hashtable
 
-    Description          = 'Theme module for PowerShell PrivateData+ConsoleColors'
+    Description          = 'EzTheme module for PowerShell PrivateData+ConsoleColors'
     FunctionsToExport    = @()
     CmdletsToExport      = @()
     VariablesToExport    = @()
