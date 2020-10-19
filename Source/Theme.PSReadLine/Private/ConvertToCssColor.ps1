@@ -19,6 +19,7 @@ function ConvertToCssColor {
             [PoshCode.Pansies.RgbColor]::new($r, $g, $b).ToVtEscapeSequence($Background)
         }
         if ($PSCmdlet.ParameterSetName -eq "ColorValue") {
+            $color = $color -replace '^#[0-9a-f]{2}([0-9a-f]{6})$', '#$1'
             [PoshCode.Pansies.RgbColor]::new($color).ToVtEscapeSequence($Background)
         }
     }
