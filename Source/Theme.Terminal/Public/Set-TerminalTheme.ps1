@@ -62,18 +62,18 @@ function Set-TerminalTheme {
             $Host.PrivateData.ErrorBackgroundColor = $background.ConsoleColor
 
         @(
-            "$e]10;rgb:{0:x}/{1:x}/{2:x}$b" -f [int]$foreground.R, [int]$foreground.G, [int]$foreground.B
-            "$e]11;rgb:{0:x}/{1:x}/{2:x}$b" -f [int]$background.R, [int]$background.G, [int]$background.B
-            "$e]4;0;rgb:{0:x}/{1:x}/{2:x}$b" -f [int]$black.R, [int]$black.G, [int]$black.B
-            "$e]4;1;rgb:{0:x}/{1:x}/{2:x}$b" -f [int]$red.R, [int]$red.G, [int]$red.B
-            "$e]4;2;rgb:{0:x}/{1:x}/{2:x}$b" -f [int]$green.R, [int]$green.G, [int]$green.B
-            "$e]4;3;rgb:{0:x}/{1:x}/{2:x}$b" -f [int]$yellow.R, [int]$yellow.G, [int]$yellow.B
-            "$e]4;4;rgb:{0:x}/{1:x}/{2:x}$b" -f [int]$blue.R, [int]$blue.G, [int]$blue.B
-            "$e]4;5;rgb:{0:x}/{1:x}/{2:x}$b" -f [int]$purple.R, [int]$purple.G, [int]$purple.B
-            "$e]4;6;rgb:{0:x}/{1:x}/{2:x}$b" -f [int]$cyan.R, [int]$cyan.G, [int]$cyan.B
-            "$e]4;7;rgb:{0:x}/{1:x}/{2:x}$b" -f [int]$white.R, [int]$white.G, [int]$white.B
-            "$e]4;8;rgb:{0:x}/{1:x}/{2:x}$b" -f [int]$brightBlack.R, [int]$brightBlack.G, [int]$brightBlack.B
-            "$e]4;9;rgb:{0:x}/{1:x}/{2:x}$b" -f [int]$brightRed.R, [int]$brightRed.G, [int]$brightRed.B
+            "$e]10;rgb:{0:x}/{1:x}/{2:x}$b"   -f [int]$foreground.R, [int]$foreground.G, [int]$foreground.B
+            "$e]11;rgb:{0:x}/{1:x}/{2:x}$b"   -f [int]$background.R, [int]$background.G, [int]$background.B
+            "$e]4;0;rgb:{0:x}/{1:x}/{2:x}$b"  -f [int]$black.R, [int]$black.G, [int]$black.B
+            "$e]4;1;rgb:{0:x}/{1:x}/{2:x}$b"  -f [int]$red.R, [int]$red.G, [int]$red.B
+            "$e]4;2;rgb:{0:x}/{1:x}/{2:x}$b"  -f [int]$green.R, [int]$green.G, [int]$green.B
+            "$e]4;3;rgb:{0:x}/{1:x}/{2:x}$b"  -f [int]$yellow.R, [int]$yellow.G, [int]$yellow.B
+            "$e]4;4;rgb:{0:x}/{1:x}/{2:x}$b"  -f [int]$blue.R, [int]$blue.G, [int]$blue.B
+            "$e]4;5;rgb:{0:x}/{1:x}/{2:x}$b"  -f [int]$purple.R, [int]$purple.G, [int]$purple.B
+            "$e]4;6;rgb:{0:x}/{1:x}/{2:x}$b"  -f [int]$cyan.R, [int]$cyan.G, [int]$cyan.B
+            "$e]4;7;rgb:{0:x}/{1:x}/{2:x}$b"  -f [int]$white.R, [int]$white.G, [int]$white.B
+            "$e]4;8;rgb:{0:x}/{1:x}/{2:x}$b"  -f [int]$brightBlack.R, [int]$brightBlack.G, [int]$brightBlack.B
+            "$e]4;9;rgb:{0:x}/{1:x}/{2:x}$b"  -f [int]$brightRed.R, [int]$brightRed.G, [int]$brightRed.B
             "$e]4;10;rgb:{0:x}/{1:x}/{2:x}$b" -f [int]$brightGreen.R, [int]$brightGreen.G, [int]$brightGreen.B
             "$e]4;11;rgb:{0:x}/{1:x}/{2:x}$b" -f [int]$brightYellow.R, [int]$brightYellow.G, [int]$brightYellow.B
             "$e]4;12;rgb:{0:x}/{1:x}/{2:x}$b" -f [int]$brightBlue.R, [int]$brightBlue.G, [int]$brightBlue.B
@@ -81,5 +81,30 @@ function Set-TerminalTheme {
             "$e]4;14;rgb:{0:x}/{1:x}/{2:x}$b" -f [int]$brightCyan.R, [int]$brightCyan.G, [int]$brightCyan.B
             "$e]4;15;rgb:{0:x}/{1:x}/{2:x}$b" -f [int]$brightWhite.R, [int]$brightWhite.G, [int]$brightWhite.B
         ) -join ""
+
+        if ($Host.PrivateData.Theme) {
+            $Host.PrivateData.Theme["Theme.Terminal"] = [PSCustomObject]@{
+                PSTypeName   = "Terminal.ColorScheme"
+                name         = $Name
+                background   = $background
+                foreground   = $foreground
+                black        = $black
+                red          = $red
+                green        = $green
+                yellow       = $yellow
+                blue         = $blue
+                purple       = $purple
+                cyan         = $cyan
+                white        = $white
+                brightBlack  = $brightBlack
+                brightRed    = $brightRed
+                brightGreen  = $brightGreen
+                brightYellow = $brightYellow
+                brightBlue   = $brightBlue
+                brightPurple = $brightPurple
+                brightCyan   = $brightCyan
+                brightWhite  = $brightWhite
+            }
+        }
     }
 }
