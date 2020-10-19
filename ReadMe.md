@@ -1,10 +1,10 @@
 > # Pre-Release
 
-You've found EzTheme before it's finished. The core module is here, along with a couple of helpers, but there's no theme sharing yet, and virtually no modules outside of this repository that have been update to be configurable with EzTheme.
+You've found EzTheme before it's finished. The core module is here, along with a few helpers, but there's no theme sharing yet, and virtually no modules outside of this repository have been updated to be configurable with EzTheme.
 
 # EZ Theme
 
-The **EzTheme** module is an easy way to add theme support to modules and output colors and more.
+The **EzTheme** module is an easy way to add theme support to modules, PowerShell, Windows Terminal and more.
 
 Out of the box, it collects color information for various different parts of your PowerShell environment into a single shareable theme file, and lets you apply them all at once to switch up the colors in your shell.
 

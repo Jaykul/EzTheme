@@ -52,7 +52,6 @@ function Set-PSReadLineTheme {
                 $Colors[$ColorName] = [Microsoft.PowerShell.VTColorUtils]::AsEscapeSequence( $Value )
             }
         }
-        #$global:PsReadlineColors = $Colors
         Set-PSReadLineOption -Colors $Colors
     }
 }
