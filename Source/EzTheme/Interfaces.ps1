@@ -1,4 +1,4 @@
-add-type -TypeDefinition @'
+Add-Type -TypeDefinition @'
 public interface IPathInfo {
     string Name { get; set; }
     string Path { get; set; }

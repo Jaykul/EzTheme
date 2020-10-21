@@ -83,7 +83,7 @@ function Set-TerminalTheme {
         ) -join "" | Write-Host -NoNewLine
 
         if ($Host.PrivateData.Theme) {
-            $Host.PrivateData.Theme["Theme.Terminal"] = [PSCustomObject]@{
+            $Host.PrivateData.Theme.Item("Theme.Terminal") = [PSCustomObject]@{
                 PSTypeName   = "Terminal.ColorScheme"
                 name         = $Name
                 background   = $background

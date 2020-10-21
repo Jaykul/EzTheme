@@ -1,4 +1,4 @@
-using module Configuration
+using module @{ModuleName = "Configuration";    ModuleVersion = "1.4.0"}
 using namespace System.Collections.Generic
 
 class Theme : ITheme, IPsMetadataSerializable {
@@ -56,7 +56,7 @@ class Theme : ITheme, IPsMetadataSerializable {
         return $this.Name
     }
 
-        # Serialization c
+    # Serialization constructor
     Theme() {}
 
     [string]ToPsMetadata() {
