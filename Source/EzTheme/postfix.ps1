@@ -1,11 +1,9 @@
 function InitializeTheme {
     [CmdletBinding()]
     param()
-    if (!$Host.PrivateData.Theme -and  !$MyInvocation.MyCommand.Module.Theme) {
-        if ($ThemeName = (Import-Configuration).Theme) {
-            Import-Theme $ThemeName
-        }
+    if (($script:Configuration = Import-Configuration).Theme) {
+        Import-Theme $Configuration.Theme
     }
 }
 
-InitializeTheme
+# InitializeTheme

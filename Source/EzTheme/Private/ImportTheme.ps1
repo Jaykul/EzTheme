@@ -59,7 +59,7 @@ function ImportTheme {
                 $null = $Theme.Remove($unwanted)
             }
         } elseif ($ExcludeModule) {
-            Write-Debug "ExcludeModule: $IncludeModule"
+            Write-Debug "ExcludeModule: $ExcludeModule"
             foreach ($module in $ExcludeModule) {
                 foreach ($unwanted in @($Theme.Modules.Where{ ($_ -like $Module) -or $_ -eq "Theme.$Module" -or $_ -eq "$Module.Theme" })) {
                     Write-Debug "Excluding $Unwanted from imported $Name theme"
