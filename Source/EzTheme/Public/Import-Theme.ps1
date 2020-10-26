@@ -60,8 +60,11 @@ function Import-Theme {
 
         if ($Force -or $PSBoundParameters.ContainsKey("IncludeModule")) {
             foreach ($module in $Theme.Modules) {
-                Write-Verbose "Importing $module because it was Included or Forced by hand"
-                Import-Module $module -ErrorAction SilentlyContinue -Scope Global -Verbose:$false
+                # Trace-Message -Verbose "Import-Module $module -Scope Global"
+                Write-Debug "Importing $module because it was Included or Forced by hand"
+                if (!(Get-Module $Module)) { # Only try importing if the module isn't loaded already
+                    Import-Module $module -ErrorAction SilentlyContinue -Scope Global -Verbose:$false
+                }
             }
             $SupportedModules = @(Get-Module).Where{ $_.PrivateData -is [Collections.IDictionary] -and $_.PrivateData.ContainsKey("EzTheme") }
         }
