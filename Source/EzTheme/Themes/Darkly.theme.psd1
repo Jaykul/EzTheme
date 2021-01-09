@@ -95,7 +95,7 @@
         NumberColor             = "$([char]27)[38;2;243;43;23m"
         OperatorColor           = "$([char]27)[38;2;238;93;67m"
         ParameterColor          = "$([char]27)[38;2;143;228;256m"
-        PredictionColor         = "$([char]27)[38;2;95;97;103m"
+        InlinePredictionColor   = "$([char]27)[38;2;95;97;103m"
         SelectionColor          = "$([char]27)[100;38;2;190;190;190m"
         StringColor             = "$([char]27)[38;2;150;224;114m"
         TypeColor               = "$([char]27)[38;2;238;93;67m"
@@ -119,13 +119,17 @@
             Separator             = ''
         }
         Prompt              = @(
-            ScriptBlock '$MyInvocation.HistoryId'
+            ScriptBlock 'New-PromptText -Fg Gray95 -Bg Gray40 -EBg VioletRed4 $MyInvocation.HistoryId'
             ScriptBlock 'Get-SegmentedPath'
             ScriptBlock '"`t"'
             ScriptBlock 'Get-Elapsed'
             ScriptBlock 'Get-Date -f "T"'
             ScriptBlock '"`n"'
-            ScriptBlock 'New-PromptText "I $(New-PromptText "&hearts;" -Bg Gray40 -EBg Red -EFg Black -Fg Sienna1)$(New-PromptText " PS" -Bg Gray40 -EBg Red -Fg White)" -Bg Gray40 -EBg Red -Fg White'
+            ScriptBlock 'New-PromptText -Fg Gray95 -Bg Gray40 "I ${Fg:Green}&hearts;${Fg:Gray95} PS"'
+        )
+        PSReadLinePromptText = @(
+            "$([char]27)[48;2;102;102;102m$([char]27)[92m♥$([char]27)[38;2;242;242;242m PS$([char]27)[38;2;102;102;102m$([char]27)[49m"
+            "$([char]27)[48;2;102;102;102m$([char]27)[38;2;255;99;71m♥$([char]27)[38;2;242;242;242m PS$([char]27)[38;2;102;102;102m$([char]27)[49m"
         )
     } -TypeName 'PowerLine.Theme'
 }

@@ -101,8 +101,8 @@
 
     PowerLine          = PSObject @{
         Colors              = @(
-            RgbColor '#333333'
-            RgbColor '#424242'
+            RgbColor '#FFFFFF'
+            RgbColor 'SkyBlue'
         )
         FullColor           = $True
         PowerLineCharacters = @{
@@ -112,7 +112,14 @@
             ReverseSeparator      = ''
         }
         PowerLineFont       = $True
-        Prompt              = @(ScriptBlock   'New-PromptText "I $(New-PromptText "&hearts;" -Bg SkyBlue -EBg VioletRed2 -EFg White -Fg VioletRed)$(New-PromptText " PS" -Bg SkyBlue -EBg VioletRed2 -EFg Black -Fg Black)" -Bg SkyBlue -EBg VioletRed2 -Fg Black')
+        Prompt              = @(
+            ScriptBlock 'New-PromptText -Fg Gray20 -Bg Gray100 -EBg VioletRed $MyInvocation.HistoryId'
+            ScriptBlock 'New-PromptText -Fg Gray0 -Bg SkyBlue "I ${Fg:DodgerBlue3}&hearts;${Fg:Gray0} PS"'
+        )
         SetCurrentDirectory = $True
+        PSReadLinePromptText = @(
+            "$([char]27)[48;2;135;206;235m$([char]27)[38;2;0;0;0mI $([char]27)[38;2;24;116;205m♥$([char]27)[38;2;0;0;0m PS$([char]27)[38;2;135;206;235m$([char]27)[49m"
+            "$([char]27)[48;2;135;206;235m$([char]27)[38;2;0;0;0mI $([char]27)[38;2;208;32;144m♥$([char]27)[38;2;0;0;0m PS$([char]27)[38;2;135;206;235m$([char]27)[49m"
+        )
     } -TypeName 'PowerLine.Theme'
 }
