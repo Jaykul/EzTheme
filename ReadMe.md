@@ -10,6 +10,8 @@ Out of the box, it collects color information for various different parts of you
 
 From the default dark mode to a light high contrast readable presentation theme! You can control everything from colors to fonts, whatever is supported by theme commands -- and if something doesn't already support themes, you can add your own support!
 
+![PowerShell Themes](https://github.com/Jaykul/EzTheme/raw/master/resources/EzTheme.gif)
+
 ## Using Ez Theme
 
 You can find modules which support EzTheme by searching for the EzTheme tag on the [PowerShell Gallery](https://www.powershellgallery.com/packages?q=Tags:EzTheme).

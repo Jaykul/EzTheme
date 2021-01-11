@@ -57,7 +57,7 @@
         NumberColor             = "$([char]27)[38;2;128;0;128m"
         OperatorColor           = "$([char]27)[38;2;169;169;169m"
         ParameterColor          = "$([char]27)[90m"
-        PredictionColor         = "$([char]27)[90m"
+        InlinePredictionColor   = "$([char]27)[90m"
         SelectionColor          = "$([char]27)[48;2;148;198;247m"
         StringColor             = "$([char]27)[38;2;139;0;0m"
         TypeColor               = "$([char]27)[38;2;0;0;139m"
@@ -74,7 +74,14 @@
             Separator             = ''
         }
         PowerLineFont       = $True
-        Prompt              = @(ScriptBlock   'New-PromptText "I $(New-PromptText "&hearts;" -Bg SkyBlue -EBg VioletRed2 -EFg White -Fg VioletRed)$(New-PromptText " PS" -Bg SkyBlue -EBg VioletRed2 -EFg Black -Fg Black)" -Bg SkyBlue -EBg VioletRed2 -Fg Black')
+        Prompt              = @(
+            ScriptBlock 'New-PromptText -Fg Gray20 -Bg Gray100 -EBg VioletRed $MyInvocation.HistoryId'
+            ScriptBlock 'New-PromptText -Fg Gray0 -Bg SkyBlue "I ${Fg:DodgerBlue3}&hearts;${Fg:Gray0} PS"'
+        )
+        PSReadLinePromptText = @(
+            "$([char]27)[48;2;135;206;235m$([char]27)[38;2;0;0;0mI $([char]27)[38;2;24;116;205m♥$([char]27)[38;2;0;0;0m PS$([char]27)[38;2;135;206;235m$([char]27)[49m"
+            "$([char]27)[48;2;135;206;235m$([char]27)[38;2;0;0;0mI $([char]27)[38;2;208;32;144m♥$([char]27)[38;2;0;0;0m PS$([char]27)[38;2;135;206;235m$([char]27)[49m"
+        )
         SetCurrentDirectory = $True
     } -TypeName 'PowerLine.Theme'
 }

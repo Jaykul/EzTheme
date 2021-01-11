@@ -14,7 +14,7 @@ Push-Location $PSScriptRoot -StackName BuildModuleScript
 $OutputDirectory = Join-Path $Pwd $OutputDirectory
 
 if (-not $Semver -and (Get-Command gitversion -ErrorAction Ignore)) {
-    if ($semver = gitversion -showvariable SemVer) {
+    if ($semver = gitversion -showvariable NuGetVersion) {
         $null = $PSBoundParameters.Add("SemVer", $SemVer)
     }
 }
@@ -22,14 +22,14 @@ if (-not $Semver -and (Get-Command gitversion -ErrorAction Ignore)) {
 try {
     # Call any nested build.ps1 scripts (I have one binary module in here)
     foreach ($BuildScript in Get-ChildItem Source -Recurse -File -Filter build.ps1) {
-        Write-Host $BuildScript -ForegroundColor Yellow
-        & $BuildScript
+        Write-Host $BuildScript.FullName -ForegroundColor Yellow
+        & $BuildScript.FullName
     }
 
     # We have a bunch of submodules:
     foreach ($Module in Get-ChildItem Source -Directory) {
         $ThemeOutput = Join-Path $OutputDirectory $Module.Name
-        Write-Host " - Build $($Module.Name)" -ForegroundColor Cyan
+        Write-Host " - Build $($Module.Name) $SemVer" -ForegroundColor Cyan
         Build-Module ".\Source\$($Module.Name)\build.psd1" @PSBoundParameters -Target CleanBuild -OutputDirectory $ThemeOutput
     }
 } finally {

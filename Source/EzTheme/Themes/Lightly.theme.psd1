@@ -94,7 +94,7 @@
         NumberColor             = "$([char]27)[38;2;128;0;128m"
         OperatorColor           = "$([char]27)[38;2;169;169;169m"
         ParameterColor          = "$([char]27)[38;2;109;109;109m"
-        PredictionColor         = "$([char]27)[38;2;169;169;169m"
+        InlinePredictionColor   = "$([char]27)[38;2;169;169;169m"
         SelectionColor          = "$([char]27)[48;2;148;198;247m"
         StringColor             = "$([char]27)[38;2;139;0;0m"
         TypeColor               = "$([char]27)[38;2;0;0;139m"
@@ -106,17 +106,23 @@
         PowerLineFont       = $True
         SetCurrentDirectory = $True
         Colors              = @(
-            RgbColor '#98F5FF'
-            RgbColor '#6495ED'
+            RgbColor "#5495BA"
+            RgbColor "#73CCFF"
+            RgbColor "#DBB04A"
+            RgbColor "#B4903C"
         )
         Prompt              = @(
-            ScriptBlock '$MyInvocation.HistoryId'
+            ScriptBlock 'New-PromptText $MyInvocation.HistoryId -EBg "#C84F68"'
             ScriptBlock 'Get-SegmentedPath'
             ScriptBlock '"`t"'
             ScriptBlock 'Get-Elapsed'
             ScriptBlock 'Get-Date -f "T"'
             ScriptBlock '"`n"'
-            ScriptBlock 'New-PromptText "I $(New-PromptText "&hearts;" -Bg DeepSkyBlue4 -EBg Red -EFg Black -Fg Sienna1)$(New-PromptText " PS" -Bg DeepSkyBlue4 -EBg Red -Fg White)" -Bg DeepSkyBlue4 -EBg Red -Fg White'
+            ScriptBlock 'New-PromptText "I $(New-PromptText "&hearts;" -Bg "#32586E" -EBg Red -Fg "#ABD1C9")$(New-PromptText " PS" -Bg "#32586E" -EBg Red -Fg White)" -Bg "#32586E" -EBg Red -Fg White'
+        )
+        PSReadLinePromptText = @(
+            "$([char]27)[97m$([char]27)[48;2;50;88;110mI $([char]27)[38;2;115;204;255m♥$([char]27)[38;2;255;255;255m PS$([char]27)[38;2;50;88;110m$([char]27)[49m"
+            "$([char]27)[97m$([char]27)[48;2;50;88;110mI $([char]27)[38;2;255;99;71m♥$([char]27)[38;2;255;255;255m PS$([char]27)[38;2;50;88;110m$([char]27)[49m"
         )
         PowerLineCharacters = @{
             ReverseSeparator      = ''

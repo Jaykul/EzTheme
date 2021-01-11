@@ -20,7 +20,9 @@ function ImportTheme {
         [string[]]$ExcludeModule
     )
     process {
+        # Trace-Message -Verbose "PROCESS ImportTheme $Name $($PSCmdlet.ParameterSetName)"
         Write-Verbose "Loading theme from disk: $Name"
+
         # Normalize the Path, the file name must end with ".theme.psd1"
         $FileName = $Name -replace "((\.theme)?\.psd1)?$" -replace '$', ".theme.psd1"
 
@@ -28,6 +30,8 @@ function ImportTheme {
         if (Test-Path -LiteralPath $FileName) {
             $Path = Convert-Path -LiteralPath $FileName
         }
+
+        # Trace-Message -Verbose "PATH: $Path"
         # Otherwise, use FindTheme
         if (!$Path) {
             $Themes = @(FindTheme $Name)
@@ -44,9 +48,11 @@ function ImportTheme {
         }
 
         Write-Verbose "Importing $Name theme from $Path"
+        # Trace-Message -Verbose "Importing by casting [Theme]$Path"
         $Theme = [Theme]$Path
 
         if ($IncludeModule) {
+            # Trace-Message "Filter IncludeModule $IncludeModule"
             Write-Debug "IncludeModule: $IncludeModule"
             $IncludeModule = @(
                 foreach ($module in $IncludeModule) {
@@ -59,6 +65,7 @@ function ImportTheme {
                 $null = $Theme.Remove($unwanted)
             }
         } elseif ($ExcludeModule) {
+            # Trace-Messsage "Filter ExcludeModule $ExcludeModule"
             Write-Debug "ExcludeModule: $ExcludeModule"
             foreach ($module in $ExcludeModule) {
                 foreach ($unwanted in @($Theme.Modules.Where{ ($_ -like $Module) -or $_ -eq "Theme.$Module" -or $_ -eq "$Module.Theme" })) {
@@ -67,6 +74,7 @@ function ImportTheme {
                 }
             }
         }
+        # Trace-Message -Verbose "END ImportTheme"
 
         $Theme
     }
