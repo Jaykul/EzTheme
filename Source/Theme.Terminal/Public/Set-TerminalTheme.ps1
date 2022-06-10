@@ -17,6 +17,9 @@ function Set-TerminalTheme {
         [RgbColor]$foreground   = "#CCCCCC",
 
         [Parameter(ValueFromPipelineByPropertyName)]
+        [RgbColor]$cursor       = "#CCCCCC",
+
+        [Parameter(ValueFromPipelineByPropertyName)]
         [RgbColor]$black        = "#0C0C0C",
         [Parameter(ValueFromPipelineByPropertyName)]
         [RgbColor]$red          = "#C50F1F",
@@ -51,7 +54,7 @@ function Set-TerminalTheme {
     )
     process {
         $e = [char]27
-        $b = [char]7
+        $b = "$e\"
 
         # PowerShell is really dumb, and has this setting that ignores the terminal. We need to help it out:
         $Host.UI.RawUI.ForegroundColor = $foreground.ConsoleColor
@@ -62,8 +65,6 @@ function Set-TerminalTheme {
             $Host.PrivateData.ErrorBackgroundColor = $background.ConsoleColor
 
         @(
-            "$e]10;rgb:{0:x}/{1:x}/{2:x}$b"   -f [int]$foreground.R, [int]$foreground.G, [int]$foreground.B
-            "$e]11;rgb:{0:x}/{1:x}/{2:x}$b"   -f [int]$background.R, [int]$background.G, [int]$background.B
             "$e]4;0;rgb:{0:x}/{1:x}/{2:x}$b"  -f [int]$black.R, [int]$black.G, [int]$black.B
             "$e]4;1;rgb:{0:x}/{1:x}/{2:x}$b"  -f [int]$red.R, [int]$red.G, [int]$red.B
             "$e]4;2;rgb:{0:x}/{1:x}/{2:x}$b"  -f [int]$green.R, [int]$green.G, [int]$green.B
@@ -80,14 +81,15 @@ function Set-TerminalTheme {
             "$e]4;13;rgb:{0:x}/{1:x}/{2:x}$b" -f [int]$brightPurple.R, [int]$brightPurple.G, [int]$brightPurple.B
             "$e]4;14;rgb:{0:x}/{1:x}/{2:x}$b" -f [int]$brightCyan.R, [int]$brightCyan.G, [int]$brightCyan.B
             "$e]4;15;rgb:{0:x}/{1:x}/{2:x}$b" -f [int]$brightWhite.R, [int]$brightWhite.G, [int]$brightWhite.B
+            "$e]10;rgb:{0:x}/{1:x}/{2:x}$b" -f [int]$foreground.R, [int]$foreground.G, [int]$foreground.B
+            "$e]11;rgb:{0:x}/{1:x}/{2:x}$b" -f [int]$background.R, [int]$background.G, [int]$background.B
+            "$e]12;rgb:{0:x}/{1:x}/{2:x}$b" -f [int]$cursor.R, [int]$cursor.G, [int]$cursor.B
         ) -join "" | Write-Host -NoNewLine
 
         if ($Host.PrivateData.Theme) {
             $Host.PrivateData.Theme.Item("Theme.Terminal") = [PSCustomObject]@{
                 PSTypeName   = "Terminal.ColorScheme"
                 name         = $Name
-                background   = $background
-                foreground   = $foreground
                 black        = $black
                 red          = $red
                 green        = $green
@@ -104,6 +106,9 @@ function Set-TerminalTheme {
                 brightPurple = $brightPurple
                 brightCyan   = $brightCyan
                 brightWhite  = $brightWhite
+                background   = $background
+                foreground   = $foreground
+                cursor       = $cursor
             }
         }
     }
