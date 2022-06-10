@@ -1,72 +1,74 @@
 @{  # There are three copies here of the Terminal.ColorScheme, one for each terminal-theming module
-    'Theme.Terminal' = PSObject @{
-        foreground   = RgbColor '#FFFCFF'
-        background   = RgbColor '#212021'
+    'Theme.Terminal'        = PSObject @{
+        foreground   = '#FFFCFF'
+        background   = '#212021'
 
-        black        = RgbColor '#212021'
-        blue         = RgbColor '#01A0E4'
-        brightBlack  = RgbColor '#493F3F'
-        brightBlue   = RgbColor '#6ECEFF'
-        brightCyan   = RgbColor '#95F2FF'
-        brightGreen  = RgbColor '#6CD18E'
-        brightPurple = RgbColor '#D29BC6'
-        brightRed    = RgbColor '#FF6E6D'
-        brightWhite  = RgbColor '#FFFCFF'
-        brightYellow = RgbColor '#FFFF85'
-        cyan         = RgbColor '#55C4CF'
-        green        = RgbColor '#01A252'
-        purple       = RgbColor '#A16A94'
-        red          = RgbColor '#D92D20'
-        white        = RgbColor '#A5A2A2'
-        yellow       = RgbColor '#FBED02'
+        black        = '#212021'
+        blue         = '#01A0E4'
+        brightBlack  = '#493F3F'
+        brightBlue   = '#6ECEFF'
+        brightCyan   = '#95F2FF'
+        brightGreen  = '#6CD18E'
+        brightPurple = '#D29BC6'
+        brightRed    = '#FF6E6D'
+        brightWhite  = '#FFFCFF'
+        brightYellow = '#FFFF85'
+        cyan         = '#55C4CF'
+        green        = '#01A252'
+        purple       = '#A16A94'
+        red          = '#D92D20'
+        white        = '#A5A2A2'
+        yellow       = '#FBED02'
     } -TypeName 'Terminal.ColorScheme'
-
 
     'Theme.WindowsTerminal' = PSObject @{
-        foreground   = RgbColor '#FFFCFF'
-        background   = RgbColor '#212021'
+        name         = 'Darkly'
+        foreground   = '#FFFCFF'
+        background   = '#212021'
+        cursorColor  = '#EFEFEF'
+        selectionBackground = '#82C1FF'
 
-        black        = RgbColor '#212021'
-        blue         = RgbColor '#01A0E4'
-        brightBlack  = RgbColor '#493F3F'
-        brightBlue   = RgbColor '#6ECEFF'
-        brightCyan   = RgbColor '#95F2FF'
-        brightGreen  = RgbColor '#6CD18E'
-        brightPurple = RgbColor '#D29BC6'
-        brightRed    = RgbColor '#FF6E6D'
-        brightWhite  = RgbColor '#FFFCFF'
-        brightYellow = RgbColor '#FFFF85'
-        cyan         = RgbColor '#55C4CF'
-        green        = RgbColor '#01A252'
-        purple       = RgbColor '#A16A94'
-        red          = RgbColor '#D92D20'
-        white        = RgbColor '#A5A2A2'
-        yellow       = RgbColor '#FBED02'
+        black        = '#212021'
+        blue         = '#01A0E4'
+        brightBlack  = '#493F3F'
+        brightBlue   = '#6ECEFF'
+        brightCyan   = '#95F2FF'
+        brightGreen  = '#6CD18E'
+        brightPurple = '#D29BC6'
+        brightRed    = '#FF6E6D'
+        brightWhite  = '#FFFCFF'
+        brightYellow = '#FFFF85'
+        cyan         = '#55C4CF'
+        green        = '#01A252'
+        purple       = '#A16A94'
+        red          = '#D92D20'
+        white        = '#A5A2A2'
+        yellow       = '#FBED02'
     } -TypeName 'Terminal.ColorScheme'
 
-    'Theme.WindowsConsole'        = PSObject @{
-        foreground   = RgbColor '#FFFCFF'
-        background   = RgbColor '#212021'
+    'Theme.WindowsConsole'  = PSObject @{
+        foreground   = '#FFFCFF'
+        background   = '#212021'
 
-        black        = RgbColor '#212021'
-        blue         = RgbColor '#01A0E4'
-        brightBlack  = RgbColor '#493F3F'
-        brightBlue   = RgbColor '#6ECEFF'
-        brightCyan   = RgbColor '#95F2FF'
-        brightGreen  = RgbColor '#6CD18E'
-        brightPurple = RgbColor '#D29BC6'
-        brightRed    = RgbColor '#FF6E6D'
-        brightWhite  = RgbColor '#FFFCFF'
-        brightYellow = RgbColor '#FFFF85'
-        cyan         = RgbColor '#55C4CF'
-        green        = RgbColor '#01A252'
-        purple       = RgbColor '#A16A94'
-        red          = RgbColor '#D92D20'
-        white        = RgbColor '#A5A2A2'
-        yellow       = RgbColor '#FBED02'
+        black        = '#212021'
+        blue         = '#01A0E4'
+        brightBlack  = '#493F3F'
+        brightBlue   = '#6ECEFF'
+        brightCyan   = '#95F2FF'
+        brightGreen  = '#6CD18E'
+        brightPurple = '#D29BC6'
+        brightRed    = '#FF6E6D'
+        brightWhite  = '#FFFCFF'
+        brightYellow = '#FFFF85'
+        cyan         = '#55C4CF'
+        green        = '#01A252'
+        purple       = '#A16A94'
+        red          = '#D92D20'
+        white        = '#A5A2A2'
+        yellow       = '#FBED02'
     } -TypeName 'Terminal.ColorScheme'
 
-    'Theme.PowerShell' = PSObject @{
+    'Theme.PowerShell'      = PSObject @{
         Background              = ConsoleColor Black
         DebugBackgroundColor    = ConsoleColor Black
         DebugForegroundColor    = ConsoleColor Green
@@ -83,7 +85,7 @@
         WarningForegroundColor  = ConsoleColor Yellow
     } -TypeName 'Selected.Microsoft.PowerShell.ConsoleHost+ConsoleColorProxy'
 
-    'Theme.PSReadLine' = PSObject @{
+    'Theme.PSReadLine'      = PSObject @{
         CommandColor            = "$([char]27)[38;2;255;230;109m"
         CommentColor            = "$([char]27)[38;2;95;97;103m"
         ContinuationPromptColor = "$([char]27)[38;2;0;232;198m"
@@ -102,34 +104,90 @@
         VariableColor           = "$([char]27)[38;2;0;242;178m"
     } -TypeName 'Selected.Microsoft.PowerShell.PSConsoleReadLineOptions'
 
-    PowerLine = PSObject @{
-        FullColor           = $True
+    PowerLine               = PSObject @{
+        Cap = ''
+        Colors = @('#333333','#424242','#8A8A8A','#707070')
+        FullColor = $True
+        PowerLineFont = $True
+        Prompt = @(
+(ConvertFrom-Metadata @'
+@{
+ForegroundColor='White'
+BackgroundColor='#333333'
+ErrorBackgroundColor='#8B2252'
+Separator='‍'
+Cap='‍'
+Entities=1
+Persist=1
+Object=(ScriptBlock '$MyInvocation.HistoryId')
+}
+'@ -As PoshCode.PowerLine.PowerLineBlock),
+(ConvertFrom-Metadata @'
+@{
+ForegroundColor='#C4C0C7'
+BackgroundColor='#424242'
+Separator='‍'
+Cap='‍'
+Entities=1
+Persist=1
+Object=(ScriptBlock 'Get-ShortPath')
+}
+'@ -As PoshCode.PowerLine.PowerLineBlock),
+(ConvertFrom-Metadata @'
+@{
+Separator='‍'
+Cap='‍'
+Entities=1
+Persist=1
+Object="`t"
+}
+'@ -As PoshCode.PowerLine.PowerLineBlock),
+(ConvertFrom-Metadata @'
+@{
+ForegroundColor='#000000'
+BackgroundColor='#8A8A8A'
+Separator='‍'
+Cap='‍'
+Entities=1
+Persist=1
+Object=(ScriptBlock 'Get-Elapsed')
+}
+'@ -As PoshCode.PowerLine.PowerLineBlock),
+(ConvertFrom-Metadata @'
+@{
+ForegroundColor='#EBE7EE'
+BackgroundColor='#707070'
+Separator='‍'
+Cap='‍'
+Entities=1
+Persist=1
+Object=(ScriptBlock 'Get-Date -f "T"')
+}
+'@ -As PoshCode.PowerLine.PowerLineBlock),
+(ConvertFrom-Metadata @'
+@{
+Separator='‍'
+Cap='‍'
+Entities=1
+Persist=1
+Object="`n"
+}
+'@ -As PoshCode.PowerLine.PowerLineBlock),
+(ConvertFrom-Metadata @'
+@{
+ForegroundColor='#CCCCCC'
+BackgroundColor='#666666'
+Separator='‍'
+Cap='‍'
+Entities=1
+Persist=1
+Object='&ColorSeparator;'
+}
+'@ -As PoshCode.PowerLine.PowerLineBlock))
+        PSReadLineContinuationPrompt = '[38;2;204;204;204m[49m [0m'
+        PSReadLineContinuationPromptColor = '[38;2;0;232;198m'
+        PSReadLinePromptText = @('[48;2;102;102;102m[38;2;204;204;204m[49m[38;2;102;102;102m[0m','[48;2;139;34;82m[38;2;204;204;204m[49m[38;2;139;34;82m[0m')
+        Separator = ''
         SetCurrentDirectory = $True
-        PowerLineFont       = $True
-        Colors              = @(
-            RgbColor 'Gray20'
-            RgbColor 'Gray26'
-            RgbColor 'Gray54'
-            RgbColor 'Gray44'
-        )
-        PowerLineCharacters = @{
-            ReverseSeparator      = ''
-            ReverseColorSeparator = ''
-            ColorSeparator        = ''
-            Separator             = ''
-        }
-        Prompt              = @(
-            ScriptBlock 'New-PromptText -Fg Gray95 -Bg Gray40 -EBg VioletRed4 $MyInvocation.HistoryId'
-            ScriptBlock 'Get-SegmentedPath'
-            ScriptBlock '"`t"'
-            ScriptBlock 'Get-Elapsed'
-            ScriptBlock 'Get-Date -f "T"'
-            ScriptBlock '"`n"'
-            ScriptBlock 'New-PromptText -Fg Gray95 -Bg Gray40 "I ${Fg:Green}&hearts;${Fg:Gray95} PS"'
-        )
-        PSReadLinePromptText = @(
-            "$([char]27)[48;2;102;102;102m$([char]27)[92m♥$([char]27)[38;2;242;242;242m PS$([char]27)[38;2;102;102;102m$([char]27)[49m"
-            "$([char]27)[48;2;102;102;102m$([char]27)[38;2;255;99;71m♥$([char]27)[38;2;242;242;242m PS$([char]27)[38;2;102;102;102m$([char]27)[49m"
-        )
-    } -TypeName 'PowerLine.Theme'
+    } -TypeName 'PowerLine.Theme','System.Management.Automation.PSCustomObject','System.Object'
 }

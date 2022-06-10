@@ -28,8 +28,9 @@
     RequiredModules      = @(
         @{ ModuleName = "Theme.PowerShell"; ModuleVersion = "0.0.1" }
         @{ ModuleName = "Theme.PSReadLine"; ModuleVersion = "0.0.1" }
-        @{ ModuleName = "Configuration";    ModuleVersion = "1.4.0" }
-        @{ ModuleName = "PANSIES";          ModuleVersion = "2.1.0" }
+        @{ ModuleName = "Metadata";         ModuleVersion = "1.5.4" }
+        @{ ModuleName = "Configuration";    ModuleVersion = "1.5.1" }
+        @{ ModuleName = "PANSIES";          ModuleVersion = "2.4.0" }
     )
     TypesToProcess       = @('EzTheme.types.ps1xml')
     FormatsToProcess     = @('EzTheme.format.ps1xml')
