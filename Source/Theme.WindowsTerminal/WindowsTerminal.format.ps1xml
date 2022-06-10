@@ -3,7 +3,7 @@
         <View>
             <Name>Terminal-Preview</Name>
             <ViewSelectedBy>
-                <TypeName>Terminal.ColorScheme</TypeName>
+                <TypeName>WindowsTerminal.ColorScheme</TypeName>
             </ViewSelectedBy>
             <CustomControl>
                 <CustomEntries>
@@ -48,7 +48,7 @@
         <View>
             <Name>Terminal-Theme</Name>
             <ViewSelectedBy>
-                <TypeName>Terminal.ColorScheme</TypeName>
+                <TypeName>WindowsTerminal.ColorScheme</TypeName>
             </ViewSelectedBy>
             <ListControl>
                 <ListEntries>
@@ -60,7 +60,10 @@
                             </ListItem>
                             <ListItem>
                                 <Label>background</Label>
-                                <ScriptBlock>([PoshCode.Pansies.RgbColor]$_.background).ToVtEscapeSequence() + ([PoshCode.Pansies.RgbColor]$_.background).ToString() + "$([char]27)[49;39m"</ScriptBlock>
+                                <ScriptBlock>
+                                  ([PoshCode.Pansies.RgbColor]$_.foreground).ToVtEscapeSequence() +
+                                  ([PoshCode.Pansies.RgbColor]$_.background).ToVtEscapeSequence($true) +
+                                  ([PoshCode.Pansies.RgbColor]$_.background).ToString() + "$([char]27)[49;39m"</ScriptBlock>
                             </ListItem>
                             <ListItem>
                                 <Label>foreground</Label>
@@ -69,6 +72,13 @@
                             <ListItem>
                                 <Label>cursorColor</Label>
                                 <ScriptBlock>([PoshCode.Pansies.RgbColor]$_.cursorColor).ToVtEscapeSequence() + ([PoshCode.Pansies.RgbColor]$_.cursorColor).ToString() + "$([char]27)[49;39m"</ScriptBlock>
+                            </ListItem>
+                            <ListItem>
+                                <Label>selectionBackground</Label>
+                                <ScriptBlock>
+                                  ([PoshCode.Pansies.RgbColor]$_.foreground).ToVtEscapeSequence() +
+                                  ([PoshCode.Pansies.RgbColor]$_.selectionBackground).ToVtEscapeSequence($true) +
+                                  ([PoshCode.Pansies.RgbColor]$_.selectionBackground).ToString() + "$([char]27)[49;39m"</ScriptBlock>
                             </ListItem>
                             <ListItem>
                                 <Label>black</Label>

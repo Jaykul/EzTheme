@@ -30,6 +30,7 @@ function Get-WindowsTerminalTheme {
         if ($ColorScheme) {
             $Result = @($Config.schemes).Where({ $_.name -eq $colorScheme })[0]
             $Result.PSTypeNames.Insert(0, "Terminal.ColorScheme")
+            $Result.PSTypeNames.Insert(0, "WindowsTerminal.ColorScheme")
             if ($ActiveProfile) {
                 # Update with overrides from the active profile
                 if ($ActiveProfile.foreground) { # -and -not $Result.foreground

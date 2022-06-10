@@ -22,6 +22,8 @@ function Set-WindowsTerminalTheme {
         [RgbColor]$foreground   = "#CCCCCC",
         [Parameter(ValueFromPipelineByPropertyName)]
         [RgbColor]$cursorColor  = "#FFFFFF",
+        [Parameter(ValueFromPipelineByPropertyName)]
+        [RgbColor]$selectionBackground = "#FFFFFF",
 
         [Parameter(ValueFromPipelineByPropertyName)]
         [RgbColor]$black        = "#0C0C0C",
@@ -70,6 +72,9 @@ function Set-WindowsTerminalTheme {
             name         = "$Name"
             background   = "$background"
             foreground   = "$foreground"
+            selectionBackground = "$selectionBackground"
+            cursorColor         = "$cursorColor"
+
             black        = "$black"
             red          = "$red"
             green        = "$green"
