@@ -113,7 +113,7 @@
         )
         Prompt              = @(
             ScriptBlock 'New-PromptText $MyInvocation.HistoryId -EBg "#C84F68"'
-            ScriptBlock 'Get-SegmentedPath'
+            ScriptBlock 'Get-ShortPath'
             ScriptBlock '"`t"'
             ScriptBlock 'Get-Elapsed'
             ScriptBlock 'Get-Date -f "T"'

@@ -1,4 +1,4 @@
-using module @{ModuleName = "Configuration";    ModuleVersion = "1.4.0"}
+using module @{ModuleName = "Configuration"; ModuleVersion = "1.5.1"}
 using namespace System.Collections.Generic
 
 class Theme : ITheme, IPsMetadataSerializable {
@@ -38,8 +38,8 @@ class Theme : ITheme, IPsMetadataSerializable {
     [object] get_Item([string]$Module) {
         if (!$this.Settings.ContainsKey($Module)) {
             [string[]]$Module = $this.Settings.Keys.Where({
-                        ($_ -like $Module) -or $_ -eq "Theme.$Module" -or $_ -eq "$Module.Theme"
-                      })
+                ($_ -like $Module) -or $_ -eq "Theme.$Module" -or $_ -eq "$Module.Theme"
+                })
         }
         return $this.Settings[$Module]
     }

@@ -29,7 +29,7 @@
     AliasesToExport      = @()
     FormatsToProcess     = @('PSReadLine.format.ps1xml')
     RequiredModules      = @(
-        @{ModuleName = "PSReadLine"; ModuleVersion = "2.1.0" }
+        @{ModuleName = "PSReadLine"; ModuleVersion = "2.2.0" }
     )
     # Script module or binary module file associated with this manifest.
     RootModule           = 'Theme.PSReadline.psm1'
