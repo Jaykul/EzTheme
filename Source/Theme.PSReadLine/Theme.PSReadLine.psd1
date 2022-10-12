@@ -28,9 +28,7 @@
     VariablesToExport    = @()
     AliasesToExport      = @()
     FormatsToProcess     = @('PSReadLine.format.ps1xml')
-    RequiredModules      = @(
-        @{ModuleName = "PSReadLine"; ModuleVersion = "2.2.0" }
-    )
+    RequiredModules      = @("PSReadLine")
     # Script module or binary module file associated with this manifest.
     RootModule           = 'Theme.PSReadline.psm1'
     GUID                 = 'cfb819a6-eaf6-49e3-98e3-10d6244634cf'
