@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Configuration>
+  <ViewDefinitions>
+    <View>
+      <Name>Theme.PSStyle</Name>
+      <ViewSelectedBy>
+        <TypeName>Theme.PSStyle</TypeName>
+      </ViewSelectedBy>
+      <ListControl>
+        <ListEntries>
+          <ListEntry>
+            <ListItems>
+              <ListItem>
+                <Label>Reset</Label>
+                <ScriptBlock>"$($_.Reset)$($_.Reset -replace "`e","``e")$($_.Reset)"</ScriptBlock>
+              </ListItem>
+              <ListItem>
+                <Label>BlinkOff</Label>
+                <ScriptBlock>"$($_.BlinkOff)$($_.BlinkOff -replace "`e","``e")$($_.Reset)"</ScriptBlock>
+              </ListItem>
+              <ListItem>
+                <Label>Blink</Label>
+                <ScriptBlock>"$($_.Blink)$($_.Blink -replace "`e","``e")$($_.Reset)"</ScriptBlock>
+              </ListItem>
+              <ListItem>
+                <Label>BoldOff</Label>
+                <ScriptBlock>"$($_.BoldOff)$($_.BoldOff -replace "`e","``e")$($_.Reset)"</ScriptBlock>
+              </ListItem>
+              <ListItem>
+                <Label>Bold</Label>
+                <ScriptBlock>"$($_.Bold)$($_.Bold -replace "`e","``e")$($_.Reset)"</ScriptBlock>
+              </ListItem>
+              <ListItem>
+                <Label>Hidden</Label>
+                <ScriptBlock>"$($_.Hidden)$($_.Hidden -replace "`e","``e")$($_.Reset)"</ScriptBlock>
+              </ListItem>
+              <ListItem>
+                <Label>HiddenOff</Label>
+                <ScriptBlock>"$($_.HiddenOff)$($_.HiddenOff -replace "`e","``e")$($_.Reset)"</ScriptBlock>
+              </ListItem>
+              <ListItem>
+                <Label>Reverse</Label>
+                <ScriptBlock>"$($_.Reverse)$($_.Reverse -replace "`e","``e")$($_.Reset)"</ScriptBlock>
+              </ListItem>
+              <ListItem>
+                <Label>ReverseOff</Label>
+                <ScriptBlock>"$($_.ReverseOff)$($_.ReverseOff -replace "`e","``e")$($_.Reset)"</ScriptBlock>
+              </ListItem>
+              <ListItem>
+                <Label>ItalicOff</Label>
+                <ScriptBlock>"$($_.ItalicOff)$($_.ItalicOff -replace "`e","``e")$($_.Reset)"</ScriptBlock>
+              </ListItem>
+              <ListItem>
+                <Label>Italic</Label>
+                <ScriptBlock>"$($_.Italic)$($_.Italic -replace "`e","``e")$($_.Reset)"</ScriptBlock>
+              </ListItem>
+              <ListItem>
+                <Label>UnderlineOff</Label>
+                <ScriptBlock>"$($_.UnderlineOff)$($_.UnderlineOff -replace "`e","``e")$($_.Reset)"</ScriptBlock>
+              </ListItem>
+              <ListItem>
+                <Label>Underline</Label>
+                <ScriptBlock>"$($_.Underline)$($_.Underline -replace "`e","``e")$($_.Reset)"</ScriptBlock>
+              </ListItem>
+              <ListItem>
+                <Label>StrikethroughOff</Label>
+                <ScriptBlock>"$($_.StrikethroughOff)$($_.StrikethroughOff -replace "`e","``e")$($_.Reset)"</ScriptBlock>
+              </ListItem>
+              <ListItem>
+                <Label>Strikethrough</Label>
+                <ScriptBlock>"$($_.Strikethrough)$($_.Strikethrough -replace "`e","``e")$($_.Reset)"</ScriptBlock>
+              </ListItem>
+              <ListItem>
+                <PropertyName>OutputRendering</PropertyName>
+              </ListItem>
+              <ListItem>
+                <Label>Formatting.FormatAccent</Label>
+                <ScriptBlock>"$($_.Formatting.FormatAccent)$($_.Formatting_FormatAccent)$($_.Formatting.FormatAccent  -replace "`e","``e")$($_.Formatting_FormatAccent  -replace "`e","``e")$($_.Reset)"</ScriptBlock>
+              </ListItem>
+              <ListItem>
+                <Label>Formatting.TableHeader</Label>
+                <ScriptBlock>"$($_.Formatting.TableHeader)$($_.Formatting_TableHeader)$($_.Formatting.TableHeader  -replace "`e","``e")$($_.Formatting_TableHeader  -replace "`e","``e")$($_.Reset)"</ScriptBlock>
+              </ListItem>
+              <ListItem>
+                <Label>Formatting.ErrorAccent</Label>
+                <ScriptBlock>"$($_.Formatting.ErrorAccent)$($_.Formatting_ErrorAccent)$($_.Formatting.ErrorAccent  -replace "`e","``e")$($_.Formatting_ErrorAccent  -replace "`e","``e")$($_.Reset)"</ScriptBlock>
+              </ListItem>
+              <ListItem>
+                <Label>Formatting.Error</Label>
+                <ScriptBlock>"$($_.Formatting.Error)$($_.Formatting_Error)$($_.Formatting.Error  -replace "`e","``e")$($_.Formatting_Error  -replace "`e","``e")$($_.Reset)"</ScriptBlock>
+              </ListItem>
+              <ListItem>
+                <Label>Formatting.Warning</Label>
+                <ScriptBlock>"$($_.Formatting.Warning)$($_.Formatting_Warning)$($_.Formatting.Warning  -replace "`e","``e")$($_.Formatting_Warning  -replace "`e","``e")$($_.Reset)"</ScriptBlock>
+              </ListItem>
+              <ListItem>
+                <Label>Formatting.Verbose</Label>
+                <ScriptBlock>"$($_.Formatting.Verbose)$($_.Formatting_Verbose)$($_.Formatting.Verbose  -replace "`e","``e")$($_.Formatting_Verbose  -replace "`e","``e")$($_.Reset)"</ScriptBlock>
+              </ListItem>
+              <ListItem>
+                <Label>Formatting.Debug</Label>
+                <ScriptBlock>"$($_.Formatting.Debug)$($_.Formatting_Debug)$($_.Formatting.Debug  -replace "`e","``e")$($_.Formatting_Debug  -replace "`e","``e")$($_.Reset)"</ScriptBlock>
+              </ListItem>
+              <ListItem>
+                <Label>Progress.Style</Label>
+                <ScriptBlock>"$($_.Progress.Style)$($_.Progress_Style)$($_.Progress.Style  -replace "`e","``e")$($_.Progress_Style  -replace "`e","``e")$($_.Reset)"</ScriptBlock>
+              </ListItem>
+              <ListItem>
+                <Label>Progress.MaxWidth</Label>
+                <ScriptBlock>"$($_.Progress.MaxWidth)$($_.Progress_MaxWidth)"</ScriptBlock>
+              </ListItem>
+              <ListItem>
+                <Label>Progress.View</Label>
+                <ScriptBlock>"$($_.Progress.View)$($_.Progress_View)"</ScriptBlock>
+              </ListItem>
+              <ListItem>
+                <Label>Progress.UseOSCIndicator</Label>
+                <ScriptBlock>"$($_.Progress.UseOSCIndicator)$($_.Progress_UseOSCIndicator)"</ScriptBlock>
+              </ListItem>
+              <ListItem>
+                <Label>FileInfo.Directory</Label>
+                <ScriptBlock>"$($_.FileInfo.Directory)$($_.FileInfo_Directory)$($_.FileInfo.Directory  -replace "`e","``e")$($_.FileInfo_Directory  -replace "`e","``e")$($_.Reset)"</ScriptBlock>
+              </ListItem>
+              <ListItem>
+                <Label>FileInfo.SymbolicLink</Label>
+                <ScriptBlock>"$($_.FileInfo.SymbolicLink)$($_.FileInfo_SymbolicLink)$($_.FileInfo.SymbolicLink  -replace "`e","``e")$($_.FileInfo_SymbolicLink  -replace "`e","``e")$($_.Reset)"</ScriptBlock>
+              </ListItem>
+              <ListItem>
+                <Label>FileInfo.Executable</Label>
+                <ScriptBlock>"$($_.FileInfo.Executable)$($_.FileInfo_Executable)$($_.FileInfo.Executable  -replace "`e","``e")$($_.FileInfo_Executable  -replace "`e","``e")$($_.Reset)"</ScriptBlock>
+              </ListItem>
+              <ListItem>
+                <Label>FileInfo.Extension</Label>
+                <ScriptBlock>
+                $Extension = if ($_.FileInfo_Extension) { $_.FileInfo_Extension } else { $_.FileInfo.Extension }
+                @(foreach ($key in $Extension.Keys) {
+                  "$($Extension[$key])$key$($_.Reset)"
+                }) -join ","
+                </ScriptBlock>
+              </ListItem>
+              <ListItem>
+                <Label>Foreground.Black</Label>
+                <ScriptBlock>"$($_.Foreground.Black)$($_.Foreground_Black)$($_.Foreground.Black  -replace "`e","``e")$($_.Foreground_Black  -replace "`e","``e")$($_.Reset)"</ScriptBlock>
+              </ListItem>
+              <ListItem>
+                <Label>Foreground.BrightBlack</Label>
+                <ScriptBlock>"$($_.Foreground.BrightBlack)$($_.Foreground_BrightBlack)$($_.Foreground.BrightBlack  -replace "`e","``e")$($_.Foreground_BrightBlack  -replace "`e","``e")$($_.Reset)"</ScriptBlock>
+              </ListItem>
+              <ListItem>
+                <Label>Foreground.White</Label>
+                <ScriptBlock>"$($_.Foreground.White)$($_.Foreground_White)$($_.Foreground.White  -replace "`e","``e")$($_.Foreground_White  -replace "`e","``e")$($_.Reset)"</ScriptBlock>
+              </ListItem>
+              <ListItem>
+                <Label>Foreground.BrightWhite</Label>
+                <ScriptBlock>"$($_.Foreground.BrightWhite)$($_.Foreground_BrightWhite)$($_.Foreground.BrightWhite  -replace "`e","``e")$($_.Foreground_BrightWhite  -replace "`e","``e")$($_.Reset)"</ScriptBlock>
+              </ListItem>
+              <ListItem>
+                <Label>Foreground.Red</Label>
+                <ScriptBlock>"$($_.Foreground.Red)$($_.Foreground_Red)$($_.Foreground.Red  -replace "`e","``e")$($_.Foreground_Red  -replace "`e","``e")$($_.Reset)"</ScriptBlock>
+              </ListItem>
+              <ListItem>
+                <Label>Foreground.BrightRed</Label>
+                <ScriptBlock>"$($_.Foreground.BrightRed)$($_.Foreground_BrightRed)$($_.Foreground.BrightRed  -replace "`e","``e")$($_.Foreground_BrightRed  -replace "`e","``e")$($_.Reset)"</ScriptBlock>
+              </ListItem>
+              <ListItem>
+                <Label>Foreground.Magenta</Label>
+                <ScriptBlock>"$($_.Foreground.Magenta)$($_.Foreground_Magenta)$($_.Foreground.Magenta  -replace "`e","``e")$($_.Foreground_Magenta  -replace "`e","``e")$($_.Reset)"</ScriptBlock>
+              </ListItem>
+              <ListItem>
+                <Label>Foreground.BrightMagenta</Label>
+                <ScriptBlock>"$($_.Foreground.BrightMagenta)$($_.Foreground_BrightMagenta)$($_.Foreground.BrightMagenta  -replace "`e","``e")$($_.Foreground_BrightMagenta  -replace "`e","``e")$($_.Reset)"</ScriptBlock>
+              </ListItem>
+              <ListItem>
+                <Label>Foreground.Blue</Label>
+                <ScriptBlock>"$($_.Foreground.Blue)$($_.Foreground_Blue)$($_.Foreground.Blue  -replace "`e","``e")$($_.Foreground_Blue  -replace "`e","``e")$($_.Reset)"</ScriptBlock>
+              </ListItem>
+              <ListItem>
+                <Label>Foreground.BrightBlue</Label>
+                <ScriptBlock>"$($_.Foreground.BrightBlue)$($_.Foreground_BrightBlue)$($_.Foreground.BrightBlue  -replace "`e","``e")$($_.Foreground_BrightBlue  -replace "`e","``e")$($_.Reset)"</ScriptBlock>
+              </ListItem>
+              <ListItem>
+                <Label>Foreground.Cyan</Label>
+                <ScriptBlock>"$($_.Foreground.Cyan)$($_.Foreground_Cyan)$($_.Foreground.Cyan  -replace "`e","``e")$($_.Foreground_Cyan  -replace "`e","``e")$($_.Reset)"</ScriptBlock>
+              </ListItem>
+              <ListItem>
+                <Label>Foreground.BrightCyan</Label>
+                <ScriptBlock>"$($_.Foreground.BrightCyan)$($_.Foreground_BrightCyan)$($_.Foreground.BrightCyan  -replace "`e","``e")$($_.Foreground_BrightCyan  -replace "`e","``e")$($_.Reset)"</ScriptBlock>
+              </ListItem>
+              <ListItem>
+                <Label>Foreground.Green</Label>
+                <ScriptBlock>"$($_.Foreground.Green)$($_.Foreground_Green)$($_.Foreground.Green  -replace "`e","``e")$($_.Foreground_Green  -replace "`e","``e")$($_.Reset)"</ScriptBlock>
+              </ListItem>
+              <ListItem>
+                <Label>Foreground.BrightGreen</Label>
+                <ScriptBlock>"$($_.Foreground.BrightGreen)$($_.Foreground_BrightGreen)$($_.Foreground.BrightGreen  -replace "`e","``e")$($_.Foreground_BrightGreen  -replace "`e","``e")$($_.Reset)"</ScriptBlock>
+              </ListItem>
+              <ListItem>
+                <Label>Foreground.Yellow</Label>
+                <ScriptBlock>"$($_.Foreground.Yellow)$($_.Foreground_Yellow)$($_.Foreground.Yellow  -replace "`e","``e")$($_.Foreground_Yellow  -replace "`e","``e")$($_.Reset)"</ScriptBlock>
+              </ListItem>
+              <ListItem>
+                <Label>Foreground.BrightYellow</Label>
+                <ScriptBlock>"$($_.Foreground.BrightYellow)$($_.Foreground_BrightYellow)$($_.Foreground.BrightYellow  -replace "`e","``e")$($_.Foreground_BrightYellow  -replace "`e","``e")$($_.Reset)"</ScriptBlock>
+              </ListItem>
+              <ListItem>
+                <Label>Background.Black</Label>
+                <ScriptBlock>"$($_.Background.Black)$($_.Background_Black)$($_.Background.Black  -replace "`e","``e")$($_.Background_Black  -replace "`e","``e")$($_.Reset)"</ScriptBlock>
+              </ListItem>
+              <ListItem>
+                <Label>Background.BrightBlack</Label>
+                <ScriptBlock>"$($_.Background.BrightBlack)$($_.Background_BrightBlack)$($_.Background.BrightBlack  -replace "`e","``e")$($_.Background_BrightBlack  -replace "`e","``e")$($_.Reset)"</ScriptBlock>
+              </ListItem>
+              <ListItem>
+                <Label>Background.White</Label>
+                <ScriptBlock>"$($_.Background.White)$($_.Background_White)$($_.Background.White  -replace "`e","``e")$($_.Background_White  -replace "`e","``e")$($_.Reset)"</ScriptBlock>
+              </ListItem>
+              <ListItem>
+                <Label>Background.BrightWhite</Label>
+                <ScriptBlock>"$($_.Background.BrightWhite)$($_.Background_BrightWhite)$($_.Background.BrightWhite  -replace "`e","``e")$($_.Background_BrightWhite  -replace "`e","``e")$($_.Reset)"</ScriptBlock>
+              </ListItem>
+              <ListItem>
+                <Label>Background.Red</Label>
+                <ScriptBlock>"$($_.Background.Red)$($_.Background_Red)$($_.Background.Red  -replace "`e","``e")$($_.Background_Red  -replace "`e","``e")$($_.Reset)"</ScriptBlock>
+              </ListItem>
+              <ListItem>
+                <Label>Background.BrightRed</Label>
+                <ScriptBlock>"$($_.Background.BrightRed)$($_.Background_BrightRed)$($_.Background.BrightRed  -replace "`e","``e")$($_.Background_BrightRed  -replace "`e","``e")$($_.Reset)"</ScriptBlock>
+              </ListItem>
+              <ListItem>
+                <Label>Background.Magenta</Label>
+                <ScriptBlock>"$($_.Background.Magenta)$($_.Background_Magenta)$($_.Background.Magenta  -replace "`e","``e")$($_.Background_Magenta  -replace "`e","``e")$($_.Reset)"</ScriptBlock>
+              </ListItem>
+              <ListItem>
+                <Label>Background.BrightMagenta</Label>
+                <ScriptBlock>"$($_.Background.BrightMagenta)$($_.Background_BrightMagenta)$($_.Background.BrightMagenta  -replace "`e","``e")$($_.Background_BrightMagenta  -replace "`e","``e")$($_.Reset)"</ScriptBlock>
+              </ListItem>
+              <ListItem>
+                <Label>Background.Blue</Label>
+                <ScriptBlock>"$($_.Background.Blue)$($_.Background_Blue)$($_.Background.Blue  -replace "`e","``e")$($_.Background_Blue  -replace "`e","``e")$($_.Reset)"</ScriptBlock>
+              </ListItem>
+              <ListItem>
+                <Label>Background.BrightBlue</Label>
+                <ScriptBlock>"$($_.Background.BrightBlue)$($_.Background_BrightBlue)$($_.Background.BrightBlue  -replace "`e","``e")$($_.Background_BrightBlue  -replace "`e","``e")$($_.Reset)"</ScriptBlock>
+              </ListItem>
+              <ListItem>
+                <Label>Background.Cyan</Label>
+                <ScriptBlock>"$($_.Background.Cyan)$($_.Background_Cyan)$($_.Background.Cyan  -replace "`e","``e")$($_.Background_Cyan  -replace "`e","``e")$($_.Reset)"</ScriptBlock>
+              </ListItem>
+              <ListItem>
+                <Label>Background.BrightCyan</Label>
+                <ScriptBlock>"$($_.Background.BrightCyan)$($_.Background_BrightCyan)$($_.Background.BrightCyan  -replace "`e","``e")$($_.Background_BrightCyan  -replace "`e","``e")$($_.Reset)"</ScriptBlock>
+              </ListItem>
+              <ListItem>
+                <Label>Background.Green</Label>
+                <ScriptBlock>"$($_.Background.Green)$($_.Background_Green)$($_.Background.Green  -replace "`e","``e")$($_.Background_Green  -replace "`e","``e")$($_.Reset)"</ScriptBlock>
+              </ListItem>
+              <ListItem>
+                <Label>Background.BrightGreen</Label>
+                <ScriptBlock>"$($_.Background.BrightGreen)$($_.Background_BrightGreen)$($_.Background.BrightGreen  -replace "`e","``e")$($_.Background_BrightGreen  -replace "`e","``e")$($_.Reset)"</ScriptBlock>
+              </ListItem>
+              <ListItem>
+                <Label>Background.Yellow</Label>
+                <ScriptBlock>"$($_.Background.Yellow)$($_.Background_Yellow)$($_.Background.Yellow  -replace "`e","``e")$($_.Background_Yellow  -replace "`e","``e")$($_.Reset)"</ScriptBlock>
+              </ListItem>
+              <ListItem>
+                <Label>Background.BrightYellow</Label>
+                <ScriptBlock>"$($_.Background.BrightYellow)$($_.Background_BrightYellow)$($_.Background.BrightYellow  -replace "`e","``e")$($_.Background_BrightYellow  -replace "`e","``e")$($_.Reset)"</ScriptBlock>
+              </ListItem>
+            </ListItems>
+          </ListEntry>
+        </ListEntries>
+      </ListControl>
+    </View>
+  </ViewDefinitions>
+</Configuration>
