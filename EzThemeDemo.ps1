@@ -11,6 +11,6 @@ Show-Theme -Module PowerShell, PSReadLine
 Show-Theme -Module Terminal
 Import-Theme Lightly
 Show-Theme -Module Terminal
-Show-Theme -Module PowerShell, PSReadline
+Show-Theme -Module PowerShell, PSReadLine
 Clear-Host
-Show-Theme -Module PSReadline
+Show-Theme -Module PSReadLine

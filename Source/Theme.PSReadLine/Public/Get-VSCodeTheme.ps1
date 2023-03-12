@@ -1,15 +1,15 @@
 ﻿function Get-VSCodeTheme {
     <#
         .SYNOPSIS
-            Get a PSReadline theme from a VS Code Theme that you have installed locally.
+            Get a PSReadLine theme from a VS Code Theme that you have installed locally.
         .DESCRIPTION
-            Gets PSReadline colors from a Visual Studio Code Theme. Only works with locally installed Themes, but includes tab-completion for theme names so you can Ctrl+Space to list the ones you have available.
+            Gets PSReadLine colors from a Visual Studio Code Theme. Only works with locally installed Themes, but includes tab-completion for theme names so you can Ctrl+Space to list the ones you have available.
 
-            The default output will show a little preview of what PSReadline will look like. Note that the PSReadline theme will _not_ set the background color.
+            The default output will show a little preview of what PSReadLine will look like. Note that the PSReadLine theme will _not_ set the background color.
 
-            You can pipe the output to Set-PSReadlineTheme to import the theme for the PSReadline module.
+            You can pipe the output to Set-PSReadLineTheme to import the theme for the PSReadLine module.
 
-            Note that you may want to use -Verbose to see details of the import. In some cases, Get-VSCodeTheme will not be able to determine values for all PSReadline colors, and there is a verbose output showing the colors that get the default value.
+            Note that you may want to use -Verbose to see details of the import. In some cases, Get-VSCodeTheme will not be able to determine values for all PSReadLine colors, and there is a verbose output showing the colors that get the default value.
         .Example
             Get-VSCodeTheme 'Light+ (default light)'
 
@@ -19,8 +19,8 @@
 
             Imports the "Dark+" theme from Code and sets it as your PSReadLine color theme.
         .Link
-            Set-PSReadlineTheme
-            Get-PSReadlineTheme
+            Set-PSReadLineTheme
+            Get-PSReadLineTheme
     #>
     [CmdletBinding(SupportsShouldProcess, DefaultParameterSetName = "ByName")]
     param(
@@ -52,7 +52,7 @@
             $VsCodeTheme = FindVsCodeTheme $Theme -ErrorAction Stop
         }
 
-        if ($PSCmdlet.ShouldProcess($VsCodeTheme.Path, "Import PSReadline colors from theme")) {
+        if ($PSCmdlet.ShouldProcess($VsCodeTheme.Path, "Import PSReadLine colors from theme")) {
             # Load the theme file and split the output into colors and tokencolors
             if ($VsCodeTheme.Path.endswith(".json")) {
                 $colors, $tokens = (ImportJsonIncludeLast $VsCodeTheme.Path).Where({!$_.scope}, 'Split', 2)
@@ -73,6 +73,7 @@
                 CommentColor            = GetColorScopeForeground $tokens 'comment'
                 ContinuationPromptColor = GetColorScopeForeground $tokens 'constant.character'
                 EmphasisColor           = GetColorScopeForeground $tokens 'markup.bold', 'markup.italic', 'emphasis', 'strong', 'constant.other.color', 'markup.heading'
+                InlinePredictionColor   = GetColorScopeForeground $tokens 'markup.underline',
                 KeywordColor            = GetColorScopeForeground $tokens '^keyword.control$', '^keyword$', 'keyword.control', 'keyword'
                 MemberColor             = GetColorScopeForeground $tokens 'variable.other.object.property', 'member', 'type.property', 'support.function.any-method', 'entity.name.function'
                 NumberColor             = GetColorScopeForeground $tokens 'constant.numeric', 'constant'
@@ -84,10 +85,10 @@
             }
 
             <# ###### We *COULD* map some colors to other themable modules #####
-            # If the VSCode Theme has terminal colors, and you had Theme.WindowsTerminal or Theme.WindowsConsole
+            # If the VSCode Theme has terminal colors, and you had Theme.Terminal or Theme.WindowsTerminal or Theme.WindowsConsole
             if ($colors.'terminal.ansiBrightYellow') {
-                Write-Verbose "Exporting Theme.WindowsTerminal"
-                $ThemeOutput['Theme.WindowsTerminal'] = @(
+                Write-Verbose "Exporting Theme.Terminal"
+                $ThemeOutput['Theme.Terminal'] = @(
                         GetColorProperty $colors "terminal.ansiBlack"
                         GetColorProperty $colors "terminal.ansiRed"
                         GetColorProperty $colors "terminal.ansiGreen"
@@ -106,10 +107,10 @@
                         GetColorProperty $colors "terminal.ansiBrightWhite"
                     )
                 if ($colors."terminal.background") {
-                    $ThemeOutput['Theme.WindowsTerminal']['background'] = GetColorProperty $colors "terminal.background"
+                    $ThemeOutput['Theme.Terminal']['background'] = GetColorProperty $colors "terminal.background"
                 }
                 if ($colors."terminal.foreground") {
-                    $ThemeOutput['Theme.WindowsTerminal']['foreground'] = GetColorProperty $colors "terminal.foreground"
+                    $ThemeOutput['Theme.Terminal']['foreground'] = GetColorProperty $colors "terminal.foreground"
                 }
             }
 

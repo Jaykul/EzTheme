@@ -72,7 +72,7 @@ The two commands work together as outlined below, but _they are not actually nam
 
 The bottom line is that the output of Get-Theme, piped to Set-Theme, should re-apply the "current" themable settings on your module, and Set-Theme without any parameters should completely reset your module to the default theme, even without needing `EzTheme` 😁
 
-Note that although we have suggested command names, you can actually use whatever names you want to -- we simply recommend the module name as a prefix for consistency with other EzTheme modules. Also, for a third-party module which adds theme support to a different module, you normally name the module by adding a "Theme." prefix on the module name, like `Theme.PSReadLine` ... but the commands don't double-up the "Theme" so the commands are still `Get-PSReadlineTheme` and `Set-PSReadlineTheme` since they still theme PSReadLine.
+Note that although we have suggested command names, you can actually use whatever names you want to -- we simply recommend the module name as a prefix for consistency with other EzTheme modules. Also, for a third-party module which adds theme support to a different module, you normally name the module by adding a "Theme." prefix on the module name, like `Theme.PSReadLine` ... but the commands don't double-up the "Theme" so the commands are still `Get-PSReadLineTheme` and `Set-PSReadLineTheme` since they still theme PSReadLine.
 
 ## The EzTheme annotation for your PrivateData
 
@@ -108,4 +108,4 @@ if (Get-Module EzTheme -ErrorAction SilentlyContinue) {
 
 The recommended way to implement your `Get-Theme` output is to either create a strongly-typed theme class, or a PSCustomObject with a custom PSTypeName. Then you can implement a custom view for the type in a format file.
 
-See [Theme.PSReadlineTheme](./Source/Theme.PSReadline) and [Theme.WindowsTerminal](./Source/Theme.WindowsTerminal) for examples.
+See [Theme.PSReadLineTheme](./Source/Theme.PSReadLine) and [Theme.WindowsTerminal](./Source/Theme.WindowsTerminal) for examples.

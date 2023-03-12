@@ -22,7 +22,7 @@
         }
     } # End of PrivateData hashtable
 
-    Description          = 'EzTheme wrapper for PSReadline'
+    Description          = 'EzTheme wrapper for PSReadLine'
     FunctionsToExport    = @()
     CmdletsToExport      = @()
     VariablesToExport    = @()
@@ -30,7 +30,7 @@
     FormatsToProcess     = @('PSReadLine.format.ps1xml')
     RequiredModules      = @("PSReadLine")
     # Script module or binary module file associated with this manifest.
-    RootModule           = 'Theme.PSReadline.psm1'
+    RootModule           = 'Theme.PSReadLine.psm1'
     GUID                 = 'cfb819a6-eaf6-49e3-98e3-10d6244634cf'
     Author               = "Joel 'Jaykul' Bennett"
     CompanyName          = 'PoshCode.org'
