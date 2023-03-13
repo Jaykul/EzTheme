@@ -104,90 +104,20 @@
         VariableColor           = "$([char]27)[38;2;0;242;178m"
     } -TypeName 'Selected.Microsoft.PowerShell.PSConsoleReadLineOptions'
 
-    PowerLine               = PSObject @{
-        Cap = ''
-        Colors = @('#333333','#424242','#8A8A8A','#707070')
-        FullColor = $True
-        PowerLineFont = $True
-        Prompt = @(
-(ConvertFrom-Metadata @'
-@{
-ForegroundColor='White'
-BackgroundColor='#333333'
-ErrorBackgroundColor='#8B2252'
-Separator='‍'
-Cap='‍'
-Entities=1
-Persist=1
-Object=(ScriptBlock '$MyInvocation.HistoryId')
-}
-'@ -As PoshCode.PowerLine.PowerLineBlock),
-(ConvertFrom-Metadata @'
-@{
-ForegroundColor='#C4C0C7'
-BackgroundColor='#424242'
-Separator='‍'
-Cap='‍'
-Entities=1
-Persist=1
-Object=(ScriptBlock 'Get-ShortPath')
-}
-'@ -As PoshCode.PowerLine.PowerLineBlock),
-(ConvertFrom-Metadata @'
-@{
-Separator='‍'
-Cap='‍'
-Entities=1
-Persist=1
-Object="`t"
-}
-'@ -As PoshCode.PowerLine.PowerLineBlock),
-(ConvertFrom-Metadata @'
-@{
-ForegroundColor='#000000'
-BackgroundColor='#8A8A8A'
-Separator='‍'
-Cap='‍'
-Entities=1
-Persist=1
-Object=(ScriptBlock 'Get-Elapsed')
-}
-'@ -As PoshCode.PowerLine.PowerLineBlock),
-(ConvertFrom-Metadata @'
-@{
-ForegroundColor='#EBE7EE'
-BackgroundColor='#707070'
-Separator='‍'
-Cap='‍'
-Entities=1
-Persist=1
-Object=(ScriptBlock 'Get-Date -f "T"')
-}
-'@ -As PoshCode.PowerLine.PowerLineBlock),
-(ConvertFrom-Metadata @'
-@{
-Separator='‍'
-Cap='‍'
-Entities=1
-Persist=1
-Object="`n"
-}
-'@ -As PoshCode.PowerLine.PowerLineBlock),
-(ConvertFrom-Metadata @'
-@{
-ForegroundColor='#CCCCCC'
-BackgroundColor='#666666'
-Separator='‍'
-Cap='‍'
-Entities=1
-Persist=1
-Object='&ColorSeparator;'
-}
-'@ -As PoshCode.PowerLine.PowerLineBlock))
-        PSReadLineContinuationPrompt = '[38;2;204;204;204m[49m [0m'
-        PSReadLineContinuationPromptColor = '[38;2;0;232;198m'
-        PSReadLinePromptText = @('[48;2;102;102;102m[38;2;204;204;204m[49m[38;2;102;102;102m[0m','[48;2;139;34;82m[38;2;204;204;204m[49m[38;2;139;34;82m[0m')
-        Separator = ''
-        SetCurrentDirectory = $True
-    } -TypeName 'PowerLine.Theme','System.Management.Automation.PSCustomObject','System.Object'
+    PowerLine               = (PowerLineTheme @{
+        DefaultCapsLeftAligned            = '', ''
+        DefaultCapsRightAligned           = '', ''
+        DefaultSeparator                  = '', ''
+        Prompt                            = @(
+            Show-HistoryId -DBg 'SteelBlue1' -EBg '#8B2252' -Fg 'White' -EFg 'White'
+            Show-Path -HomeString "&House;" -Separator '' -Background 'Gray100' -Foreground 'Black'
+            Show-Date -Format "h\:mm" -Prefix "🕒"  -Alignment 'Right' -Background 'Gray23' -Foreground 'White'
+            Show-ElapsedTime -Autoformat -Prefix "⏱️"  -Alignment 'Right' -Background 'Gray47' -Foreground 'White'
+            New-TerminalBlock -DFg 'White' -DBg '#63B8FF' -EFg 'White' -Cap '‍' -Content ''
+        )
+        PSReadLineContinuationPrompt      = '█ '
+        PSReadLineContinuationPromptColor = ''
+        PSReadLinePromptText              = '', ''
+        SetCurrentDirectory               = $false
+    })
 }
