@@ -98,7 +98,7 @@
         TypeColor               = "$([char]27)[38;2;255;130;171m"
         VariableColor           = "$([char]27)[38;2;0;242;178m"
     } -TypeName 'Selected.Microsoft.PowerShell.PSConsoleReadLineOptions'
-    PowerLine          = (PowerLineTheme @{
+    PowerLine          = (PSObject @{
         DefaultCapsLeftAligned            = '', ''
         DefaultCapsRightAligned           = '', ''
         DefaultSeparator                  = '', ''
