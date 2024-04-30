@@ -3,7 +3,7 @@ function Copy-WindowsTerminalProfile {
         .SYNOPSIS
             Creates a new WindowsTerminalProfile based on another
     #>
-    [Alias("cptp")]
+    [Alias("cpwtp","cptp")]
     [CmdletBinding(DefaultParameterSetName="SimpleCopy")]
     param(
         # The name of the profile to copy. By default, copies the current profile
@@ -106,15 +106,15 @@ function Copy-WindowsTerminalProfile {
                 ForEach({ $TextParameters.Remove($_) })
 
             try {
-                $TerminalTempState = Join-Path $Env:LocalAppData "packages/Microsoft.WindowsTerminal_8wekyb3d8bbwe/TempState"
+                $TerminalLocalState = Split-Path $UserConfigFile
                 if ($SourceProfile.backgroundImage) {
-                    $TerminalRoamingState = Join-Path $Env:LocalAppData "packages/Microsoft.WindowsTerminal_8wekyb3d8bbwe/RoamingState/"
-                    $TerminalLocalState = Join-Path $Env:LocalAppData "packages/Microsoft.WindowsTerminal_8wekyb3d8bbwe/LocalState/"
+                    $TerminalRoamingState = $TerminalLocalState -replace "LocalState$","RoamingState"
                     $Path = $SourceProfile.backgroundImage -replace "ms-appdata:///roaming/", $TerminalRoamingState -replace "ms-appdata:///local/", $TerminalLocalState
                     Write-Verbose "Existing Background Image: $Path"
                     $BackgroundFile = Write-TextOnImage -Path $Path -Text $TextForBackground @TextParameters
                     $ActualProfile | Add-Member -NotePropertyName backgroundImage $BackgroundFile.FullName -Force
                 } else {
+                    $TerminalTempState = $TerminalLocalState -replace "LocalState$", "TempState"
                     $Path = Join-Path $TerminalTempState (Get-Date -f "yyyyMMddhhmmss.pn\g")
                     $BackgroundFile = Write-TextOnImage -NewPath $Path -ImageSize ([System.Drawing.Size]::new(256,256)) -Text $TextForBackground @TextParameters
                     $ActualProfile | Add-Member -NotePropertyName backgroundImage $BackgroundFile.FullName -Force
