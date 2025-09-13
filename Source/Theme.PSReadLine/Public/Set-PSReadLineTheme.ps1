@@ -1,47 +1,49 @@
 function Set-PSReadLineTheme {
     <#
         .SYNOPSIS
-            Set the theme for PSReadLine
-            Has parameters for each thing that's themeable
+            Set the theme for PSReadLine as escape sequences.
+        .DESCRIPTION
+            Set the theme for PSReadLine. Supports setting all the properties that are formatting related.
+            Takes colors and other formatting options (bold, underline, etc.) as escape sequences.
     #>
     [CmdletBinding()]
     param(
         [Parameter(ValueFromPipelineByPropertyName)]
-        $CommandColor            = "$([char]27)[93m",
+        $CommandColor,
         [Parameter(ValueFromPipelineByPropertyName)]
-        $CommentColor            = "$([char]27)[32m",
+        $CommentColor,
         [Parameter(ValueFromPipelineByPropertyName)]
-        $ContinuationPromptColor = "$([char]27)[97m",
+        $ContinuationPromptColor,
         [Parameter(ValueFromPipelineByPropertyName)]
-        $DefaultTokenColor       = "$([char]27)[97m",
+        $DefaultTokenColor,
         [Parameter(ValueFromPipelineByPropertyName)]
-        $EmphasisColor           = "$([char]27)[96m",
+        $EmphasisColor,
         [Parameter(ValueFromPipelineByPropertyName)]
-        $ErrorColor              = "$([char]27)[91m",
+        $ErrorColor,
         [Parameter(ValueFromPipelineByPropertyName)]
-        $KeywordColor            = "$([char]27)[92m",
+        $KeywordColor,
         [Parameter(ValueFromPipelineByPropertyName)]
-        $MemberColor             = "$([char]27)[97m",
+        $MemberColor,
         [Parameter(ValueFromPipelineByPropertyName)]
-        $NumberColor             = "$([char]27)[97m",
+        $NumberColor,
         [Parameter(ValueFromPipelineByPropertyName)]
-        $OperatorColor           = "$([char]27)[90m",
+        $OperatorColor,
         [Parameter(ValueFromPipelineByPropertyName)]
-        $ParameterColor          = "$([char]27)[90m",
+        $ParameterColor,
         [Parameter(ValueFromPipelineByPropertyName)]
-        $InlinePredictionColor   = "$([char]27)[90m",
+        $InlinePredictionColor,
         [Parameter(ValueFromPipelineByPropertyName)]
-        $SelectionColor          = "$([char]27)[30;107m",
+        $SelectionColor,
         [Parameter(ValueFromPipelineByPropertyName)]
-        $StringColor             = "$([char]27)[36m",
+        $StringColor,
         [Parameter(ValueFromPipelineByPropertyName)]
-        $TypeColor               = "$([char]27)[37m",
+        $TypeColor,
         [Parameter(ValueFromPipelineByPropertyName)]
-        $VariableColor           = "$([char]27)[92m"
+        $VariableColor
     )
     process {
-        $ParameterNames = $MyInvocation.MyCommand.Parameters.Keys.Where{
-             $_ -notin [System.Management.Automation.PSCmdlet]::CommonParameters
+        $ParameterNames = $PSBoundParameters.Keys.Where{
+            $_ -notin [System.Management.Automation.PSCmdlet]::CommonParameters
         }
 
         $Colors = @{}
