@@ -11,13 +11,16 @@
                         <CustomItem>
                             <ExpressionBinding>
                                 <ScriptBlock>
-"$($_.BackgroundColor)$($_.KeywordColor)function $($_.DefaultTokenColor)Test-Syntax $($_.DefaultTokenColor){                                                          " + "`n" +
-"    $($_.CommentColor)# Demo Syntax Highlighting                                                  " + "`n" +
-"    $($_.DefaultTokenColor)[$($_.TypeColor)CmdletBinding$($_.DefaultTokenColor)()]                                                           " + "`n" +
-"    $($_.KeywordColor)param$($_.DefaultTokenColor)([$($_.TypeColor)IO.FileInfo$($_.DefaultTokenColor)]$($_.VariableColor)`$Path$($_.DefaultTokenColor))                                                   " + "`n" +
-"    $($_.KeywordColor)end $($_.DefaultTokenColor){                                                                       " + "`n" +
-"        $($_.CommandColor)Write-Verbose $($_.StringColor)`"Testing in $($_.VariableColor)`$($($_.CommandColor)Split-Path $($_.VariableColor)`$PSScriptRoot $($_.ParameterColor)-Leaf$($_.VariableColor))$($_.StringColor)`" $($_.ParameterColor)-Verbose   " + "`n" +
-"        $($_.VariableColor)`$Env:PSModulePath $($_.OperatorColor)-split $($_.StringColor)';' $($_.OperatorColor)-notcontains $($_.VariableColor)`$Path$($_.DefaultTokenColor).$($_.MemberColor)FullName                " + "`n" +
+$Reset = $_.BackgroundColor + $_.DefaultTokenColor
+"$($Reset + (" " * (80 - $_.ThemeName.Length - 4 )))`e[43;1m`e[30m[ $($_.ThemeName) ]`e[0m$($_.BackgroundColor)" + "`n" +
+"$($_.BackgroundColor)$($_.KeywordColor)function$($Reset) $($_.DefaultTokenColor)Test-Syntax$($Reset) $($_.DefaultTokenColor){$($Reset)                                                          " + "`n" +
+"    $($_.CommentColor)# Demo Syntax Highlighting$($Reset)                                                  " + "`n" +
+"    $($_.DefaultTokenColor)[$($Reset)$($_.TypeColor)CmdletBinding$($Reset)$($_.DefaultTokenColor)()]$($Reset)                                                           " + "`n" +
+"    $($_.KeywordColor)param$($Reset)$($_.DefaultTokenColor)([$($Reset)$($_.TypeColor)IO.FileInfo$($Reset)$($_.DefaultTokenColor)]$($Reset)$($_.VariableColor)`$Path$($Reset)$($_.DefaultTokenColor))$($Reset)                                                   " + "`n" +
+"    $($_.KeywordColor)end$($Reset) $($_.DefaultTokenColor){$($Reset)                                                                       " + "`n" +
+"        $($_.CommandColor)Write-Verbose$($Reset) $($_.StringColor)`"Testing in $($_.VariableColor)`$($($_.CommandColor)Split-Path$($Reset) $($_.VariableColor)`$PSScriptRoot$($Reset) $($_.ParameterColor)-Leaf$($Reset)$($_.VariableColor))$($Reset)$($_.StringColor)`"$($Reset) $($_.ParameterColor)-Verbose$($Reset)   " + "`n" +
+"        $($_.VariableColor)`$Env:PSModulePath $($_.OperatorColor)-split $($_.StringColor)';' $($_.OperatorColor)-notcontains $($_.VariableColor)`$Path$($_.DefaultTokenColor).$($_.MemberColor)FullName $($_.DefaultTokenColor)|$($Reset)              " + "`n" +
+"            $($_.CommandColor)Get-ChildItem$($Reset) $($_.DefaultTokenColor)|$($Reset) $($_.CommandColor)Select-Object$($Reset) $($_.ParameterColor)-First$($Reset) $($_.NumberColor)10$($Reset)                             " + "`n" +
 "    $($_.DefaultTokenColor)}                                                                           " + "`n" +
 "$($_.DefaultTokenColor)}$([char]27)[39m                                                                               " + "$([char]27)[0m`n"
                                 </ScriptBlock>

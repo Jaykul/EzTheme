@@ -36,52 +36,56 @@
                 }
             } | Where-Object { $_.StartsWith($wordToComplete) }
         })]
-        [Alias("PSPath", "Name")]
+        [Alias("PSPath", "Theme")]
         [Parameter(ParameterSetName = "ByName", ValueFromPipeline, ValueFromPipelineByPropertyName, Position = 0)]
-        [string]$Theme,
+        [string]$Name,
 
         # List the VSCode themes available
         [Parameter(ParameterSetName = "ListOnly", Mandatory)]
-        [switch]$List
+        [switch]$List,
+
+        [Parameter(ParameterSetName = "ListOnly")]
+        [ValidateSet("dark", "light", "highcontrast")]
+        [string]$Style
     )
     process {
+        $VSCodeTheme = FindVsCodeTheme @PSBoundParameters
         if ($List) {
-            FindVsCodeTheme -List
+            $VsCodeTheme
             return
-        } else {
-            $VsCodeTheme = FindVsCodeTheme $Theme -ErrorAction Stop
         }
 
-        if ($PSCmdlet.ShouldProcess($VsCodeTheme.Path, "Import PSReadLine colors from theme")) {
+        if ($PSCmdlet.ShouldProcess($VsCodeTheme.Path, "Read colors from theme")) {
             # Load the theme file and split the output into colors and tokencolors
             if ($VsCodeTheme.Path.endswith(".json")) {
-                $colors, $tokens = (ImportJsonIncludeLast $VsCodeTheme.Path).Where({!$_.scope}, 'Split', 2)
+                $colors, $tokens = (ImportJsonIncludeLast $VsCodeTheme.Path).Where({ !$_.scope }, 'Split', 2)
             } else {
-                $colors, $tokens = (Import-PList $VsCodeTheme.Path).settings.Where({!$_.scope}, 'Split', 2)
+                $colors, $tokens = (Import-PList $VsCodeTheme.Path).settings.Where({ !$_.scope }, 'Split', 2)
                 $colors = $colors.settings
             }
 
             $ThemeOutput = [Ordered]@{
-                PSTypeName = 'Selected.Microsoft.PowerShell.PSConsoleReadLineOptions'
+                PSTypeName              = 'Selected.Microsoft.PowerShell.PSConsoleReadLineOptions'
+                ThemeName               = $VsCodeTheme.Name
                 # These should come from the base colors, rather than token scopes
-                BackgroundColor         = GetColorProperty $colors 'editor.background', 'background', 'settings.background', 'terminal.background'
-                DefaultTokenColor       = GetColorProperty $colors 'editor.foreground', 'foreground', 'settings.foreground', 'terminal.foreground'
+                BackgroundColor         = if ($BackgroundColor = GetColorProperty $colors 'editor.background', 'background', 'settings.background', 'terminal.background') { $BackgroundColor } else { $VSCodeTheme.Style -match 'dark|black' ? "`e[40m" : "`e[48;2;255;255;255m" }
+                DefaultTokenColor       = if ($ForegroundColor = GetColorProperty $colors 'editor.foreground', 'foreground', 'settings.foreground', 'terminal.foreground') { $ForegroundColor } else { $VSCodeTheme.Style -match 'dark|black' ? "`e[37m" : "`e[30m" }
                 SelectionColor          = GetColorProperty $colors 'editor.selectionBackground', 'editor.selectionHighlightBackground', 'selection' -Background
                 ErrorColor              = @(@(GetColorProperty $colors 'errorForeground', 'editorError.foreground') + @(GetColorScopeForeground $tokens 'invalid'))[0]
                 # The rest of these come from token scopes
-                CommandColor            = GetColorScopeForeground $tokens 'support.function'
-                CommentColor            = GetColorScopeForeground $tokens 'comment'
-                ContinuationPromptColor = GetColorScopeForeground $tokens 'constant.character'
-                EmphasisColor           = GetColorScopeForeground $tokens 'markup.bold', 'markup.italic', 'emphasis', 'strong', 'constant.other.color', 'markup.heading'
-                InlinePredictionColor   = GetColorScopeForeground $tokens 'markup.underline',
-                KeywordColor            = GetColorScopeForeground $tokens '^keyword.control$', '^keyword$', 'keyword.control', 'keyword'
-                MemberColor             = GetColorScopeForeground $tokens 'variable.other.object.property', 'member', 'type.property', 'support.function.any-method', 'entity.name.function'
-                NumberColor             = GetColorScopeForeground $tokens 'constant.numeric', 'constant'
-                OperatorColor           = GetColorScopeForeground $tokens 'keyword.operator$', 'keyword'
-                ParameterColor          = GetColorScopeForeground $tokens 'parameter'
-                StringColor             = GetColorScopeForeground $tokens '^string$'
-                TypeColor               = GetColorScopeForeground $tokens '^storage.type$', '^support.class$', '^entity.name.type.class$', '^entity.name.type$'
-                VariableColor           = GetColorScopeForeground $tokens '^variable$', '^entity.name.variable$', '^variable.other$'
+                CommandColor            = if ($color = GetColorScopeForeground $tokens 'support.function') { $color } else { $ForegroundColor }
+                CommentColor            = if ($color = GetColorScopeForeground $tokens 'comment') { $color } else { $ForegroundColor }
+                ContinuationPromptColor = if ($color = GetColorScopeForeground $tokens 'constant.character') { $color } else { $ForegroundColor }
+                EmphasisColor           = if ($color = GetColorScopeForeground $tokens 'markup.bold', 'markup.italic', 'emphasis', 'strong', 'constant.other.color', 'markup.heading') { $color } else { $ForegroundColor }
+                InlinePredictionColor   = if ($color = GetColorScopeForeground $tokens 'markup.underline') { $color } else { $ForegroundColor }
+                KeywordColor            = if ($color = GetColorScopeForeground $tokens '^keyword.control$', '^keyword$', 'keyword.control', 'keyword') { $color } else { $ForegroundColor }
+                MemberColor             = if ($color = GetColorScopeForeground $tokens 'variable.other.object.property', 'member', 'type.property', 'support.function.any-method', 'entity.name.function') { $color } else { $ForegroundColor }
+                NumberColor             = if ($color = GetColorScopeForeground $tokens 'constant.numeric', 'constant') { $color } else { $ForegroundColor }
+                OperatorColor           = if ($color = GetColorScopeForeground $tokens 'keyword.operator$', 'keyword') { $color } else { $ForegroundColor }
+                ParameterColor          = if ($color = GetColorScopeForeground $tokens 'parameter') { $color } else { $ForegroundColor }
+                StringColor             = if ($color = GetColorScopeForeground $tokens '^string$') { $color } else { $ForegroundColor }
+                TypeColor               = if ($color = GetColorScopeForeground $tokens '^storage.type$', '^support.class$', '^entity.name.type.class$', '^entity.name.type$') { $color } else { $ForegroundColor }
+                VariableColor           = if ($color = GetColorScopeForeground $tokens '^variable$', '^entity.name.variable$', '^variable.other$') { $color } else { $ForegroundColor }
             }
 
             <# ###### We *COULD* map some colors to other themable modules #####
@@ -126,23 +130,12 @@
             } #>
 
             if ($DebugPreference -in "Continue", "Inquire") {
-                $global:colors = $colors
-                $global:tokens = $tokens
+                $global:ThemeColors = $colors
+                $global:ThemeTokens = $tokens
                 $global:Theme = $ThemeOutput
                 ${function:global:Get-VSColorScope} = ${function:GetColorScopeForeground}
                 ${function:global:Get-VSColor} = ${function:GetColorProperty}
-                Write-Debug "For debugging, `$Theme, `$Colors, `$Tokens were copied to global variables, and Get-VSColor and Get-VSColorScope exported."
-            }
-
-            if ($ThemeOutput.Values -contains $null) {
-                [string[]]$missing = @()
-                foreach ($kv in @($ThemeOutput.GetEnumerator())) {
-                    if ($null -eq $kv.Value) {
-                        $missing += $kv.Key
-                        $ThemeOutput[$kv.Key] = $ThemeOutput["DefaultToken"]
-                    }
-                }
-                Write-Verbose "Used DefaultTokenColor for some colors: $($missing -join ', ')"
+                Write-Debug "For debugging, `$Theme, `$ThemeColors, `$ThemeTokens were set as global variables, and Get-VSColor and Get-VSColorScope exported."
             }
 
             [PSCustomObject]$ThemeOutput
