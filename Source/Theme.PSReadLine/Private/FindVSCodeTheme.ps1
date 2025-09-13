@@ -6,7 +6,10 @@ function FindVsCodeTheme {
         [string]$Name,
 
         [Parameter(ParameterSetName = "List", Mandatory)]
-        [switch]$List
+        [switch]$List,
+
+        [ValidateSet("dark", "light", "highcontrast")]
+        [string[]]$Style
     )
 
     $VSCodeExtensions = @(
@@ -38,20 +41,20 @@ function FindVsCodeTheme {
                     Import-PList -Path $File
                 }
             ) | Select-Object @{ Name = "Name"
-                                 Expr = {
-                                    if ($_.name) {
-                                        $_.name
-                                    } else {
-                                        [IO.Path]::GetFileNameWithoutExtension($File)
-                                    }
-                                }
-                           }, @{ Name = "Path"
-                                 Expr = {$File}
-                           }
+                Expr                  = {
+                    if ($_.name) {
+                        $_.name
+                    } else {
+                        [IO.Path]::GetFileNameWithoutExtension($File)
+                    }
+                }
+            }, @{ Name = "Path"
+                Expr   = { $File }
+            }
         } else {
-            $VSCodeExtensions  = $VSCodeExtensions | Join-Path -ChildPath "\*\package.json" -Resolve
+            $VSCodeExtensions = $VSCodeExtensions | Join-Path -ChildPath "\*\package.json" -Resolve
             foreach ($File in $VSCodeExtensions) {
-                Write-Debug "Considering VSCode Extention $([IO.Path]::GetFileName([IO.Path]::GetDirectoryName($File)))"
+                # Write-Debug "Considering VSCode Extension $([IO.Path]::GetFileName([IO.Path]::GetDirectoryName($File)))"
                 $JSON = Get-Content -Path $File -Raw -Encoding utf8
                 try {
                     $Extension = ConvertFrom-Json $JSON -ErrorAction Stop
@@ -59,9 +62,9 @@ function FindVsCodeTheme {
                     #     Write-Debug "Found $($Extension.contributes.themes.Count) themes"
                     # }
                     $Extension.contributes.themes |
-                        Select-Object @{Name="Name" ; Expr={$_.label}},
-                                      @{Name="Style"; Expr={$_.uiTheme}},
-                                      @{Name="Path" ; Expr={Join-Path (Split-Path $File) $_.path -resolve}}
+                        Select-Object @{Name = "Name" ; Expr = { if ($_.id) { $_.id } else { $_.label } } },
+                        @{Name = "Style"; Expr = { $_.uiTheme } },
+                        @{Name = "Path" ; Expr = { Join-Path (Split-Path $File) $_.path -Resolve } }
                 } catch {
                     $Warning = "Couldn't parse some VSCode extensions."
                 }
@@ -75,6 +78,19 @@ function FindVsCodeTheme {
 
     if ($Specific -and $Themes.Count -eq 1) {
         $Themes
+    }
+    if ($Style) {
+        if ($Style -contains "light") {
+            $Themes = $Themes.Where{ $_.Style -notmatch "dark|black" }
+        } elseif ($Style -contains "dark") {
+            $Themes = $Themes.Where{ $_.Style -match "dark|black" }
+        }
+        if ($Style -contains "highcontrast") {
+            $Themes = $Themes.Where{ $_.Style -match "^hc" }
+        }
+        if ($Themes.Count -eq 0) {
+            throw "Couldn't find any themes with the style '$($Style -join '|')'. Try again without -Style."
+        }
     }
 
     $Themes = $Themes | Sort-Object Name
@@ -90,10 +106,10 @@ function FindVsCodeTheme {
     Write-Debug "Testing theme names for '$Name'"
 
     # increasingly fuzzy search: (eq -> like -> match)
-    if (!($Theme = $Themes.Where{$_.name -eq $Name})) {
-        if (!($Theme = $Themes.Where{$_.name -like $Name})) {
-            if (!($Theme = $Themes.Where{$_.name -like "*$Name*"})) {
-                foreach($Warning in $Warnings) {
+    if (!($Theme = $Themes.Where{ $_.name -eq $Name })) {
+        if (!($Theme = $Themes.Where{ $_.name -like $Name })) {
+            if (!($Theme = $Themes.Where{ $_.name -like "*$Name*" })) {
+                foreach ($Warning in $Warnings) {
                     Write-Warning $Warning
                 }
                 Write-Error "Couldn't find the theme '$Name', please try another: $(($Themes.name | Select-Object -Unique) -join ', ')"
@@ -101,7 +117,7 @@ function FindVsCodeTheme {
         }
     }
     if (@($Theme).Count -gt 1) {
-        $Dupes = $(if (@($Theme.Name | Sort-Object -Unique).Count -gt 1) {$Theme.Name} else {$Theme.Path}) -join ", "
+        $Dupes = $(if (@($Theme.Name | Sort-Object -Unique).Count -gt 1) { $Theme.Name } else { $Theme.Path }) -join ", "
         Write-Warning "Found more than one theme for '$Name'. Using '$(@($Theme)[0].Path)', but you could try again for one of: $Dupes)"
     }
 

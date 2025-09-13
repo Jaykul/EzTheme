@@ -4,6 +4,6 @@
     ModuleManifest           = "Theme.PSReadLine.psd1"
     # Subsequent relative paths are to the ModuleManifest
     VersionedOutputDirectory = $false
-    CopyDirectories          = @('PSReadLine.format.ps1xml')
+    CopyDirectories          = @('PSReadLine.format.ps1xml', 'PoshCode.Parsers.PList.cs')
     Postfix                  = "postfix.ps1"
 }
