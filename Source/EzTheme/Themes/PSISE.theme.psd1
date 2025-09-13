@@ -63,25 +63,17 @@
         TypeColor               = "$([char]27)[38;2;0;0;139m"
         VariableColor           = "$([char]27)[38;2;255;69;0m"
     } -TypeName 'Selected.Microsoft.PowerShell.PSConsoleReadLineOptions'
-
-    PowerLine               = PSObject @{
-        Colors              = @((RgbColor '#98F5FF'), (RgbColor '#6495ED'))
-        FullColor           = $True
-        PowerLineCharacters = @{
-            ColorSeparator        = ''
-            ReverseSeparator      = ''
-            ReverseColorSeparator = ''
-            Separator             = ''
-        }
-        PowerLineFont       = $True
-        Prompt              = @(
-            ScriptBlock 'New-PromptText -Fg Gray20 -Bg Gray100 -EBg VioletRed $MyInvocation.HistoryId'
-            ScriptBlock 'New-PromptText -Fg Gray0 -Bg SkyBlue "I ${Fg:DodgerBlue3}&hearts;${Fg:Gray0} PS"'
+    PowerLine          = (PSObject @{
+        DefaultCapsLeftAligned            = '', ''
+        DefaultCapsRightAligned           = '', ''
+        DefaultSeparator                  = '', ''
+        Prompt                            = @(
+            Show-HistoryId -DBg "Gray100" -EBg 'VioletRed' -Fg 'Gray20' -EFg 'Gray20'
+            New-TerminalBlock -Content "I $([char]27)[31m&hearts;$([char]27)[38;2;0;0;0m PS" -Background "SkyBlue" -Fg 'Gray0'
         )
-        PSReadLinePromptText = @(
-            "$([char]27)[48;2;135;206;235m$([char]27)[38;2;0;0;0mI $([char]27)[38;2;24;116;205m♥$([char]27)[38;2;0;0;0m PS$([char]27)[38;2;135;206;235m$([char]27)[49m"
-            "$([char]27)[48;2;135;206;235m$([char]27)[38;2;0;0;0mI $([char]27)[38;2;208;32;144m♥$([char]27)[38;2;0;0;0m PS$([char]27)[38;2;135;206;235m$([char]27)[49m"
-        )
-        SetCurrentDirectory = $True
-    } -TypeName 'PowerLine.Theme'
+        PSReadLineContinuationPrompt      = '█ '
+        PSReadLineContinuationPromptColor = ''
+        PSReadLinePromptText              = '', ''
+        SetCurrentDirectory               = $false
+    })
 }

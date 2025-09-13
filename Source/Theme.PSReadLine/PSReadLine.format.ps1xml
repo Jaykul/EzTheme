@@ -1,7 +1,7 @@
 <Configuration>
     <ViewDefinitions>
         <View>
-            <Name>PSReadline-Preview</Name>
+            <Name>PSReadLine-Preview</Name>
             <ViewSelectedBy>
                 <TypeName>Selected.Microsoft.PowerShell.PSConsoleReadLineOptions</TypeName>
             </ViewSelectedBy>

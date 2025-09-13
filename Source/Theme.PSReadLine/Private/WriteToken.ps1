@@ -46,5 +46,5 @@ function WriteToken {
         { $_ -is [StringToken] } { $StringBuilder.Append($Theme.StringColor); break }
         default { $StringBuilder.Append($Theme.DefaultTokenColor); break }
     }
-    $null = $StringBuilder.Append($token.Text)
+    $null = $StringBuilder.Append($token.Text + "`e[0m")
 }

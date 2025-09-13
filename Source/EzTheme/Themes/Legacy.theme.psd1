@@ -98,28 +98,17 @@
         TypeColor               = "$([char]27)[38;2;255;130;171m"
         VariableColor           = "$([char]27)[38;2;0;242;178m"
     } -TypeName 'Selected.Microsoft.PowerShell.PSConsoleReadLineOptions'
-
-    PowerLine          = PSObject @{
-        Colors              = @(
-            RgbColor '#FFFFFF'
-            RgbColor 'SkyBlue'
+    PowerLine          = (PSObject @{
+        DefaultCapsLeftAligned            = '', ''
+        DefaultCapsRightAligned           = '', ''
+        DefaultSeparator                  = '', ''
+        Prompt                            = @(
+            Show-HistoryId -DBg "Gray100" -EBg 'VioletRed' -Fg 'Gray20' -EFg 'Gray20'
+            New-TerminalBlock -Content "I $([char]27)[31m&hearts;$([char]27)[38;2;0;0;0m PS" -Background "SkyBlue" -Fg 'Gray0'
         )
-        FullColor           = $True
-        PowerLineCharacters = @{
-            ColorSeparator        = ''
-            Separator             = ''
-            ReverseColorSeparator = ''
-            ReverseSeparator      = ''
-        }
-        PowerLineFont       = $True
-        Prompt              = @(
-            ScriptBlock 'New-PromptText -Fg Gray20 -Bg Gray100 -EBg VioletRed $MyInvocation.HistoryId'
-            ScriptBlock 'New-PromptText -Fg Gray0 -Bg SkyBlue "I ${Fg:DodgerBlue3}&hearts;${Fg:Gray0} PS"'
-        )
-        SetCurrentDirectory = $True
-        PSReadLinePromptText = @(
-            "$([char]27)[48;2;135;206;235m$([char]27)[38;2;0;0;0mI $([char]27)[38;2;24;116;205m♥$([char]27)[38;2;0;0;0m PS$([char]27)[38;2;135;206;235m$([char]27)[49m"
-            "$([char]27)[48;2;135;206;235m$([char]27)[38;2;0;0;0mI $([char]27)[38;2;208;32;144m♥$([char]27)[38;2;0;0;0m PS$([char]27)[38;2;135;206;235m$([char]27)[49m"
-        )
-    } -TypeName 'PowerLine.Theme'
+        PSReadLineContinuationPrompt      = '█ '
+        PSReadLineContinuationPromptColor = ''
+        PSReadLinePromptText              = '', ''
+        SetCurrentDirectory               = $false
+    })
 }

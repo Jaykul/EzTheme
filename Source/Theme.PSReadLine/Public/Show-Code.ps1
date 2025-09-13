@@ -10,7 +10,7 @@ function Show-Code {
         [Parameter(Mandatory, ParameterSetName = 'History', Position = 0)]
         [int]$HistoryId,
 
-        # The PSReadline theme to use. If not specified, the current theme is used.
+        # The PSReadLine theme to use. If not specified, the current theme is used.
         # Can be the output of Get-VSCodeTheme or Get-PSReadLineTheme
         $Theme = (Get-PSReadLineTheme)
     )

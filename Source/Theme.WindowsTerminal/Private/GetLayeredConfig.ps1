@@ -35,12 +35,7 @@ function GetLayeredConfig {
             }
         }
 
-        $ProductKey = switch -regex ($wtExecutable) {
-            "Microsoft\.WindowsTerminalPreview_" { "Microsoft.WindowsTerminalPreview_8wekyb3d8bbwe" }
-            "WindowsTerminalDev" { "WindowsTerminalDev_8wekyb3d8bbwe" }
-            # "Microsoft\.WindowsTerminal_" { "Microsoft.WindowsTerminal_8wekyb3d8bbwe" }
-            default { "Microsoft.WindowsTerminal_8wekyb3d8bbwe" }
-        }
+        $ProductKey = $wtExecutable -replace ".*[\/\\](Microsoft.WindowsTerminal\w*)_.*8wekyb3d8bbwe[\/\\].*", '$1_8wekyb3d8bbwe'
 
         $script:UserConfigFile = Get-ChildItem @(
             "$Env:LocalAppData/packages/$ProductKey/LocalState/settings.json"

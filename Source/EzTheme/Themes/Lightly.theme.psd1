@@ -100,35 +100,20 @@
         TypeColor               = "$([char]27)[38;2;0;0;139m"
         VariableColor           = "$([char]27)[38;2;255;69;0m"
     } -TypeName 'Selected.Microsoft.PowerShell.PSConsoleReadLineOptions'
-
-    PowerLine = PSObject @{
-        FullColor           = $True
-        PowerLineFont       = $True
-        SetCurrentDirectory = $True
-        Colors              = @(
-            RgbColor "#5495BA"
-            RgbColor "#73CCFF"
-            RgbColor "#DBB04A"
-            RgbColor "#B4903C"
+    PowerLine               = (PSObject @{
+        DefaultCapsLeftAligned            = '', ''
+        DefaultCapsRightAligned           = '', ''
+        DefaultSeparator                  = '', ''
+        Prompt                            = @(
+            Show-HistoryId -DBg "#5495BA" -EBg '#8B2252' -Fg 'White' -EFg 'White'
+            Show-Path -HomeString "&House;" -Separator '' -Background "#73CCFF" -Foreground '#000000'
+            Show-Date -Format "h\:mm" -Prefix "🕒"  -Alignment 'Right' -Background "#B4903C" -Foreground '#000000'
+            Show-ElapsedTime -Autoformat -Prefix "⏱️"  -Alignment 'Right' -Background "#DBB04A" -Foreground '#000000'
+            New-TerminalBlock -Content "I $([char]27)[31m&hearts;$([char]27)[37m PS" -Background "#32586E" -Fg 'White' -Efg 'Red'
         )
-        Prompt              = @(
-            ScriptBlock 'New-PromptText $MyInvocation.HistoryId -EBg "#C84F68"'
-            ScriptBlock 'Get-ShortPath'
-            ScriptBlock '"`t"'
-            ScriptBlock 'Get-Elapsed'
-            ScriptBlock 'Get-Date -f "T"'
-            ScriptBlock '"`n"'
-            ScriptBlock 'New-PromptText "I $(New-PromptText "&hearts;" -Bg "#32586E" -EBg Red -Fg "#ABD1C9")$(New-PromptText " PS" -Bg "#32586E" -EBg Red -Fg White)" -Bg "#32586E" -EBg Red -Fg White'
-        )
-        PSReadLinePromptText = @(
-            "$([char]27)[97m$([char]27)[48;2;50;88;110mI $([char]27)[38;2;115;204;255m♥$([char]27)[38;2;255;255;255m PS$([char]27)[38;2;50;88;110m$([char]27)[49m"
-            "$([char]27)[97m$([char]27)[48;2;50;88;110mI $([char]27)[38;2;255;99;71m♥$([char]27)[38;2;255;255;255m PS$([char]27)[38;2;50;88;110m$([char]27)[49m"
-        )
-        PowerLineCharacters = @{
-            ReverseSeparator      = ''
-            ColorSeparator        = ''
-            ReverseColorSeparator = ''
-            Separator             = ''
-        }
-    } -TypeName 'PowerLine.Theme'
+        PSReadLineContinuationPrompt      = '█ '
+        PSReadLineContinuationPromptColor = ''
+        PSReadLinePromptText              = '', ''
+        SetCurrentDirectory               = $false
+    })
 }
